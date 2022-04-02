@@ -4,6 +4,8 @@ import { Stack, VStack, Flex, Button } from '@chakra-ui/react'
 import Title from './Title'
 import Overview from './Overview';
 import UstPanel from './UstPanel';
+import LunaPanel from './LunaPanel';
+
 const Dashboard: FunctionComponent = (props) => {
   return (
     <VStack 
@@ -20,7 +22,7 @@ const Dashboard: FunctionComponent = (props) => {
         w={'100%'}
       >
         <UstPanel />
-        <UstPanel />
+        <LunaPanel />
       </Stack>
     </VStack>
   );

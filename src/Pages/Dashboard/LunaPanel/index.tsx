@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import { HStack, VStack, Flex, Text, Image, Button, Box } from '@chakra-ui/react'
 
-import TerraIcon from "../../../assets/Terra.svg"
+import LunaIcon from "../../../assets/Luna.svg"
 import Warning from "../../../assets/Warning.svg"
 
-import UstAprChart from './UstAprChart';
+import LunaAprChart from './LunaAprChart';
 
-const UstPanel: FunctionComponent = (props) => {
+const LunaPanel: FunctionComponent = (props) => {
   return (
     <VStack
       w={'100%'}
@@ -17,14 +17,14 @@ const UstPanel: FunctionComponent = (props) => {
       align={'center'}
     >
       <HStack spacing={'14px'} w={'100%'}>
-        <Image src={TerraIcon} w='56px' />
+        <Image src={LunaIcon} w='56px' />
         <VStack align={'baseline'}>
           <Text
             fontSize={'35px'}
             fontWeight={'860'}
             lineHeight={'36px'}
           >
-            UST
+            LUNA
           </Text>
           <HStack>
             <Text
@@ -68,17 +68,17 @@ const UstPanel: FunctionComponent = (props) => {
         >%
         </Text>
       </HStack>
-      <UstAprChart />
+      <LunaAprChart />
       <Button mx={'60px'} h={'45px'} background={'#493C3C'} rounded={'25px'}>
         <Text
           fontSize={'13px'}
           fontWeight={'860'}
           lineHeight={'15px'}              
         >
-          STAKE YOUR UST NOW!
+          STAKE YOUR LUNA NOW!
         </Text>
       </Button>
     </VStack >
   );
 }
-export default UstPanel;
+export default LunaPanel;
