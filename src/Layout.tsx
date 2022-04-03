@@ -1,6 +1,7 @@
 import { Outlet, Link } from "react-router-dom";
 import { VStack, Flex } from '@chakra-ui/react'
 import Navbar from './Pages/Navbar'
+import Footer from "./Pages/Footer";
 
 const Layout = () => {
   return (
@@ -12,6 +13,7 @@ const Layout = () => {
     >
       <Navbar />
       <Outlet />
+      <Footer />
     </VStack>
   )
 };

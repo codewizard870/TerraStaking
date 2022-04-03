@@ -20,10 +20,10 @@ const Navbar: FunctionComponent = (props) => {
         direction={{ sm: 'column', md:'row', lg: 'row' }}
         spacing={'10px'}
       >
-        <Tab id={'dashboard'} >Dashboard</Tab>
-        <Tab id={'mypage'} >My Page</Tab>
-        <Tab id={'earn'} >Earn</Tab>
-        <Tab id={'utility'} >Utility</Tab>
+        <Tab id={'dashboard'} >DASHBOARD</Tab>
+        <Tab id={'mypage'} >MYPAGE</Tab>
+        <Tab id={'earn'} >EARN</Tab>
+        <Tab id={'utility'} >UTILITY+</Tab>
       </Stack>
       <ConnectWallet />
     </Flex>

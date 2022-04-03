@@ -5,6 +5,8 @@ import Title from './Title'
 import Overview from './Overview';
 import UstPanel from './UstPanel';
 import LunaPanel from './LunaPanel';
+import How from './How';
+import TVL from './TVL';
 
 const Dashboard: FunctionComponent = (props) => {
   return (
@@ -24,6 +26,8 @@ const Dashboard: FunctionComponent = (props) => {
         <UstPanel />
         <LunaPanel />
       </Stack>
+      <How />
+      <TVL />
     </VStack>
   );
 }
