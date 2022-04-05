@@ -5,6 +5,7 @@ import Navbar from './Pages/Navbar'
 import Layout from './Layout';
 import Dashboard from './Pages/Dashboard'
 import MyPage from './Pages/MyPage'
+import Earn from './Pages/Earn'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="mypage" element={<MyPage />} />
+          <Route path="earn" element={<Earn />} />
           <Route path="*" element={"404"} />
         </Route>
       </Routes>
