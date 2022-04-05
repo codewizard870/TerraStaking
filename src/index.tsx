@@ -2,7 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { store } from './app/store';
+// import { store } from './app/store';
+
+import { StoreProvider } from './store'
+
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 import { ChakraProvider } from '@chakra-ui/react'
@@ -18,18 +21,20 @@ import {
   getChainOptions,
 } from '@terra-money/wallet-provider';
 
+
+
 getChainOptions().then((chainOptions) => {
 console.log(chainOptions)
   ReactDOM.hydrate(
     <React.StrictMode>
-      <Provider store={store}>
+      <StoreProvider>
         <WalletProvider {...chainOptions}>
           <ChakraProvider theme={theme}>
             <App />
             <ToastContainer/>
           </ChakraProvider>
         </WalletProvider>
-      </Provider>
+      </StoreProvider>
     </React.StrictMode>,
     document.getElementById('root')
   );

@@ -1,12 +1,37 @@
 import React, { FunctionComponent } from 'react';
-import { HStack, VStack, Flex, Text, Image, Button, Box } from '@chakra-ui/react'
+import { HStack, VStack, Flex, Text, Image, Button, Box, useDisclosure } from '@chakra-ui/react'
 
 import TerraIcon from "../../../assets/Terra.svg"
 import Warning from "../../../assets/Warning.svg"
+import UstAprChart from '../AprChart';
+import { useStore, useOpenDepositModal } from '../../../store';
 
-import UstAprChart from './UstAprChart';
+const data = [
+  {
+    timestamp: 1648939268,
+    apr: 35.4,
+  },
+  {
+    timestamp: 1648939268,
+    apr: 33.4,
+  },
+  {
+    timestamp: 1648939268,
+    apr: 39.4,
+  },
+  {
+    timestamp: 1648939268,
+    apr: 43.4,
+  },
+  {
+    timestamp: 1648939268,
+    apr: 68.4,
+  },      
+];
 
 const UstPanel: FunctionComponent = (props) => {
+  const openDepositModal = useOpenDepositModal();
+
   return (
     <VStack
       w={'100%'}
@@ -68,12 +93,16 @@ const UstPanel: FunctionComponent = (props) => {
         >%
         </Text>
       </HStack>
-      <UstAprChart />
+      <UstAprChart data={data} id={"ust"}/>
       <Button mx={'60px'} h={'45px'} background={'#493C3C'} rounded={'25px'}>
         <Text
           fontSize={'13px'}
           fontWeight={'860'}
-          lineHeight={'15px'}              
+          lineHeight={'15px'}
+          onClick={() => {
+            if(openDepositModal != undefined )
+              openDepositModal()
+          }}
         >
           STAKE YOUR UST NOW!
         </Text>

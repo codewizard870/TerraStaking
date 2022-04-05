@@ -1,16 +1,10 @@
-import React, { FunctionComponent } from 'react';
-import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Divider, Button } from '@chakra-ui/react'
+import React, { FunctionComponent, useState } from 'react';
+import { VStack, HStack} from '@chakra-ui/react'
 
-import { useAppSelector, useAppDispatch } from '../../../app/hooks';
-import {
-  selectDepositTab,
-  appSlice,
-} from '../../../app/appSlice';
 import Tab from './Tab';
 
 const DepositTab: FunctionComponent = (props) => {
-  const depositTab = useAppSelector(selectDepositTab);
-  const dispatch = useAppDispatch();
+  const [depositTab, setDepositTab] = useState('all');
   return (
     <HStack 
       w={'100%'}
@@ -20,9 +14,9 @@ const DepositTab: FunctionComponent = (props) => {
       spacing={'34px'}
       height={'52px'}
     >
-      <Tab id='all'>ALL</Tab>
-      <Tab id='ust'>UST</Tab>
-      <Tab id='luna'>LUNA</Tab>
+      <Tab id='all' depositTab={depositTab} setDepositTab={setDepositTab}>ALL</Tab>
+      <Tab id='ust' depositTab={depositTab} setDepositTab={setDepositTab}>UST</Tab>
+      <Tab id='luna' depositTab={depositTab} setDepositTab={setDepositTab}>LUNA</Tab>
     </HStack>
   );
 }

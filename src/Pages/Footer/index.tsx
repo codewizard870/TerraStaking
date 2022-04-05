@@ -1,5 +1,7 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { HStack, Stack, VStack, Flex, Text, Image, Link, Center, Divider } from '@chakra-ui/react'
+
+import { useLCD } from '../../store';
 
 import GreenLamp from '../../assets/GreenLamp.svg'
 import Twitter from '../../assets/Twitter.svg'
@@ -7,6 +9,25 @@ import Subtract from '../../assets/Subtract.svg'
 import Medium from '../../assets/Medium.svg'
 
 const Footer: FunctionComponent = (props) => {
+  const lcd = useLCD();
+  const [blockHeight, setBlockHeight] = useState(0); 
+  const [timer, setTimer] = useState(0);
+
+  useEffect( () => {
+    async function getLatestHash() {
+      await lcd.tx.txInfosByHeight(undefined)
+      .then((e) => {
+        setBlockHeight(e[0].height);
+      })
+    }
+    getLatestHash();
+    // if(timer !== 0){
+    //   window.clearInterval(timer)
+    // }
+    // let res = window.setInterval(getLatestHash, 10000);
+    // setTimer(res);
+  }, [lcd]);
+
   return (
     <Flex
       direction={'row'}
@@ -25,7 +46,7 @@ const Footer: FunctionComponent = (props) => {
           fontWeight={'860'}
           lineHeight={'10px'}
         >
-          LATEST BLOCK:  28912928         TERMS 
+          LATEST BLOCK:&nbsp;&nbsp;&nbsp;{blockHeight}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TERMS
         </Text>
       </HStack>
       <HStack spacing={'50px'}>

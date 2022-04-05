@@ -1,6 +1,15 @@
-const { paths } = require('react-app-rewired');
-// require normalized overrides
-const overrides = require('react-app-rewired/config-overrides');
-const config = require(paths.scriptVersion + '/config/webpack.config.dev');
+// webpack needs to be explicitly required
+const webpack = require('webpack')
 
-module.exports = overrides.webpack(config, process.env.NODE_ENV);
+module.exports = {
+
+/* ... rest of the config here ... */
+
+  plugins: [
+    // fix "process is not defined" error:
+    // (do "npm install process" before running the build)
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
+    }),
+  ]
+}

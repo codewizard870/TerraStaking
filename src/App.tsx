@@ -1,7 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Flex } from '@chakra-ui/react'
-import Navbar from './Pages/Navbar'
+
 import Layout from './Layout';
 import Dashboard from './Pages/Dashboard'
 import MyPage from './Pages/MyPage'

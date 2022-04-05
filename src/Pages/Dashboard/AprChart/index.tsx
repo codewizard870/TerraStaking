@@ -1,43 +1,27 @@
-import React, { useState, useCallback, useMemo, FunctionComponent, useRef,Component, createRef, useEffect } from 'react';
-// import { Chart } from 'chart.js';
+import React, { FunctionComponent, createRef, useEffect } from 'react';
+import { HStack, VStack, Flex, Text, Image, Button, Box } from '@chakra-ui/react'
+
 import Chart from 'chart.js/auto'
+import './Chart.css'
 
-import styled, { DefaultTheme } from 'styled-components';
-import { ChartTooltip } from './ChartTooltip';
-import Indicator from '../../../../assets/Indicator.svg'
+import Indicator from '../../../assets/Indicator.svg'
 
-const data = [
-  {
-    timestamp: 1648939268,
-    apr: 38.4,
-  },
-  {
-    timestamp: 1648939268,
-    apr: 38.4,
-  },
-  {
-    timestamp: 1648939268,
-    apr: 38.4,
-  },
-  {
-    timestamp: 1648939268,
-    apr: 38.4,
-  },
-  {
-    timestamp: 1648939268,
-    apr: 38.4,
-  },      
-];
-
-
-const UstAprChart: FunctionComponent = (props) => {
+interface Props{
+  data: {
+    timestamp: number,
+    apr: number
+  }[],
+  id: string
+}
+const AprChart: FunctionComponent<Props> = ({data, id}) => {
   let canvasRef = createRef<HTMLCanvasElement>();
   let tooltipRef = createRef<HTMLDivElement>();
   let chart!: Chart;
 
-  
   const createChart = () => {
-    chart = new Chart(canvasRef.current!, {
+    if(canvasRef.current == null)
+      return;
+    chart = new Chart(canvasRef.current, {
       type: 'line',
       options: {
         maintainAspectRatio: false,
@@ -49,7 +33,10 @@ const UstAprChart: FunctionComponent = (props) => {
             enabled: false,
 
             external: ({ chart, tooltip }) => {
-              let element = tooltipRef.current!;
+              // let element = tooltipRef.current;
+              let element = document.getElementById(`tooltip${id}`);
+              if(element == null)
+                return;
 
               if (tooltip.opacity === 0) {
                 element.style.opacity = '0';
@@ -132,31 +119,21 @@ const UstAprChart: FunctionComponent = (props) => {
     createChart()
   }, [])
   return (
-    <Container style={{height: '300px', marginTop:'30px'}}>
+    <div style={{width: '100%', position: 'relative', height: '300px', marginTop:'30px'}}>
       <canvas ref={canvasRef} />
-      <ChartTooltip ref={tooltipRef}>
-        <hr />
-        <section>
-          <div>
+      <div ref={tooltipRef} className="root" id={`tooltip${id}`} >
+        <hr className="hr0"/>
+        <section className="section0">
+          <div className="div0" >
             <img src={Indicator} alt="loading" style={{maxWidth:'10px'}}/>
           </div>
-          <div
-            style={{ backgroundColor: '#0B0B0B' }}
-          />
-          <div 
-            style={{ backgroundColor: '#0B0B0B', marginTop:"50px"}}
-          />
+          <div className="div0"/>
+          <div className="div0"/>
          </section>
-      </ChartTooltip>
-
-       
-    </Container>
+      </div>      
+    </div>
   );
 }
 
-const Container = styled.div`
-  width: 100%;
-  position: relative;
-`;
 
-export default UstAprChart;
+export default AprChart;

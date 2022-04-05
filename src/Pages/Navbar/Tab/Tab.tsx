@@ -1,25 +1,18 @@
 import React, { FunctionComponent } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Flex, Text } from '@chakra-ui/react'
-
-import { useAppSelector, useAppDispatch } from '../../../app/hooks';
-import {
-  tabStatus,
-  selectTab,
-  setTabStatus
-} from '../../../app/appSlice';
+import {useStore, ActionKind} from '../../../store';
 
 interface Props {
-  id: tabStatus,
+  id: string,
 }
 const Tab: FunctionComponent<Props> = ({id, children}) => {
-  const currentTab = useAppSelector(selectTab);
-  const selected = id == currentTab;
-  const dispatch = useAppDispatch();
+  const {state, dispatch} = useStore();
+  const selected = id == state.tab;
   const navigate = useNavigate();
 
   const clickTab = () => {
-    dispatch(setTabStatus(id));
+    dispatch({type: ActionKind.setTab, payload:id});
     navigate("/" + id);
   }
   return (

@@ -4,7 +4,31 @@ import { HStack, VStack, Flex, Text, Image, Button, Box } from '@chakra-ui/react
 import LunaIcon from "../../../assets/Luna.svg"
 import Warning from "../../../assets/Warning.svg"
 
-import LunaAprChart from './LunaAprChart';
+import LunaAprChart from '../AprChart';
+
+const data = [
+  {
+    timestamp: 1648939268,
+    apr: 37.4,
+  },
+  {
+    timestamp: 1648939268,
+    apr: 38.4,
+  },
+  {
+    timestamp: 1648939268,
+    apr: 39.4,
+  },
+  {
+    timestamp: 1648939268,
+    apr: 83.4,
+  },
+  {
+    timestamp: 1648939268,
+    apr: 38.4,
+  },      
+];
+
 
 const LunaPanel: FunctionComponent = (props) => {
   return (
@@ -68,7 +92,7 @@ const LunaPanel: FunctionComponent = (props) => {
         >%
         </Text>
       </HStack>
-      <LunaAprChart />
+      <LunaAprChart data={data} id={"luna"}/>
       <Button mx={'60px'} h={'45px'} background={'#493C3C'} rounded={'25px'}>
         <Text
           fontSize={'13px'}

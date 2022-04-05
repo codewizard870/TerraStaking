@@ -1,0 +1,66 @@
+import React, { FunctionComponent } from 'react';
+import { VStack, Stack, Text, Divider, HStack, Image, Flex, Button } from '@chakra-ui/react'
+
+import { MdNorthEast } from 'react-icons/md'
+import { AccountHistoryItem } from './index'
+import { useNetworkName } from '../../../store'
+
+interface Props {
+  item: AccountHistoryItem
+}
+const HistoryItem: FunctionComponent<Props> = ({ item }) => {
+  let net = useNetworkName();
+  let findURL = net == 'mainnet'? "https://finder.terra.money/tx/" : "https://finder.terra.money/testnet/tx/";
+
+  return (
+    <>
+      <Flex
+        w={'100%'}
+        h={'76px'}
+        justify={'space-between'}
+        align={'center'}
+      >
+        <VStack align={'baseline'}>
+          {item?.msgs?.map((msg) => (
+            <>
+              <Text
+                fontSize={'13px'}
+                fontWeight={'860'}
+                lineHeight={'15px'}
+              >
+                {msg.msgType}
+              </Text>
+              <HStack spacing={'10px'} >
+                <VStack align={'baseline'}>
+                  {msg.canonicalMsg.map((cmsg) => (
+                    <Text
+                      fontSize={'13px'}
+                      fontWeight={'860'}
+                      lineHeight={'15px'}
+                    >
+                      {cmsg.slice(0, 100)}
+                    </Text>
+                  ))}
+                </VStack>
+                <a href={`${findURL}${item.txhash}`} target="_blank" rel="noreferrer">
+                  <MdNorthEast />
+                </a>
+              </HStack>
+            </>
+          ))}
+        </VStack>
+        <Text
+          fontSize={'10px'}
+          fontWeight={'860'}
+          lineHeight={'12px'}
+        >
+          {
+            new Date(item.timestamp).toLocaleString()
+          }
+        </Text>
+      </Flex>
+      <Divider orientation='horizontal' />
+    </>
+  );
+}
+export default HistoryItem;

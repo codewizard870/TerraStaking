@@ -1,29 +1,24 @@
 import React, { FunctionComponent } from 'react';
 import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Divider, Button } from '@chakra-ui/react'
+import { Dispatch, SetStateAction } from "react";
 
-import { useAppSelector, useAppDispatch } from '../../../../app/hooks';
-import {
-  selectDepositTab,
-  appSlice,
-  depositTabStatus
-} from '../../../../app/appSlice';
-
-interface Props{
-  id: depositTabStatus
+interface Props {
+  id: string,
+  depositTab: string,
+  setDepositTab: Dispatch<SetStateAction<string>>,
 }
 const Tab: FunctionComponent<Props> = (props) => {
-  const depositTab = useAppSelector(selectDepositTab);
-  const dispatch = useAppDispatch();
+
   return (
-    <Flex 
-      background={depositTab==props.id?'#493C3C':'none'}
+    <Flex
+      background={props.depositTab === props.id ? '#493C3C' : 'none'}
       rounded={'25px'}
       w={'30%'}
       h={'100%'}
       justify={'center'}
       align={'center'}
       cursor={'pointer'}
-      onClick={() => {dispatch(appSlice.actions.setDepositTabStatus(props.id))}}
+      onClick={() => { props.setDepositTab(props.id) }}
     >
       <Text
         fontSize={'13px'}

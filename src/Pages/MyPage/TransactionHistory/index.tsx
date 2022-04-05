@@ -1,9 +1,65 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState, useEffect, useCallback, useMemo } from 'react';
 import { VStack, Stack, Text, Divider, HStack, Image, Flex, Button } from '@chakra-ui/react'
+import {  useInfiniteQuery } from "react-query"
+import axios from "axios"
 
-import {MdNorthEast} from 'react-icons/md'
+import { useWallet, useTerraAPIURL } from '../../../store';
+import HistoryItem from './HistoryItem';
+
+export interface AccountHistory {
+  limit: number
+  next: number
+  list: AccountHistoryItem[]
+}
+
+export interface AccountHistoryItem {
+  txhash: string
+  timestamp: any
+  success: boolean
+  msgs?: TxMessage[]
+  collapsed?: number
+  fee: CoinData[]
+  memo?: string
+  raw_log?: string
+}
+
+export interface TxMessage {
+  msgType: string
+  canonicalMsg: string[]
+}
+
+export interface CoinData {
+  amount: string
+  denom: string
+}
 
 const TransactionHistory: FunctionComponent = (props) => {
+  const wallet = useWallet();
+  const baseURL = useTerraAPIURL();
+  
+  const fetchAccountHistory = useCallback(
+    async ({ pageParam = 0 }) => {
+      const { data } = await axios.get<AccountHistory>(
+        `tx-history/station/${wallet?.walletAddress}`,
+        { baseURL, params: { offset: pageParam || undefined } }
+      )
+
+      return data
+    },
+    [wallet?.walletAddress, baseURL]
+  )
+  const { data, error, fetchNextPage, ...state } = useInfiniteQuery(
+    ['', "history", baseURL, wallet?.walletAddress],
+    fetchAccountHistory,
+    { getNextPageParam: ({ next }) => next, enabled: !!(wallet?.walletAddress && baseURL) }
+  )
+  const getList = () => {
+    if (!data) return []
+    const [{ list }] = data.pages
+    return list
+  }
+  const list = getList();
+console.log(list)
   return (
     <VStack
       w={'100%'}
@@ -26,37 +82,9 @@ const TransactionHistory: FunctionComponent = (props) => {
         py={{sm:'10px', md:'20px', lg:'76px'}}
       >
         <VStack w={'100%'}>
-          <Flex w={'100%'} h={'76px'} justify={'space-between'} align={'center'}>
-            <VStack align={'baseline'}>
-              <Text
-                fontSize={'13px'}
-                fontWeight={'860'}
-                lineHeight={'15px'}
-              >
-                Earn
-              </Text>
-              <HStack
-                spacing={'10px'}
-              >
-                <Text
-                  fontSize={'13px'}
-                  fontWeight={'860'}
-                  lineHeight={'15px'}
-                >
-                  Deposited 25 UST
-                </Text>
-                <MdNorthEast/>
-              </HStack>
-            </VStack>
-            <Text
-              fontSize={'10px'}
-              fontWeight={'860'}
-              lineHeight={'12px'}
-            >
-              Tue, Jan 13, 2022, 11:02:19 PM
-            </Text>
-          </Flex>
-          <Divider orientation='horizontal' />
+          {list.map((item) => (
+            <HistoryItem item={item} />
+          ))}
         </VStack>
       </VStack>
     </VStack>
