@@ -14,31 +14,51 @@ import {
 import { Dispatch, SetStateAction } from "react";
 
 interface Props {
-  amount: string,
-  setAmount: Dispatch<SetStateAction<string>>,
+
 }
 const Info: FunctionComponent<Props> = (props) => {
-  return (
-    <Flex
-      direction={'column'}
-      rounded={'10px'}
-      w={'100%'}
-      h={'45px'}
-      mt={'58px'}
-      align={'center'}
-      justify={'space-between'}
-    >
 
+  return (
+    <VStack
+      w={'100%'}
+      mt={'11px'}
+      align={'center'}
+      spacing={'13px'}
+      color={'#CEC0C0'}
+    >
+      <HStack justify={'space-between'} w={'100%'}>
         <Text
           fontSize={'9px'}
-          fontWeight={'860'}
+          fontWeight={'400'}
           lineHeight={'10px'}
-          color={'#F9D85E'}
         >
           Tx Fee
         </Text>
-
-    </Flex>
+        <Text
+          fontSize={'9px'}
+          fontWeight={'400'}
+          lineHeight={'10px'}
+        >
+          0.25 UST
+        </Text>
+      </HStack>
+      <HStack justify={'space-between'} w={'100%'}>
+        <Text
+          fontSize={'9px'}
+          fontWeight={'400'}
+          lineHeight={'10px'}
+        >
+          Send Amount
+        </Text>
+        <Text
+          fontSize={'9px'}
+          fontWeight={'400'}
+          lineHeight={'10px'}
+        >
+          100,346.25 UST
+        </Text>
+      </HStack>
+    </VStack>
   );
 }
 export default Info;

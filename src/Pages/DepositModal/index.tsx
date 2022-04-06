@@ -14,6 +14,7 @@ import {
 import CoinTab from './CoinTab';
 import InputPanel from './InputPanel';
 import SliderWish from './SliderWish';
+import Info from './Info';
 
 interface Props{
   isOpen: boolean,
@@ -29,9 +30,9 @@ const DepositModal: FunctionComponent<Props> = ({isOpen, onClose}) => {
       <ModalContent 
         background={'#212121'}
         rounded={'25px'}
-        w={'562px'}
-        h={'433px'}
-        px={'47px'}
+        w={{sm:'100%', md: '562px', lg:'562px'}}
+        h={'453px'}
+        px={{sm:'10px', md: '47px', lg: '47px'}}
         py={'39px'}
       >
         <HStack
@@ -53,10 +54,20 @@ const DepositModal: FunctionComponent<Props> = ({isOpen, onClose}) => {
         </HStack>
         <InputPanel amount={amount} setAmount={setAmount} coin={coin}/>
         <SliderWish amount={amount} setAmount={setAmount}/>
-        <Divider mt={'23px'} orientation='horizontal' variant={'dashed'} />
-        
-        {/* <ModalCloseButton />
-        <ModalBody>
+        <Divider mt={'23px'} orientation='horizontal' variant={'dashed'} color={'#CEC0C0'} />
+        <Info />
+        <Divider mt={'23px'} orientation='horizontal' variant={'dashed'} color={'#CEC0C0'} />
+        <Button w={'100%'} h={'45px'} mt={'26px'} background={'#493C3C'} rounded={'25px'}>
+          <Text
+            fontSize={'13px'}
+            fontWeight={'860'}
+            lineHeight={'15px'}              
+          >
+            Proceed
+          </Text>
+        </Button>
+        <ModalCloseButton color={'#CEBFBF'} />
+        {/* <ModalBody>
           <h1>Hello</h1>
         </ModalBody> */}
 

@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
-import { VStack, HStack, Stack, Flex, Text, Input, Link, Center, Divider, Button } from '@chakra-ui/react'
+import { VStack, HStack, Stack, Flex, Text, Input, Link, Center, Divider, Button, useBoolean } from '@chakra-ui/react'
 import { Dispatch, SetStateAction } from "react";
+import { useUSTBalance, useLUNABalance } from '../../../store'
 
 interface Props {
   amount: string,
@@ -8,11 +9,19 @@ interface Props {
   coin: string,
 }
 const InputPanel: FunctionComponent<Props> = (props) => {
-  
+  const ustBalance = useUSTBalance();
+  const lunaBalance = useLUNABalance();
+
+  const maxBalance = () => {
+    if(props.coin == 'ust')
+      props.setAmount(ustBalance.toString());
+    else
+      props.setAmount(lunaBalance.toString());
+  }
   return (
     <VStack w={'100%'} spacing={'6px'}>
       <Flex
-        background={ '#493C3C'}
+        background={'#493C3C'}
         rounded={'10px'}
         w={'100%'}
         h={'45px'}
@@ -29,12 +38,13 @@ const InputPanel: FunctionComponent<Props> = (props) => {
         >
           AMOUNT
         </Text>
-        <Input 
-          width={'100%'} 
-          textAlign={'right'} 
+        <Input
+          width={'100%'}
+          textAlign={'right'}
           color={'white'}
           border={'none'}
-          _focus={{border: 'none'}}
+          value={props.amount}
+          _focus={{ border: 'none' }}
         />
         <Text
           fontSize={'13px'}
@@ -51,11 +61,13 @@ const InputPanel: FunctionComponent<Props> = (props) => {
       >
         <Text
           fontSize={'9px'}
-          fontWeight={'860'}
+          fontWeight={'400'}
           lineHeight={'11px'}
           color={'#CEC0C0'}
+          cursor={'pointer'}
+          onClick={() => maxBalance()}
         >
-          `MAX balance  UST`
+          {props.coin == 'ust'? `MAX balance  ${ustBalance} UST` : `MAX balance  ${lunaBalance} LUNA`}
         </Text>
       </Flex>
     </VStack>

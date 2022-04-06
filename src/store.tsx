@@ -144,3 +144,17 @@ export const useOpenWithdrawModal = () => {
   const {state, dispatch} = useStore();
   return state.openWithdrawModal;
 }
+
+export const useUSTBalance = () => {
+  const {state, dispatch} = useStore();
+  let balance = state.uusdBalance;
+  balance = Math.floor(balance /(10 ** 6));
+  return balance;
+}
+
+export const useLUNABalance = () => {
+  const {state, dispatch} = useStore();
+  let balance = state.ulunaBalance;
+  balance = Math.floor(balance /(10 ** 6));
+  return balance;
+}
