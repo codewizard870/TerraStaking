@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { VStack, Stack, Text, Divider, HStack, Image, Flex, Button } from '@chakra-ui/react'
 
-import Warning from "../../../assets/Warning.svg"
+import Warning from "./../../../assets/Warning.svg"
 
 const Total: FunctionComponent = (props) => {
   return (

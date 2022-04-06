@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { HStack, Flex, Text, Image, Link } from '@chakra-ui/react'
 
-import ExternalLink from "../../../assets/ExternalLink.svg"
+import ExternalLink from "./../../../assets/ExternalLink.svg"
 
 const Title: FunctionComponent = (props) => {
   return (

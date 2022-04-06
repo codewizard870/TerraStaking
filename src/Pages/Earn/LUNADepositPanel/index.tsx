@@ -2,8 +2,8 @@ import React, { FunctionComponent } from 'react';
 import { VStack, Stack, Text, Divider, HStack, Image, Flex, Button } from '@chakra-ui/react'
 import { Grid, GridItem } from '@chakra-ui/react'
 
-import LunaIcon from '../../../assets/Luna.svg'
-import Warning from '../../../assets/Warning.svg'
+import LunaIcon from './../../../assets/Luna.svg'
+import Warning from './../../../assets/Warning.svg'
 
 const LUNADepositPanel: FunctionComponent = (props) => {
   return (

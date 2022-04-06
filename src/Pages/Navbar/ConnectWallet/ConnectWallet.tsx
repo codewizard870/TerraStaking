@@ -5,7 +5,7 @@ import { LCDClient, WasmAPI, Coins, Coin } from '@terra-money/terra.js'
 import { toast } from 'react-toastify';
 import {MdOutlineAccountBalanceWallet} from 'react-icons/md'
 
-import Wallet from '../../../assets/Wallet.svg';
+import Wallet from './../../../assets/Wallet.svg';
 import { useStore, ActionKind } from '../../../store';
 import { shortenAddress } from '../../../Util';
 

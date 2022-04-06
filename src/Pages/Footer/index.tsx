@@ -3,10 +3,10 @@ import { HStack, Stack, VStack, Flex, Text, Image, Link, Center, Divider } from 
 
 import { useLCD } from '../../store';
 
-import GreenLamp from '../../assets/GreenLamp.svg'
-import Twitter from '../../assets/Twitter.svg'
-import Subtract from '../../assets/Subtract.svg'
-import Medium from '../../assets/Medium.svg'
+import GreenLamp from './../../assets/GreenLamp.svg'
+import Twitter from './../../assets/Twitter.svg'
+import Subtract from './../../assets/Subtract.svg'
+import Medium from './../../assets/Medium.svg'
 
 const Footer: FunctionComponent = (props) => {
   const lcd = useLCD();

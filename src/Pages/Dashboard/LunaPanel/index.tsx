@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { HStack, VStack, Flex, Text, Image, Button, Box } from '@chakra-ui/react'
 
-import LunaIcon from "../../../assets/Luna.svg"
-import Warning from "../../../assets/Warning.svg"
+import LunaIcon from "./../../../assets/Luna.svg"
+import Warning from "./../../../assets/Warning.svg"
 
 import LunaAprChart from '../AprChart';
 

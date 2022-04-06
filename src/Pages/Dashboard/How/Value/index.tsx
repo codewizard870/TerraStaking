@@ -1,8 +1,8 @@
 import React, { useState, FunctionComponent } from 'react';
 import { HStack, VStack, Flex, Text, Image } from '@chakra-ui/react'
 
-import BlackPanel from '../../../../assets/BlackPanel.svg'
-import YellowPanel from '../../../../assets/YellowPanel.svg'
+import BlackPanel from './../../../../assets/BlackPanel.svg'
+import YellowPanel from './../../../../assets/YellowPanel.svg'
 
 const Value: FunctionComponent = (props) => {
 

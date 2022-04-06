@@ -4,7 +4,7 @@ import { HStack, VStack, Flex, Text, Image, Button, Box } from '@chakra-ui/react
 import Chart from 'chart.js/auto'
 import './Chart.css'
 
-import Indicator from '../../../assets/Indicator.svg'
+import Indicator from './../../../assets/Indicator.svg'
 
 interface Props{
   data: {

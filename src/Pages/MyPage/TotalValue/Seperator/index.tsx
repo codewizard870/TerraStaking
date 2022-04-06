@@ -2,10 +2,10 @@ import React, { FunctionComponent } from 'react';
 import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Divider, Button } from '@chakra-ui/react'
 
 import {MdInfo, MdSwapHoriz} from 'react-icons/md'
-import BlackPanel from '../../../../assets/BlackPanel.svg'
-import YellowPanel from '../../../../assets/YellowPanel.svg'
-import GreenPanel from '../../../../assets/GreenPanel.svg'
-import BluePanel from '../../../../assets/BluePanel.svg'
+import BlackPanel from './../../../../assets/BlackPanel.svg'
+import YellowPanel from './../../../../assets/YellowPanel.svg'
+import GreenPanel from './../../../../assets/GreenPanel.svg'
+import BluePanel from './../../../../assets/BluePanel.svg'
 
 const Seperator: FunctionComponent = (props) => {
   return (

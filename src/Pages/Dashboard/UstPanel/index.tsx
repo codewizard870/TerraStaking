@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { HStack, VStack, Flex, Text, Image, Button, Box, useDisclosure } from '@chakra-ui/react'
 
-import TerraIcon from "../../../assets/Terra.svg"
-import Warning from "../../../assets/Warning.svg"
+import TerraIcon from "./../../../assets/Terra.svg"
+import Warning from "./../../../assets/Warning.svg"
 import UstAprChart from '../AprChart';
 import { useStore, useOpenDepositModal } from '../../../store';
 

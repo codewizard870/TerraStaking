@@ -2,8 +2,8 @@ import React, { FunctionComponent } from 'react';
 import { VStack, Stack, Text, Divider, HStack, Image, Flex, Button } from '@chakra-ui/react'
 import { Grid, GridItem } from '@chakra-ui/react'
 
-import TerraIcon from '../../../assets/Terra.svg'
-import Warning from '../../../assets/Warning.svg'
+import TerraIcon from './../../../assets/Terra.svg'
+import Warning from './../../../assets/Warning.svg'
 
 const USTDepositPanel: FunctionComponent = (props) => {
   return (
