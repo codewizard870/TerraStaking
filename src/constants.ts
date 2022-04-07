@@ -46,27 +46,27 @@ export const amountHistory = [
 
 export const aprUstHistory = [
   {
-    timestamp: 1648939268,
+    time: 1648939268,
     apr: "354",
   },
   {
-    timestamp: 1648939268,
+    time: 1648939268,
     apr: "354",
   },
   {
-    timestamp: 1648939268,
+    time: 1648939268,
     apr: "354",
   },
   {
-    timestamp: 1648939268,
+    time: 1648939268,
     apr: "354",
   },
   {
-    timestamp: 1648939268,
+    time: 1648939268,
     apr: "354",
   },
   {
-    timestamp: 1648939268,
+    time: 1648939268,
     apr: "354",
   },
 ];
@@ -74,27 +74,27 @@ export const aprUstHistory = [
 
 export const aprLunaHistory = [
   {
-    timestamp: 1648939268,
+    time: 1648939268,
     apr: "186",
   },
   {
-    timestamp: 1648939268,
+    time: 1648939268,
     apr: "186",
   },
   {
-    timestamp: 1648939268,
+    time: 1648939268,
     apr: "186",
   },
   {
-    timestamp: 1648939268,
+    time: 1648939268,
     apr: "186",
   },
   {
-    timestamp: 1648939268,
+    time: 1648939268,
     apr: "186",
   },
   {
-    timestamp: 1648939268,
+    time: 1648939268,
     apr: "186",
   },
 ];

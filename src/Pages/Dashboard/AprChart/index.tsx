@@ -8,7 +8,7 @@ import Indicator from './../../../assets/Indicator.svg'
 
 interface Props{
   data: {
-    timestamp: number,
+    time: number,
     apr: number
   }[],
   id: string
@@ -53,7 +53,7 @@ const AprChart: FunctionComponent<Props> = ({data, id}) => {
                   const i = tooltip.dataPoints[0].dataIndex;
                   const item = data[i];
 
-                  let datetime = new Date(item.timestamp)
+                  let datetime = new Date(item.time)
                   div1.innerHTML = `${datetime.toDateString()}`;
                   div2.innerHTML = `${item.apr}%`;
 
@@ -101,7 +101,7 @@ const AprChart: FunctionComponent<Props> = ({data, id}) => {
         },
       },
       data: {
-        labels: data.map(({ timestamp }) => timestamp.toString()),
+        labels: data.map(({ time }) => time.toString()),
         datasets: [
           {
             data: data.map(({ apr }) =>
