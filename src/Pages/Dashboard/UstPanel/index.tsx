@@ -73,12 +73,17 @@ const UstPanel: FunctionComponent = (props) => {
         </Text>
       </HStack>
       <UstAprChart data={data} id={"ust"}/>
-      <Button mx={'60px'} h={'45px'} background={'#493C3C'} rounded={'25px'}>
+      <Button 
+        mx={'60px'} 
+        h={'45px'} 
+        background={'#493C3C'} 
+        rounded={'25px'}
+        onClick={() => OpenDepositModal(state, dispatch, 'ust')}
+      >
         <Text
           fontSize={'13px'}
           fontWeight={'860'}
           lineHeight={'15px'}
-          onClick={() => OpenDepositModal(state, dispatch, 'ust')}
         >
           STAKE YOUR UST NOW!
         </Text>

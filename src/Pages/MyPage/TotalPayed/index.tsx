@@ -72,12 +72,18 @@ const TotalPayed: FunctionComponent = (props) => {
           DAYS
         </Text>
       </HStack>
-      <Button w={'100%'} mt={'99px'} h={'45px'} background={'#493C3C'} rounded={'25px'}>
+      <Button 
+        w={'100%'} 
+        mt={'99px'} 
+        h={'45px'} 
+        background={'#493C3C'} 
+        rounded={'25px'}
+        onClick = {() => OpenDepositModal(state, dispatch, "ust")}
+      >
         <Text
           fontSize={'13px'}
           fontWeight={'860'}
           lineHeight={'15px'}
-          onClick = {() => OpenDepositModal(state, dispatch, "ust")}         
         >
           STAKE MORE
         </Text>

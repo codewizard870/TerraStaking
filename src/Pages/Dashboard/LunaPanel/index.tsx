@@ -73,12 +73,17 @@ const LunaPanel: FunctionComponent = (props) => {
         </Text>
       </HStack>
       <LunaAprChart data={data} id={"luna"}/>
-      <Button mx={'60px'} h={'45px'} background={'#493C3C'} rounded={'25px'}>
+      <Button 
+        mx={'60px'} 
+        h={'45px'} 
+        background={'#493C3C'} 
+        rounded={'25px'}
+        onClick={() => OpenDepositModal(state, dispatch, 'luna')}
+      >
         <Text
           fontSize={'13px'}
           fontWeight={'860'}
           lineHeight={'15px'}
-          onClick={() => OpenDepositModal(state, dispatch, 'luna')}
         >
           STAKE YOUR LUNA NOW!
         </Text>
