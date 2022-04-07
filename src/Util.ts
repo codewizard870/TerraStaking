@@ -16,9 +16,6 @@ export function shortenAddress(address: string | undefined) {
 }
 
 function calcUSD(amountHistory: any, ustPrice: number, lunaPrice: number){
-console.log(amountHistory)
-console.log(ustPrice)
-console.log(lunaPrice)
   if(amountHistory == undefined) return undefined;
 
   for(let i=0; i<amountHistory.length; i++)
@@ -49,6 +46,7 @@ export async function fetch(state: AppContextInterface, dispatch: React.Dispatch
       {
         get_amount_history: {}
       });
+console.log(amountHistory)
   }catch(e){}
 
   try{
@@ -58,6 +56,7 @@ export async function fetch(state: AppContextInterface, dispatch: React.Dispatch
         get_history_of_apr_ust: {}
       }
     )
+console.log(aprUstHistory)
   }catch(e){}
 
   try{
@@ -67,6 +66,7 @@ export async function fetch(state: AppContextInterface, dispatch: React.Dispatch
         get_history_of_apr_luna: {}
       }
     )
+console.log(aprLunaHistory)
   }catch(e){}
 
   try{

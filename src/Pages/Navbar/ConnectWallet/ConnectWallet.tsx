@@ -61,7 +61,6 @@ const ConnectWallet: FunctionComponent = () => {
   }, [connectedWallet, lcd, dispatch])
 
   function connectTo(to: string) {
-    console.log(wallet)
     if (to === 'extension') {
       wallet.connect(wallet.availableConnectTypes[0])
     } else if (to === 'mobile') {
