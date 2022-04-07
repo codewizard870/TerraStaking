@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useMemo} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
@@ -21,10 +21,7 @@ import {
   getChainOptions,
 } from '@terra-money/wallet-provider';
 
-
-
 getChainOptions().then((chainOptions) => {
-console.log(chainOptions)
   ReactDOM.hydrate(
     <React.StrictMode>
       <StoreProvider>
@@ -43,3 +40,4 @@ console.log(chainOptions)
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+

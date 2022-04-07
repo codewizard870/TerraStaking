@@ -1,13 +1,10 @@
 import React, { FunctionComponent, useState } from 'react';
 import { Stack, Flex, HStack, Button, Text, Divider } from '@chakra-ui/react'
-
+import { Deposit, MsgExecuteContract, WasmAPI, Coin } from '@terra-money/terra.js'
 import {
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
   ModalCloseButton,
 } from '@chakra-ui/react'
 
@@ -15,6 +12,8 @@ import CoinTab from './CoinTab';
 import InputPanel from './InputPanel';
 import SliderWish from './SliderWish';
 import Info from './Info';
+import { useStore, useWallet, useLCD } from '../../store';
+import {estimateSend} from '../../Util';
 
 interface Props{
   isOpen: boolean,
@@ -22,8 +21,39 @@ interface Props{
 }
 const DepositModal: FunctionComponent<Props> = ({isOpen, onClose}) => {
   const [amount, setAmount] = useState('');
-  const [coin, setCoin] = useState('ust');
+  const wallet = useWallet();
+  const lcd = useLCD();
+  const {state, dispatch} = useStore();
+  const coinType = state.coinType;
 
+  const deposit = () => {
+    if( coinType === 'ust' && wallet?.walletAddress ){
+      let val = Math.floor(parseFloat(amount) * 10 ** 6);
+      let msg = {
+        deposit_ust: {}
+      }
+      let deposit_msg = new MsgExecuteContract(
+        wallet?.walletAddress,
+        state.poolAddr,
+        msg,
+        {uusd: val}
+      );
+      estimateSend(wallet, lcd, [deposit_msg], "Success Deposit", "deposit");
+    }
+    else if( coinType === 'luna' && wallet?.walletAddress ){
+      let val = Math.floor(parseFloat(amount) * 10 ** 6);
+      let msg = {
+        deposit_luna: {}
+      }
+      let deposit_msg = new MsgExecuteContract(
+        wallet?.walletAddress,
+        state.poolAddr,
+        msg,
+        {uluna: val}
+      );
+      estimateSend(wallet, lcd, [deposit_msg], "Success Deposit", "deposit");
+    }
+  }
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -50,9 +80,9 @@ const DepositModal: FunctionComponent<Props> = ({isOpen, onClose}) => {
           >
             Deposit
           </Text>
-          <CoinTab coin={coin} setCoin={setCoin}/>
+          <CoinTab/>
         </HStack>
-        <InputPanel amount={amount} setAmount={setAmount} coin={coin}/>
+        <InputPanel amount={amount} setAmount={setAmount}/>
         <SliderWish amount={amount} setAmount={setAmount}/>
         <Divider mt={'23px'} orientation='horizontal' variant={'dashed'} color={'#CEC0C0'} />
         <Info />
@@ -61,7 +91,8 @@ const DepositModal: FunctionComponent<Props> = ({isOpen, onClose}) => {
           <Text
             fontSize={'13px'}
             fontWeight={'860'}
-            lineHeight={'15px'}              
+            lineHeight={'15px'}
+            onClick={() => deposit()}           
           >
             Proceed
           </Text>
@@ -82,3 +113,4 @@ const DepositModal: FunctionComponent<Props> = ({isOpen, onClose}) => {
   );
 }
 export default DepositModal;
+

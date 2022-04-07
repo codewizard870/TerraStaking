@@ -3,8 +3,12 @@ import { VStack, Stack, Text, Divider, HStack, Image, Flex, Button } from '@chak
 import { Grid, GridItem } from '@chakra-ui/react'
 
 import TerraIcon from '../../../assets/Terra.svg'
-
+import { OpenDepositModal, OpenWithdrawModal, useStore, useUSTApr, useUSTDeposited } from '../../../store';
 const USTDepositPanel: FunctionComponent = (props) => {
+  const {state, dispatch} = useStore();
+  const apr = useUSTApr();
+  const amount = useUSTDeposited();
+
   return (
     <VStack 
       w={'100%'}
@@ -94,7 +98,7 @@ const USTDepositPanel: FunctionComponent = (props) => {
               fontWeight={'860'}
               lineHeight={'16px'}
             >
-              18,61%
+              {apr}%
             </Text>
           </Flex>
         </GridItem>
@@ -105,7 +109,7 @@ const USTDepositPanel: FunctionComponent = (props) => {
               fontWeight={'860'}
               lineHeight={'16px'}
             >
-              243,230 UST
+              {amount.toLocaleString()} UST
             </Text>
           </Flex>
         </GridItem>
@@ -122,7 +126,8 @@ const USTDepositPanel: FunctionComponent = (props) => {
               <Text
                 fontSize={'9px'}
                 fontWeight={'860'}
-                lineHeight={'10px'}              
+                lineHeight={'10px'}
+                onClick = {() => OpenDepositModal(state, dispatch, "ust")}       
               >
                 Deposit
               </Text>
@@ -131,7 +136,8 @@ const USTDepositPanel: FunctionComponent = (props) => {
               <Text
                 fontSize={'9px'}
                 fontWeight={'860'}
-                lineHeight={'10px'}              
+                lineHeight={'10px'}
+                onClick = {() => OpenWithdrawModal(state, dispatch, "ust")}
               >
                 Withdraw
               </Text>

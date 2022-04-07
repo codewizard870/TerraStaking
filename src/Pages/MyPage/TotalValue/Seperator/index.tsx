@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Divider, Button } from '@chakra-ui/react'
 
 import {MdInfo, MdSwapHoriz} from 'react-icons/md'
@@ -6,10 +6,20 @@ import BlackPanel from './../../../../assets/BlackPanel.svg'
 import YellowPanel from './../../../../assets/YellowPanel.svg'
 import GreenPanel from './../../../../assets/GreenPanel.svg'
 import BluePanel from './../../../../assets/BluePanel.svg'
+import { useUSTBalance, useUSTDeposited, useLUNADeposited, useStore } from '../../../../store';
 
 const Seperator: FunctionComponent = (props) => {
+  // const ustPrice = useUstPrice();
+  // const lunaPrice = useLunaPrice();
+  const {state, dispatch} = useStore();
+  const ustPrice = state.ustPrice;
+  const lunaPrice = state.lunaPrice;
+  const ustBalance = Math.floor(useUSTBalance() * ustPrice);
+  const ustDeposited = Math.floor(useUSTDeposited() * ustPrice);
+  const lunaDeposited = Math.floor(useLUNADeposited() * lunaPrice);
+
   return (
-    <VStack align={'baseline'}>
+    <VStack align={'baseline'} w={'226px'}>
       <HStack spacing={'10px'}>
         <Image src={BlackPanel} w={'15px'} />
         <Text
@@ -26,7 +36,7 @@ const Seperator: FunctionComponent = (props) => {
         fontWeight={'400'}
         fontStyle={'italic'}
       >
-        $ 65,633 
+          $&nbsp;{ustBalance.toLocaleString()}
       </Text>
       {/* --------------------------------- */}
       <HStack spacing={'10px'}>
@@ -45,7 +55,7 @@ const Seperator: FunctionComponent = (props) => {
         fontWeight={'400'}
         fontStyle={'italic'}
       >
-        $ 532,875 
+        $&nbsp;{(ustDeposited + lunaDeposited).toLocaleString()}
       </Text>
       {/* --------------------------------- */}
       <HStack spacing={'10px'}>
@@ -64,7 +74,7 @@ const Seperator: FunctionComponent = (props) => {
         fontWeight={'400'}
         fontStyle={'italic'}
       >
-        $ 243,230 
+        $&nbsp;{ustDeposited.toLocaleString()}
       </Text>
       {/* --------------------------------- */}
       <HStack spacing={'10px'}>
@@ -83,7 +93,7 @@ const Seperator: FunctionComponent = (props) => {
         fontWeight={'400'}
         fontStyle={'italic'}
       >
-        $ 243,230 
+        $&nbsp;{lunaDeposited.toLocaleString()}
       </Text>
     </VStack>
   );

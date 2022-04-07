@@ -3,9 +3,15 @@ import { HStack, VStack, Flex, Text, Image, Link } from '@chakra-ui/react'
 
 import BlackPanel from './../../../../assets/BlackPanel.svg'
 import YellowPanel from './../../../../assets/YellowPanel.svg'
+import { useStore } from '../../../../store';
 
 const ValueView: FunctionComponent = (props) => {
-
+  const {state, dispatch} = useStore();
+  const history = state.amountHistory;
+  const last = history.length-1;
+  const ustAmount = history[last].ust_amount;
+  const lunaAmount = history[last].luna_amount;
+  
   return (
     <VStack mt='28px' spacing={'14px'}>
       <VStack alignItems={'baseline'}>
@@ -24,7 +30,7 @@ const ValueView: FunctionComponent = (props) => {
           fontWeight={'400'}
           lineHeight={'36px'}
         >
-          $&nbsp;40,589,532,875
+          $&nbsp;{lunaAmount.toLocaleString()}
         </Text>
       </VStack>
       <VStack alignItems={'baseline'}>
@@ -43,7 +49,7 @@ const ValueView: FunctionComponent = (props) => {
           fontWeight={'400'}
           lineHeight={'36px'}
         >
-          $&nbsp;40,589,532,875
+          $&nbsp;{ustAmount.toLocaleString()}
         </Text>
       </VStack>
     </VStack>

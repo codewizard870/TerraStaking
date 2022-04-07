@@ -59,7 +59,7 @@ const TransactionHistory: FunctionComponent = (props) => {
     return list
   }
   const list = getList();
-console.log(list)
+
   return (
     <VStack
       w={'100%'}
@@ -82,8 +82,8 @@ console.log(list)
         py={{sm:'10px', md:'20px', lg:'76px'}}
       >
         <VStack w={'100%'}>
-          {list.map((item) => (
-            <HistoryItem item={item} />
+          {list.map((item, index) => (
+            <HistoryItem item={item} key={index}/>
           ))}
         </VStack>
       </VStack>

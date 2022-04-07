@@ -2,8 +2,14 @@ import React, { FunctionComponent } from 'react';
 import { VStack, Stack, Text, Divider, HStack, Image, Flex, Button } from '@chakra-ui/react'
 
 import Warning from "./../../../assets/Warning.svg"
+import { OpenDepositModal, OpenWithdrawModal, useStore, useUSTDeposited, useLUNADeposited } from '../../../store';
 
 const Total: FunctionComponent = (props) => {
+  const {state, dispatch} = useStore();
+  const ustDeposited = useUSTDeposited();
+  const lunaDeposited = useLUNADeposited();
+  const total = ustDeposited + lunaDeposited;
+  
   return (
     <VStack 
       w={'100%'}
@@ -31,7 +37,7 @@ const Total: FunctionComponent = (props) => {
             fontWeight={'860'}
             lineHeight={'36px'}
           >
-            532,875 UST
+            {total.toLocaleString()} UST
           </Text>
           <Text
             fontSize={'20px'}
@@ -47,11 +53,12 @@ const Total: FunctionComponent = (props) => {
         spacing={'24px'}
         justify={'end'}
       >
-        <Button w={'200px'} h={'45px'} background={'#493C3C'} _hover={{bg: 'black'}} rounded={'25px'}>
+        <Button w={'200px'} h={'45px'} background={'#493C3C'} rounded={'25px'}>
           <Text
             fontSize={'13px'}
             fontWeight={'860'}
-            lineHeight={'15px'}              
+            lineHeight={'15px'}
+            onClick = {() => OpenDepositModal(state, dispatch, "ust")}      
           >
             Deposit
           </Text>
@@ -60,10 +67,10 @@ const Total: FunctionComponent = (props) => {
           w={'200px'} 
           h={'45px'} 
           background={'black'} 
-          _hover={{bg: '#493C3C'}}
           border={'solid 1px'}
           borderColor={'white'} 
           rounded={'25px'}
+          onClick = {() => OpenWithdrawModal(state, dispatch, "ust")}
         >
           <Text
             fontSize={'13px'}

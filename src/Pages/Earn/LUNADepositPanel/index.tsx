@@ -4,15 +4,19 @@ import { Grid, GridItem } from '@chakra-ui/react'
 
 import LunaIcon from './../../../assets/Luna.svg'
 import Warning from './../../../assets/Warning.svg'
+import { OpenDepositModal, OpenWithdrawModal, useStore, useLUNAApr } from '../../../store';
 
 const LUNADepositPanel: FunctionComponent = (props) => {
+  const { state, dispatch } = useStore();
+  const apr = useLUNAApr();
+
   return (
-    <VStack 
+    <VStack
       w={'100%'}
-      rounded={'25px'} 
-      background={'#212121'} 
-      px={{sm:'10px', md:'20px', lg:'47px'}}
-      py={{sm:'10px', md:'20px', lg:'55px'}}
+      rounded={'25px'}
+      background={'#212121'}
+      px={{ sm: '10px', md: '20px', lg: '47px' }}
+      py={{ sm: '10px', md: '20px', lg: '55px' }}
     >
       <Image src={LunaIcon} w={'65px'} />
       <Text
@@ -40,7 +44,7 @@ const LUNADepositPanel: FunctionComponent = (props) => {
             lineHeight={'36px'}
             fontStyle={'italic'}
           >
-            34.87%
+            {apr}%
           </Text>
           <Image src={Warning} w={'8px'} />
         </HStack>
@@ -52,34 +56,34 @@ const LUNADepositPanel: FunctionComponent = (props) => {
         spacing={'24px'}
         justify={'center'}
       >
-        <Button 
-        w={'200px'} 
-        h={'45px'} 
-        background={'#493C3C'} 
-        rounded={'25px'}
-        _hover={{bg: 'black'}} 
+        <Button
+          w={'200px'}
+          h={'45px'}
+          background={'#493C3C'}
+          rounded={'25px'}
+          onClick={() => OpenDepositModal(state, dispatch, "luna")}
         >
           <Text
             fontSize={'13px'}
             fontWeight={'860'}
-            lineHeight={'15px'}              
+            lineHeight={'15px'}
           >
             Deposit
           </Text>
         </Button>
-        <Button 
-          w={'200px'} 
-          h={'45px'} 
-          background={'black'} 
-          _hover={{bg: '#493C3C'}}
+        <Button
+          w={'200px'}
+          h={'45px'}
+          background={'black'}
           border={'solid 1px'}
-          borderColor={'white'} 
+          borderColor={'white'}
           rounded={'25px'}
+          onClick={() => OpenWithdrawModal(state, dispatch, "luna")}
         >
           <Text
             fontSize={'13px'}
             fontWeight={'860'}
-            lineHeight={'15px'}              
+            lineHeight={'15px'}
           >
             Withdraw
           </Text>

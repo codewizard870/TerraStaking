@@ -23,14 +23,14 @@ interface Props {
   setAmount: Dispatch<SetStateAction<string>>,
 }
 const SliderWish: FunctionComponent<Props> = ({  amount, setAmount }) => {
-  const ustBalance = useUSTBalance();
-  const lunaBalance = useLUNABalance();
   const {state, dispatch} = useStore();
+  const ustDeposited = Math.floor(parseInt(state.userInfoUst.amount)/(10**5))/10;
+  const lunaDeposited = Math.floor(parseInt(state.userInfoLuna.amount)/(10**5))/10;
 
   const [sliderValue, setSliderValue] = useState(0);
   
   useEffect(() => {
-    let balance = state.coinType == 'ust' ? ustBalance : lunaBalance;
+    let balance = state.coinType == 'ust' ? ustDeposited : lunaDeposited;
     if(amount == '')
       setSliderValue(0)
     else {
@@ -42,7 +42,7 @@ const SliderWish: FunctionComponent<Props> = ({  amount, setAmount }) => {
 
   const onChangeSlider = (value: number) => {
     setSliderValue(value);
-    let balance = state.coinType == 'ust' ? ustBalance : lunaBalance;
+    let balance = state.coinType == 'ust' ? ustDeposited : lunaDeposited;
     setAmount(Math.floor(balance * value / 100).toString());
   }
   return (

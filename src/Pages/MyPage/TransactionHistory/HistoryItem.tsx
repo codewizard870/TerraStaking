@@ -21,8 +21,8 @@ const HistoryItem: FunctionComponent<Props> = ({ item }) => {
         align={'center'}
       >
         <VStack align={'baseline'}>
-          {item?.msgs?.map((msg) => (
-            <>
+          {item?.msgs?.map((msg, index) => (
+            <Flex w={'100%'} key={index}>
               <Text
                 fontSize={'13px'}
                 fontWeight={'860'}
@@ -32,11 +32,12 @@ const HistoryItem: FunctionComponent<Props> = ({ item }) => {
               </Text>
               <HStack spacing={'10px'} >
                 <VStack align={'baseline'}>
-                  {msg.canonicalMsg.map((cmsg) => (
+                  {msg.canonicalMsg.map((cmsg, index) => (
                     <Text
                       fontSize={'13px'}
                       fontWeight={'860'}
                       lineHeight={'15px'}
+                      key={index}
                     >
                       {cmsg.slice(0, 100)}
                     </Text>
@@ -46,7 +47,7 @@ const HistoryItem: FunctionComponent<Props> = ({ item }) => {
                   <MdNorthEast />
                 </a>
               </HStack>
-            </>
+            </Flex>
           ))}
         </VStack>
         <Text

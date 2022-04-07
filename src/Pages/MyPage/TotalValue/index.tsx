@@ -8,9 +8,8 @@ import Seperator from './Seperator';
 
 const TotalValue: FunctionComponent = (props) => {
   return (
-    <VStack 
-      w={{sm: '100%', md: '100%', lg:'682px'}}
-      minWidth={{sm: '0px', md: '0px', lg:'682px'}}
+    <VStack
+      w={'100%'} 
       rounded={'25px'} 
       background={'#212121'} 
       align={'center'}

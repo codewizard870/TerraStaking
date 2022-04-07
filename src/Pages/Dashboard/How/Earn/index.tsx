@@ -41,9 +41,9 @@ const Earn: FunctionComponent = (props) => {
             background={'none'}
             w={'20px'}
             h={'20px'}
-            _hover={{ bg: 'none' }}
+            _hover={{ bg: 'none', color: '#F9D85E' }}
             _expanded={{ bg: 'none' }}
-            _focus={{ bg: 'none' }}
+            _focus={{ bg: 'none', color: '#F9D85E' }}
             _active={{ bg: 'none' }}
           >
             <MdArrowDropDownCircle />
@@ -51,14 +51,14 @@ const Earn: FunctionComponent = (props) => {
           <MenuList background={'black'} borderColor={'black'} p={'0px'} w={'100px'} minWidth={'0px'}>
             <MenuItem
               onClick={() => setDnom("LUNA")}
-              _hover={{ bg: '#212121' }}
-              _focus={{ bg: '#212121' }}
+              _hover={{ bg: '#212121', color: '#F9D85E' }}
+              _focus={{ bg: '#212121', color: 'white' }}
             >
               LUNA
             </MenuItem>
             <MenuItem
               onClick={() => setDnom("UST")}
-              _hover={{ bg: '#212121' }}
+              _hover={{ bg: '#212121', color: '#F9D85E' }}
             >
               UST
             </MenuItem>

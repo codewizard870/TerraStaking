@@ -13,7 +13,7 @@ const Tab: FunctionComponent<Props> = (props) => {
     <Flex
       background={props.depositTab === props.id ? '#493C3C' : 'none'}
       rounded={'25px'}
-      w={'30%'}
+      w={'100%'}
       h={'100%'}
       justify={'center'}
       align={'center'}

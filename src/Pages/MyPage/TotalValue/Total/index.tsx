@@ -2,8 +2,17 @@ import React, { FunctionComponent } from 'react';
 import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Divider, Button } from '@chakra-ui/react'
 
 import {MdInfo, MdSwapHoriz} from 'react-icons/md'
+import { useUSTBalance, useUSTDeposited, useLUNADeposited, useStore } from '../../../../store';
 
 const Total: FunctionComponent = (props) => {
+  const {state, dispatch} = useStore();
+  const ustPrice = state.ustPrice;
+  const lunaPrice = state.lunaPrice;
+  const ustBalance = Math.floor(useUSTBalance() * ustPrice);
+  const ustDeposited = Math.floor(useUSTDeposited() * ustPrice);
+  const lunaDeposited = Math.floor(useLUNADeposited() * lunaPrice);
+  const total = ustBalance + ustDeposited + lunaDeposited;
+
   return (
     <HStack justify={"space-between"} w={'100%'}>
       <VStack align={'baseline'} w={'100%'}>
@@ -23,7 +32,7 @@ const Total: FunctionComponent = (props) => {
             fontWeight={'860'}
             lineHeight={'36px'}
           >
-            4,665,750
+            {total.toLocaleString()}
           </Text>
           <Text
             fontSize={'20px'}

@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState, useMemo, useEffect } from 'react';
-import { Flex, Text, Button, Image } from '@chakra-ui/react'
+import { Flex, Text, Button, Image, Spinner } from '@chakra-ui/react'
 import { useWallet, useConnectedWallet } from '@terra-money/wallet-provider'
 import { LCDClient, WasmAPI, Coins, Coin } from '@terra-money/terra.js'
 import { toast } from 'react-toastify';
@@ -12,6 +12,7 @@ import { shortenAddress } from '../../../Util';
 
 const ConnectWallet: FunctionComponent = () => {
   const { state, dispatch } = useStore();
+  const [bank, setBank] = useState(false);
   let wallet = useWallet()
   let connectedWallet = useConnectedWallet()
 
@@ -44,6 +45,7 @@ const ConnectWallet: FunctionComponent = () => {
           toast("Can't fetch Wallet balance");
           return;
         }
+        setBank(true);
         if (coins.get('uusd')) {
           dispatch({type: ActionKind.setUusdBalance, payload: coins.get('uusd')?.amount.toNumber()});
         }
@@ -91,7 +93,12 @@ const ConnectWallet: FunctionComponent = () => {
       }
       {state.connected &&
         <>
-          <MdOutlineAccountBalanceWallet size={25} color={'#F9D85E'}/>
+          {bank &&
+            <MdOutlineAccountBalanceWallet size={25} color={'#F9D85E'}/>
+          }
+          {!bank && 
+            <Spinner color={'#F9D85E'}/>
+          }
           <Text ml={'15px'} color={'#F9D85E'}>
             {shortenAddress(connectedWallet?.walletAddress.toString())}
           </Text>

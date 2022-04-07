@@ -13,11 +13,9 @@ import LUNADepositPanel from './LUNADepositPanel';
 import TransactionHistory from './TransactionHistory';
 
 const MyPage: FunctionComponent = (props) => {
-  const networkName = useNetworkName();
-  const queryClient = useQueryClient();
 
   return (
-    <QueryClientProvider client={queryClient} key={networkName}>
+    
       <VStack 
         mt={'15px'} 
         px={{sm:'10px', md:'20px', lg:'110px'}}
@@ -40,16 +38,8 @@ const MyPage: FunctionComponent = (props) => {
 
         <TransactionHistory />
       </VStack>
-    </QueryClientProvider>
+
   );
 }
 export default MyPage;
 
-const useQueryClient = () => {
-  const name = useNetworkName()
-
-  return useMemo(() => {
-    if (!name) throw new Error()
-    return new QueryClient()
-  }, [name])
-}

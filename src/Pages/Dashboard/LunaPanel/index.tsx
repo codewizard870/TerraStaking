@@ -3,34 +3,14 @@ import { HStack, VStack, Flex, Text, Image, Button, Box } from '@chakra-ui/react
 
 import LunaIcon from "./../../../assets/Luna.svg"
 import Warning from "./../../../assets/Warning.svg"
-
 import LunaAprChart from '../AprChart';
-
-const data = [
-  {
-    timestamp: 1648939268,
-    apr: 37.4,
-  },
-  {
-    timestamp: 1648939268,
-    apr: 38.4,
-  },
-  {
-    timestamp: 1648939268,
-    apr: 39.4,
-  },
-  {
-    timestamp: 1648939268,
-    apr: 83.4,
-  },
-  {
-    timestamp: 1648939268,
-    apr: 38.4,
-  },      
-];
-
+import { useStore, OpenDepositModal, useLUNAApr } from '../../../store';
 
 const LunaPanel: FunctionComponent = (props) => {
+  const {state, dispatch} = useStore();
+  const data = state.aprLunaHistory;
+  const apr = useLUNAApr();
+
   return (
     <VStack
       w={'100%'}
@@ -85,7 +65,7 @@ const LunaPanel: FunctionComponent = (props) => {
           fontWeight={'860'}
           lineHeight={'36px'}      
         >
-          34.87
+          {apr}
         </Text>
         <Text
           fontSize={'20px'}
@@ -97,7 +77,8 @@ const LunaPanel: FunctionComponent = (props) => {
         <Text
           fontSize={'13px'}
           fontWeight={'860'}
-          lineHeight={'15px'}              
+          lineHeight={'15px'}
+          onClick={() => OpenDepositModal(state, dispatch, 'luna')}
         >
           STAKE YOUR LUNA NOW!
         </Text>

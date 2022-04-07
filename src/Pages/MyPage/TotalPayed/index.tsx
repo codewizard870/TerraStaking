@@ -2,8 +2,10 @@ import React, { FunctionComponent } from 'react';
 import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Divider, Button } from '@chakra-ui/react'
 
 import {MdInfo, MdSwapHoriz} from 'react-icons/md'
+import { OpenDepositModal, useStore } from '../../../store';
 
 const TotalPayed: FunctionComponent = (props) => {
+  const {state, dispatch} = useStore();
   return (
     <Flex
       direction={'column'} 
@@ -74,7 +76,8 @@ const TotalPayed: FunctionComponent = (props) => {
         <Text
           fontSize={'13px'}
           fontWeight={'860'}
-          lineHeight={'15px'}              
+          lineHeight={'15px'}
+          onClick = {() => OpenDepositModal(state, dispatch, "ust")}         
         >
           STAKE MORE
         </Text>

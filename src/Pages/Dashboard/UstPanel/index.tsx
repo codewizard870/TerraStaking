@@ -4,33 +4,12 @@ import { HStack, VStack, Flex, Text, Image, Button, Box, useDisclosure } from '@
 import TerraIcon from "./../../../assets/Terra.svg"
 import Warning from "./../../../assets/Warning.svg"
 import UstAprChart from '../AprChart';
-import { useStore, useOpenDepositModal } from '../../../store';
-
-const data = [
-  {
-    timestamp: 1648939268,
-    apr: 35.4,
-  },
-  {
-    timestamp: 1648939268,
-    apr: 33.4,
-  },
-  {
-    timestamp: 1648939268,
-    apr: 39.4,
-  },
-  {
-    timestamp: 1648939268,
-    apr: 43.4,
-  },
-  {
-    timestamp: 1648939268,
-    apr: 68.4,
-  },      
-];
+import { useStore, OpenDepositModal, useUSTApr} from '../../../store';
 
 const UstPanel: FunctionComponent = (props) => {
-  const openDepositModal = useOpenDepositModal();
+  const {state, dispatch} = useStore();
+  const data = state.aprUstHistory;
+  const apr = useUSTApr();
 
   return (
     <VStack
@@ -86,7 +65,7 @@ const UstPanel: FunctionComponent = (props) => {
           fontWeight={'860'}
           lineHeight={'36px'}      
         >
-          34.87
+          {apr}
         </Text>
         <Text
           fontSize={'20px'}
@@ -99,10 +78,7 @@ const UstPanel: FunctionComponent = (props) => {
           fontSize={'13px'}
           fontWeight={'860'}
           lineHeight={'15px'}
-          onClick={() => {
-            if(openDepositModal != undefined )
-              openDepositModal()
-          }}
+          onClick={() => OpenDepositModal(state, dispatch, 'ust')}
         >
           STAKE YOUR UST NOW!
         </Text>

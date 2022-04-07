@@ -6,13 +6,7 @@ const fonts = { mono: `'Menlo', monospace` }
 const breakpoints = createBreakpoints({ sm: '20em', md: '52em', lg: '64em', xl: '80em' })
 
 const theme = extendTheme(
-  withDefaultColorScheme({
-    colorScheme: 'Orange.800',
-    components: ['Button', 'Badge'],
-  }),
   { 
-    // colors: { black: '#000000' }, 
-    // fonts, 
     breakpoints,
     styles: {
       global: {
@@ -23,7 +17,11 @@ const theme = extendTheme(
           },
           _focus: {
             boxShadow: 'none !important',
-
+          }
+        },
+        div: {
+          _focus: {
+            boxShadow: 'none !important',
           }
         }
       },

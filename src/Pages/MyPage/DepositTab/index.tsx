@@ -11,7 +11,7 @@ const DepositTab: FunctionComponent = (props) => {
       rounded={'25px'} 
       background={'#212121'} 
       align={'center'}
-      spacing={'34px'}
+      spacing={'-10px'}
       height={'52px'}
     >
       <Tab id='all' depositTab={depositTab} setDepositTab={setDepositTab}>ALL</Tab>

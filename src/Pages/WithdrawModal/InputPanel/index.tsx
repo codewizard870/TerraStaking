@@ -9,14 +9,14 @@ interface Props {
 }
 const InputPanel: FunctionComponent<Props> = (props) => {
   const {state, dispatch} = useStore();
-  const ustBalance = useUSTBalance();
-  const lunaBalance = useLUNABalance();
+  const ustDeposited = Math.floor(parseInt(state.userInfoUst.amount)/(10**5))/10;
+  const lunaDeposited = Math.floor(parseInt(state.userInfoLuna.amount)/(10**5))/10;
 
   const maxBalance = () => {
     if(state.coinType == 'ust')
-      props.setAmount(ustBalance.toString());
+      props.setAmount(ustDeposited.toString());
     else
-      props.setAmount(lunaBalance.toString());
+      props.setAmount(lunaDeposited.toString());
   }
   return (
     <VStack w={'100%'} spacing={'6px'}>
@@ -68,7 +68,7 @@ const InputPanel: FunctionComponent<Props> = (props) => {
           cursor={'pointer'}
           onClick={() => maxBalance()}
         >
-          {state.coinType == 'ust'? `MAX balance  ${ustBalance} UST` : `MAX balance  ${lunaBalance} LUNA`}
+          {state.coinType == 'ust'? `MAX balance  ${ustDeposited} UST` : `MAX balance  ${lunaDeposited} LUNA`}
         </Text>
       </Flex>
     </VStack>

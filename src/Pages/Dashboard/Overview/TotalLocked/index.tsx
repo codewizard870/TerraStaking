@@ -1,8 +1,15 @@
 import React, { FunctionComponent } from 'react';
 import { HStack, Stack, Flex, Text, Image, Link } from '@chakra-ui/react'
+import {useStore} from '../../../../store';
+
 
 const TotalLocked: FunctionComponent = (props) => {
-  
+  const {state, dispatch} = useStore();
+  const history = state.amountHistory;
+console.log(history)  
+  const last = history.length-1;
+  const total = history[last].usd;
+
   return (
     <>
       <Text
@@ -18,14 +25,14 @@ const TotalLocked: FunctionComponent = (props) => {
           fontWeight={'860'}
           lineHeight={'36px'}
         >
-          165,859,532&nbsp;
+          {total.toLocaleString()}&nbsp;
         </Text>
         <Text
           fontSize={'20px'}
           fontWeight={'860'}
           lineHeight={'36px'}
         >
-          UST
+          USD
         </Text>
         <Text
           fontSize={'14px'}
