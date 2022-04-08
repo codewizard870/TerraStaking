@@ -1,9 +1,44 @@
 import React, { FunctionComponent, useState } from 'react';
 import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Divider, Button } from '@chakra-ui/react'
+import { Dispatch, SetStateAction } from "react";
 
 import Tab from './Tab';
-const DateTimeTab: FunctionComponent = (props) => {
+import {
+  useUSTDeposited,
+  useLUNADeposited,
+  useUSTPrice,
+  useLUNAPrice,
+  useUSTApr,
+  useLUNAApr
+} from '../../../../store';
+
+interface Props {
+  setInterest: Dispatch<SetStateAction<number>>,
+}
+
+const DateTimeTab: FunctionComponent<Props> = ({setInterest}) => {
   const [tab, setTab] = useState('year');
+
+  let rate = 1;
+  switch (tab) {
+    case 'year': rate = 1; break;
+    case 'month': rate = 1 / 12; break;
+    case 'week': rate = 1 / 54; break;
+    case 'day': rate = 1 / 365; break;
+  }
+  console.log(rate);
+
+  const ustDeposited = useUSTDeposited();
+  const lunaDeposited = useLUNADeposited();
+  const ustPrice = useUSTPrice();
+  const lunaPrice = useLUNAPrice();
+  const ustApr = useUSTApr();
+  const lunaApr = useLUNAApr();
+
+  const ustValue = ustDeposited * ustApr / 100 * rate;
+  const lunaValue = lunaDeposited * lunaPrice / ustPrice * lunaApr / 100 * rate;
+
+  setInterest(Math.floor(ustValue + lunaValue));
 
   return (
     <Flex

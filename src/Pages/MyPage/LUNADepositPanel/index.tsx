@@ -3,12 +3,23 @@ import { VStack, Stack, Text, Divider, HStack, Image, Flex, Button } from '@chak
 import { Grid, GridItem } from '@chakra-ui/react'
 
 import LunaIcon from './../../../assets/Luna.svg'
-import { OpenDepositModal, OpenWithdrawModal, useStore, useLUNAApr, useLUNADeposited } from '../../../store';
+import { 
+  OpenDepositModal, 
+  OpenWithdrawModal, 
+  useStore, 
+  useLUNAApr, 
+  useLUNADeposited,
+  useUSTPrice,
+  useLUNAPrice
+} from '../../../store';
 const LUNADepositPanel: FunctionComponent = (props) => {
   const {state, dispatch} = useStore();
   const apr = useLUNAApr();
-  const amount = useLUNADeposited();
-
+  const lunaDeposited = useLUNADeposited();
+  const ustPrice = useUSTPrice();
+  const lunaPrice = useLUNAPrice();
+  const amount = Math.floor(lunaDeposited * lunaPrice/ustPrice);
+  
   return (
     <VStack 
       w={'100%'}

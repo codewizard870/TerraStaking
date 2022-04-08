@@ -2,14 +2,24 @@ import React, { FunctionComponent } from 'react';
 import { VStack, Stack, Text, Divider, HStack, Image, Flex, Button } from '@chakra-ui/react'
 
 import Warning from "./../../../assets/Warning.svg"
-import { OpenDepositModal, OpenWithdrawModal, useStore, useUSTDeposited, useLUNADeposited } from '../../../store';
+import { 
+  OpenDepositModal, 
+  OpenWithdrawModal, 
+  useStore, 
+  useUSTDeposited, 
+  useLUNADeposited,
+  useUSTPrice,
+  useLUNAPrice
+} from '../../../store';
 
 const Total: FunctionComponent = (props) => {
   const {state, dispatch} = useStore();
   const ustDeposited = useUSTDeposited();
   const lunaDeposited = useLUNADeposited();
-  const total = ustDeposited + lunaDeposited;
-  
+  const ustPrice = useUSTPrice();
+  const lunaPrice = useLUNAPrice();
+  const total = Math.floor(lunaDeposited * lunaPrice/ustPrice + ustDeposited);
+
   return (
     <VStack 
       w={'100%'}

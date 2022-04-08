@@ -4,7 +4,10 @@ import { HStack, VStack, Flex, Text, Image } from '@chakra-ui/react'
 import BlackPanel from './../../../../assets/BlackPanel.svg'
 import YellowPanel from './../../../../assets/YellowPanel.svg'
 
-const Value: FunctionComponent = (props) => {
+interface Props{
+  total: number
+}
+const Value: FunctionComponent<Props> = ({total}) => {
 
   return (
     <VStack mt={'55px'} align={'baseline'}>
@@ -28,7 +31,7 @@ const Value: FunctionComponent = (props) => {
         lineHeight={'36px'}
         pt={'17px'}
       >
-        $448,700
+        ${total}
       </Text>
       <Text
         fontSize={'9px'}

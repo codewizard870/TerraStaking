@@ -11,17 +11,42 @@ import {
   MenuDivider,
   Button
 } from '@chakra-ui/react'
+import { Dispatch, SetStateAction } from "react";
 
 import { MdCode, MdArrowDropDownCircle } from "react-icons/md";
+import { 
+  useUSTDeposited, 
+  useLUNADeposited, 
+  useUSTPrice, 
+  useLUNAPrice, 
+  useUSTApr, 
+  useLUNAApr 
+} from '../../../../store';
 
-const Earn: FunctionComponent = (props) => {
+interface Props {
+  setTotal: Dispatch<SetStateAction<number>>,
+}
+const Earn: FunctionComponent<Props> = ({setTotal}) => {
   const [dnom, setDnom] = useState('LUNA');
   const [year, setYear] = useState(10);
+
+  const ustDeposited = useUSTDeposited();
+  const lunaDeposited = useLUNADeposited();
+  const ustPrice = useUSTPrice();
+  const lunaPrice = useLUNAPrice();
+  const value = Math.floor(dnom == 'LUNA' ? lunaDeposited * lunaPrice / ustPrice : ustDeposited);
+
+  const ustApr = useUSTApr();
+  const lunaApr = useLUNAApr();
+  const apr = dnom == 'LUNA' ? lunaApr : ustApr;
+
+  setTotal(Math.floor(value * apr / 100 * year));
+
   return (
-    <VStack 
+    <VStack
       mt={'55px'}
-      width={{sm: '100%', md: '200px', lg:'254px'}}
-      minWidth={{sm: '0px', md: '200px', lg:'254px'}} 
+      width={{ sm: '100%', md: '200px', lg: '254px' }}
+      minWidth={{ sm: '0px', md: '200px', lg: '254px' }}
       align={'baseline'}
     >
       <Flex
@@ -78,7 +103,7 @@ const Earn: FunctionComponent = (props) => {
         fontWeight={'860'}
         lineHeight={'24px'}
       >
-        100,000
+        {value.toLocaleString()}
       </Text>
       <Divider orientation='horizontal' />
       <Text

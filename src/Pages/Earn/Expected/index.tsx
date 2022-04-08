@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { VStack, Stack, Text, Divider, HStack, Image, Flex, Button } from '@chakra-ui/react'
 import { Grid, GridItem } from '@chakra-ui/react'
 
@@ -6,6 +6,8 @@ import Warning from './../../../assets/Warning.svg'
 import DateTimeTab from './DateTimeTab'
 
 const Expected: FunctionComponent = (props) => {
+  const [interest, setInterest] = useState(0);
+
   return (
     <Flex
       direction={'column'} 
@@ -31,7 +33,7 @@ const Expected: FunctionComponent = (props) => {
           fontWeight={'860'}
           lineHeight={'36px'}
         >
-          432,875
+          {interest.toLocaleString()}
         </Text>
         <Text
           fontSize={'20px'}
@@ -41,7 +43,7 @@ const Expected: FunctionComponent = (props) => {
           UST
         </Text>
       </HStack>
-      <DateTimeTab />
+      <DateTimeTab setInterest={setInterest}/>
     </Flex>
   );
 }
