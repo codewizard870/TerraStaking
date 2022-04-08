@@ -6,10 +6,6 @@ import { LCDClient } from '@terra-money/terra.js'
 import {  useQuery } from "react-query"
 
 import { amountHistory, aprUstHistory, aprLunaHistory, userInfo } from './constants'
-import { setUstBalance } from './Pages/Navbar/ConnectWallet/connectionSlice'
-
-export const POOL_MAIN = "terra1hvddgv0nvddlvdxu3trupun3uc0hd9hax8d8lz";
-export const POOL_TEST = "terra15u8mv5x67548wugqxlyyxnk8g7pypammvjn9vn";
 
 export type COINTYPE = 'ust' | 'luna';
 
@@ -20,7 +16,6 @@ interface Action {
 
 export interface AppContextInterface {
   net: "mainnet" | "testnet",
-  poolAddr: string,
   connected: Boolean,
   lcd: LCDClient,
   wallet: ConnectedWallet | undefined,
@@ -42,7 +37,6 @@ export interface AppContextInterface {
 
 const initialState: AppContextInterface = {
   net: "testnet",
-  poolAddr: POOL_TEST, //
   connected: false,
   lcd: new LCDClient({ //
     URL: 'https://lcd.terra.dev',
@@ -98,8 +92,6 @@ export const reducer = (state: AppContextInterface,  action: Action ) => {
   switch (action.type) {
     case ActionKind.setNet:
       return { ...state, net: action.payload}
-    case ActionKind.setPoolAddr:
-      return { ...state, poolAddr: action.payload }
     case ActionKind.setConnected:
       return { ...state, connected: action.payload }
     case ActionKind.setLcd:
@@ -219,7 +211,7 @@ export const useUSTApr = () => {
   const {state, dispatch} = useStore();
   const data = state.aprUstHistory;
   const last = data.length - 1;
-  const apr = parseInt(data[last].apr) / 10;
+  const apr = parseInt(data[last].apr) / 100;
   return apr;
 }
 
@@ -227,9 +219,25 @@ export const useLUNAApr = () => {
   const {state, dispatch} = useStore();
   const data = state.aprLunaHistory;
   const last = data.length - 1;
-  const apr = parseInt(data[last].apr) / 10;
+  const apr = parseInt(data[last].apr) / 100;
   return apr;
 }
+
+export const useUSTPrice = () => {
+  const {state, dispatch} = useStore();
+  return state.ustPrice;
+}
+
+export const useLUNAPrice = () => {
+  const {state, dispatch} = useStore();
+  return state.lunaPrice;
+}
+
+export const useExchangeRate = () => {
+  const {state, dispatch} = useStore();
+  return state.lunaPrice/state.ustPrice;
+}
+
 export const OpenDepositModal = (state:AppContextInterface , dispatch: React.Dispatch<any>, type: COINTYPE) => {
   dispatch({type: ActionKind.setCoinType, payload: type});
 

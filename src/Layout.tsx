@@ -8,7 +8,7 @@ import Footer from "./Pages/Footer";
 import DepositModal from './Pages/DepositModal'
 import WithdrawModal from './Pages/WithdrawModal'
 import { useLCD, useWallet, useTerraAPIURL, useStore, useNetworkName, ActionKind } from './store';
-import {fetch} from './Util';
+import {fetchData} from './Util';
 
 const Layout = () => {
   const networkName = useNetworkName();
@@ -26,7 +26,7 @@ const Layout = () => {
 
   useEffect( () => {
     const fetchAll = async () => {
-      await fetch(state, dispatch)
+      await fetchData(state, dispatch)
     }
     fetchAll()
   }, [lcd])

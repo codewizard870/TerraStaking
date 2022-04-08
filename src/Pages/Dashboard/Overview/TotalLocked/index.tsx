@@ -1,14 +1,15 @@
 import React, { FunctionComponent } from 'react';
 import { HStack, Stack, Flex, Text, Image, Link } from '@chakra-ui/react'
-import {useStore} from '../../../../store';
-
+import { useStore, useUSTDeposited, useLUNADeposited } from '../../../../store';
 
 const TotalLocked: FunctionComponent = (props) => {
-  const {state, dispatch} = useStore();
+  const { state, dispatch } = useStore();
   const history = state.amountHistory;
-console.log(history)  
-  const last = history.length-1;
-  const total = history[last].usd;
+
+  const last = history.length - 1;
+  const total = last >= 0 ? history[last].totalUST??0 : 0;
+  const _upPercent = last >= 1? (history[last].usd/history[last-1].usd -1) : 0;
+  const upPercent = _upPercent > 0? Math.floor(_upPercent*100) : 0;
 
   return (
     <>
@@ -32,7 +33,7 @@ console.log(history)
           fontWeight={'860'}
           lineHeight={'36px'}
         >
-          USD
+          UST
         </Text>
         <Text
           fontSize={'14px'}
@@ -40,7 +41,7 @@ console.log(history)
           lineHeight={'36px'}
           color={'green'}
         >
-          ▲ 2%
+          ▲ {upPercent}%
         </Text>
       </HStack>
     </>

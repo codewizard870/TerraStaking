@@ -13,7 +13,10 @@ import InputPanel from './InputPanel';
 import SliderWish from './SliderWish';
 import Info from './Info';
 import { useStore, useWallet, useLCD } from '../../store';
-import {estimateSend} from '../../Util';
+import {estimateSend, fetchData} from '../../Util';
+import { successOption, errorOption, REQUEST_ENDPOINT, VUST, VLUNA, MOTHER_WALLET } from '../../constants';
+
+import {toast} from 'react-toastify'
 
 interface Props{
   isOpen: boolean,
@@ -26,36 +29,84 @@ const WithdrawModal: FunctionComponent<Props> = ({isOpen, onClose}) => {
   const {state, dispatch} = useStore();
   const coinType = state.coinType;
 
-  const deposit = () => {
+  const withdraw = async () => {
     if( coinType === 'ust' && wallet?.walletAddress ){
       let val = Math.floor(parseFloat(amount) * 10 ** 6);
-      let msg = {
-        request_withdraw_ust: {
-          amount: `${val}`
-        }
-      }
       let withdraw_msg = new MsgExecuteContract(
         wallet?.walletAddress,
-        state.poolAddr,
-        msg,
+        VUST,
+        {
+          "increase_allowance": {
+              "spender": `${MOTHER_WALLET}`,
+              "amount": `${val}`,
+              "expires": {
+                  "never": {}
+              }
+          }
+        },
         {}
       );
-      estimateSend(wallet, lcd, [withdraw_msg], "Success request withdraw", "request withdraw");
+      await estimateSend(wallet, lcd, [withdraw_msg], "Success request withdraw", "request withdraw");
+
+      var formData = new FormData()
+      formData.append('wallet', wallet.walletAddress.toString());
+      formData.append('coinType', 'ust')
+      formData.append('amount', val.toString())
+
+      const requestOptions = {
+        method: 'POST',
+        body: formData,
+      }
+
+      await fetch(REQUEST_ENDPOINT + 'withdraw', requestOptions)
+        .then((res) => res.json())
+        .then((data) => {
+          toast('Request Success', successOption);
+          fetchData(state, dispatch)
+        })
+        .catch((e) => {
+          console.log('Error:' + e)
+          toast('Request error', errorOption);
+        })
     }
     else if( coinType === 'luna' && wallet?.walletAddress ){
       let val = Math.floor(parseFloat(amount) * 10 ** 6);
-      let msg = {
-        request_withdraw_luna: {
-          amount: `${val}`
-        }
-      }
       let withdraw_msg = new MsgExecuteContract(
         wallet?.walletAddress,
-        state.poolAddr,
-        msg,
+        VLUNA,
+        {
+          "increase_allowance": {
+              "spender": `${MOTHER_WALLET}`,
+              "amount": `${val}`,
+              "expires": {
+                  "never": {}
+              }
+          }
+        },
         {}
       );
-      estimateSend(wallet, lcd, [withdraw_msg], "Success request withdraw", "requst withdraw");
+      await estimateSend(wallet, lcd, [withdraw_msg], "Success request withdraw", "request withdraw");
+
+      var formData = new FormData()
+      formData.append('wallet', wallet.walletAddress.toString());
+      formData.append('coinType', 'luna')
+      formData.append('amount', val.toString())
+
+      const requestOptions = {
+        method: 'POST',
+        body: formData,
+      }
+
+      await fetch(REQUEST_ENDPOINT + 'withdraw', requestOptions)
+        .then((res) => res.json())
+        .then((data) => {
+          toast('Request Success', successOption);
+          fetchData(state, dispatch)
+        })
+        .catch((e) => {
+          console.log('Error:' + e)
+          toast('Request error', errorOption);
+        })
     }
   }
   return (
@@ -91,12 +142,19 @@ const WithdrawModal: FunctionComponent<Props> = ({isOpen, onClose}) => {
         <Divider mt={'23px'} orientation='horizontal' variant={'dashed'} color={'#CEC0C0'} />
         <Info />
         <Divider mt={'23px'} orientation='horizontal' variant={'dashed'} color={'#CEC0C0'} />
-        <Button w={'100%'} h={'45px'} mt={'26px'} background={'#493C3C'} rounded={'25px'}>
+        <Button 
+          w={'100%'} 
+          h={'45px'} 
+          mt={'26px'} 
+          background={'#493C3C'} 
+          rounded={'25px'}
+          onClick={() => withdraw()}
+        >
           <Text
             fontSize={'13px'}
             fontWeight={'860'}
             lineHeight={'15px'}
-            onClick={() => deposit()}           
+                       
           >
             Proceed
           </Text>

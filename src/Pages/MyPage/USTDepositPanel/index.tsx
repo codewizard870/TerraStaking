@@ -122,22 +122,34 @@ const USTDepositPanel: FunctionComponent = (props) => {
             justify={'center'} 
             spacing={'15px'}
           >
-            <Button w={'92px'} h={'25px'} background={'#493C3C'} rounded={'25px'}>
+            <Button 
+              w={'92px'} 
+              h={'25px'} 
+              background={'#493C3C'} 
+              rounded={'25px'}
+              onClick = {() => OpenDepositModal(state, dispatch, "ust")}
+            >
               <Text
                 fontSize={'9px'}
                 fontWeight={'860'}
                 lineHeight={'10px'}
-                onClick = {() => OpenDepositModal(state, dispatch, "ust")}       
+                       
               >
                 Deposit
               </Text>
             </Button>
-            <Button w={'92px'} h={'25px'} background={'#493C3C'} rounded={'25px'}>
+            <Button 
+              w={'92px'} 
+              h={'25px'} 
+              background={'#493C3C'} 
+              rounded={'25px'}
+              onClick = {() => OpenWithdrawModal(state, dispatch, "ust")}
+            >
               <Text
                 fontSize={'9px'}
                 fontWeight={'860'}
                 lineHeight={'10px'}
-                onClick = {() => OpenWithdrawModal(state, dispatch, "ust")}
+                
               >
                 Withdraw
               </Text>

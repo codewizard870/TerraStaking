@@ -53,9 +53,10 @@ const AprChart: FunctionComponent<Props> = ({data, id}) => {
                   const i = tooltip.dataPoints[0].dataIndex;
                   const item = data[i];
 
-                  let datetime = new Date(item.time)
+                  let datetime = new Date(item.time * 1000)
+
                   div1.innerHTML = `${datetime.toDateString()}`;
-                  div2.innerHTML = `${item.apr}%`;
+                  div2.innerHTML = `${item.apr/100}%`;
 
                   let style="border-radius: 50%; background-color: rgb(11, 11, 11); width: 20px; height: 20px; position: absolute; ";
                   style += `top: ${chart.scales.y.height-10}px;`;

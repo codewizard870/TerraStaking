@@ -37,7 +37,7 @@ const Total: FunctionComponent = (props) => {
             fontWeight={'860'}
             lineHeight={'36px'}
           >
-            {total.toLocaleString()} UST
+            {total.toLocaleString()}
           </Text>
           <Text
             fontSize={'20px'}

@@ -13,7 +13,8 @@ import InputPanel from './InputPanel';
 import SliderWish from './SliderWish';
 import Info from './Info';
 import { useStore, useWallet, useLCD } from '../../store';
-import {estimateSend} from '../../Util';
+import {estimateSend, fetchData} from '../../Util';
+import {POOL} from '../../constants';
 
 interface Props{
   isOpen: boolean,
@@ -26,7 +27,7 @@ const DepositModal: FunctionComponent<Props> = ({isOpen, onClose}) => {
   const {state, dispatch} = useStore();
   const coinType = state.coinType;
 
-  const deposit = () => {
+  const deposit = async () => {
     if( coinType === 'ust' && wallet?.walletAddress ){
       let val = Math.floor(parseFloat(amount) * 10 ** 6);
       let msg = {
@@ -34,11 +35,13 @@ const DepositModal: FunctionComponent<Props> = ({isOpen, onClose}) => {
       }
       let deposit_msg = new MsgExecuteContract(
         wallet?.walletAddress,
-        state.poolAddr,
+        POOL,
         msg,
         {uusd: val}
       );
-      estimateSend(wallet, lcd, [deposit_msg], "Success Deposit", "deposit");
+      let res = await estimateSend(wallet, lcd, [deposit_msg], "Success Deposit", "deposit");
+      if(res)
+        fetchData(state, dispatch);
     }
     else if( coinType === 'luna' && wallet?.walletAddress ){
       let val = Math.floor(parseFloat(amount) * 10 ** 6);
@@ -47,11 +50,13 @@ const DepositModal: FunctionComponent<Props> = ({isOpen, onClose}) => {
       }
       let deposit_msg = new MsgExecuteContract(
         wallet?.walletAddress,
-        state.poolAddr,
+        POOL,
         msg,
         {uluna: val}
       );
-      estimateSend(wallet, lcd, [deposit_msg], "Success Deposit", "deposit");
+      let res = await estimateSend(wallet, lcd, [deposit_msg], "Success Deposit", "deposit");
+      if(res)
+        fetchData(state, dispatch)
     }
   }
   return (
@@ -87,12 +92,19 @@ const DepositModal: FunctionComponent<Props> = ({isOpen, onClose}) => {
         <Divider mt={'23px'} orientation='horizontal' variant={'dashed'} color={'#CEC0C0'} />
         <Info />
         <Divider mt={'23px'} orientation='horizontal' variant={'dashed'} color={'#CEC0C0'} />
-        <Button w={'100%'} h={'45px'} mt={'26px'} background={'#493C3C'} rounded={'25px'}>
+        <Button 
+          w={'100%'} 
+          h={'45px'} 
+          mt={'26px'} 
+          background={'#493C3C'} 
+          rounded={'25px'}
+          onClick={() => deposit()}
+        >
           <Text
             fontSize={'13px'}
             fontWeight={'860'}
             lineHeight={'15px'}
-            onClick={() => deposit()}           
+                     
           >
             Proceed
           </Text>
