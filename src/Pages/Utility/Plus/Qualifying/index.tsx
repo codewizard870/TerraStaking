@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Divider, Button } from '@chakra-ui/react'
 import { MdInfoOutline } from 'react-icons/md';
-
+import Warning from '../../../../assets/Warning.svg'
 import { OpenDepositModal, useStore } from '../../../../store';
 
 const Qualifying: FunctionComponent = (props) => {
@@ -33,7 +33,9 @@ const Qualifying: FunctionComponent = (props) => {
         >
           QUALIFYING PHASE STATUS
         </Text>
+        <a href="link: https://app.gitbook.com/s/kngrjQ3XHOHWXNeVNLmt/tt-protocol/rewards" target={"_blank"} rel="noreferrer">
         <MdInfoOutline />
+        </a>
       </HStack>
       <Flex
         w={'93px'}
@@ -49,7 +51,7 @@ const Qualifying: FunctionComponent = (props) => {
           fontWeight={'860'}
           lineHeight={'15px'}
         >
-          ACTIVE
+          {active? "ACTIVE" : "OFF"}
         </Text>
       </Flex>
       <HStack

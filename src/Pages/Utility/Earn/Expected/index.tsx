@@ -1,22 +1,16 @@
 import React, { FunctionComponent } from 'react';
 import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Divider, Button } from '@chakra-ui/react'
-import { MdInfoOutline } from 'react-icons/md';
-
-import { OpenDepositModal, useStore } from '../../../../store';
 
 const Expected: FunctionComponent = (props) => {
   return (
     <Flex w={'100%'} h={'100%'} direction="column" align={'baseline'}>
-      <HStack>
-        <Text
-          fontSize={'20px'}
-          fontWeight={'860'}
-          lineHeight={'24px'}
-        >
-          1,272,891
-        </Text>
-        <MdInfoOutline />
-      </HStack>
+      <Text
+        fontSize={'20px'}
+        fontWeight={'860'}
+        lineHeight={'30px'}
+      >
+        1,272,891
+      </Text>
       <Divider orientation='horizontal' />
       <Text
         fontSize={'9px'}

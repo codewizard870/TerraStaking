@@ -1,7 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { HStack, Stack, VStack, Flex, Text, Image, Link, Center, Divider } from '@chakra-ui/react'
-
-
+import { HStack, Stack, VStack, Flex, Text, Image, Link, Center, Divider, Tooltip } from '@chakra-ui/react'
 import TVLChart from './TVLChart';
 
 const TVL: FunctionComponent = (props) => {

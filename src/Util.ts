@@ -89,7 +89,6 @@ export async function fetchData(state: AppContextInterface, dispatch: React.Disp
       }
     )
   } catch (e) { }
-
   try {
     userInfoLuna = await api.contractQuery(
       POOL,
@@ -104,19 +103,19 @@ export async function fetchData(state: AppContextInterface, dispatch: React.Disp
   const ustPrice = ustInfo ? ustInfo?.data.prices.UST.price : state.ustPrice;
   const lunaPrice = lunaInfo ? lunaInfo?.data.prices.LUNA.price : state.lunaPrice;
   // let amountHistory, aprUstHistory, aprLunaHistory, ustPrice, lunaPrice, userInfoUst, userInfoLuna
-  if (amountHistory != undefined)
+  if (amountHistory !== undefined)
     dispatch({ type: ActionKind.setAmountHistory, payload: calcUSD(amountHistory, ustPrice, lunaPrice) });
-  if (aprUstHistory != undefined)
+  if (aprUstHistory !== undefined)
     dispatch({ type: ActionKind.setAprUstHistory, payload: aprUstHistory });
-  if (aprLunaHistory != undefined)
+  if (aprLunaHistory !== undefined)
     dispatch({ type: ActionKind.setAprLunaHistory, payload: aprLunaHistory });
-  if (ustPrice != undefined)
+  if (ustPrice !== undefined)
     dispatch({ type: ActionKind.setUstPrice, payload: ustPrice });
-  if (lunaPrice != undefined)
+  if (lunaPrice !== undefined)
     dispatch({ type: ActionKind.setLunaPrice, payload: lunaPrice });
-  if (userInfoUst != undefined)
+  if (userInfoUst !== undefined)
     dispatch({ type: ActionKind.setUserInfoUst, payload: userInfoUst });
-  if (userInfoLuna != undefined)
+  if (userInfoLuna !== undefined)
     dispatch({ type: ActionKind.setUserInfoLuna, payload: userInfoLuna });
 }
 
@@ -226,5 +225,26 @@ export async function estimateSend(
       console.log(e.message);
       return false;
     })
+}
 
+export function checkNetwork( wallet: ConnectedWallet | undefined, state: AppContextInterface) {
+  //----------verify connection--------------------------------
+  if (wallet === undefined) {
+    toast("Please connect wallet first!", errorOption);
+    console.log("Please connect wallet first!");
+    return false;
+  }
+  else {
+    toast.dismiss();
+  }
+
+  if (state.net == 'mainnet' && wallet.network.name == 'testnet') {
+    toast("Please switch to mainnet!", errorOption);
+    return false;
+  }
+  if (state.net == 'testnet' && wallet.network.name == 'mainnet') {
+    toast("Please switch to Testnet!", errorOption);
+    return false;
+  }
+  return true;
 }

@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { HStack, VStack, Flex, Text, Image, Button, Box, useDisclosure } from '@chakra-ui/react'
+import { HStack, VStack, Flex, Text, Image, Button, Box, Tooltip } from '@chakra-ui/react'
 
 import TerraIcon from "./../../../assets/Terra.svg"
 import Warning from "./../../../assets/Warning.svg"
@@ -38,7 +38,14 @@ const UstPanel: FunctionComponent = (props) => {
             >
               INTEREST
             </Text>
-            <Image src={Warning} w={'11px'} />
+            <Tooltip 
+              label="Current annualized deposit rate" 
+              background={'#C4C4C4'} hasArrow 
+              placement='top-start' 
+              color={'black'}
+            > 
+              <Image src={Warning} />
+            </Tooltip>
           </HStack>
         </VStack>
       </HStack>

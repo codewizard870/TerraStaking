@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { VStack, Stack, Text, Divider, HStack, Image, Flex, Button } from '@chakra-ui/react'
+import { VStack, Stack, Text, Divider, HStack, Image, Flex, Button, Tooltip } from '@chakra-ui/react'
 import { Grid, GridItem } from '@chakra-ui/react'
 
 import TerraIcon from '../../../assets/Terra.svg'
@@ -29,24 +29,38 @@ const USTDepositPanel: FunctionComponent = (props) => {
         </GridItem>
         <GridItem w='100%' h='70'>
           <Flex w={'100%'} h={'100%'} align={'center'} justify={'center'}>
-            <Text
-              fontSize={'13px'}
-              fontWeight={'860'}
-              lineHeight={'15px'}
-            >
-              APY
-            </Text>
+            <Tooltip 
+              label="Current annualized deposit rate" 
+              background={'#C4C4C4'} hasArrow 
+              placement='top-start' 
+              color={'black'}
+            > 
+              <Text
+                fontSize={'13px'}
+                fontWeight={'860'}
+                lineHeight={'15px'}
+              >
+                APY
+              </Text>
+            </Tooltip>
           </Flex>
         </GridItem>
         <GridItem w='100%' h='70'>
           <Flex w={'100%'} h={'100%'} align={'center'} justify={'center'}>
-            <Text
-              fontSize={'13px'}
-              fontWeight={'860'}
-              lineHeight={'15px'}
-            >
-              Deposit Amount
-            </Text>
+            <Tooltip 
+              label="Total deposit amount in UST without payed interest" 
+              background={'#C4C4C4'} hasArrow 
+              placement='top-start' 
+              color={'black'}
+            > 
+              <Text
+                fontSize={'13px'}
+                fontWeight={'860'}
+                lineHeight={'15px'}
+              >
+                Deposit Amount
+              </Text>
+            </Tooltip>
           </Flex>
         </GridItem>
         <GridItem w='100%' h='70'> 

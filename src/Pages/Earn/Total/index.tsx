@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { VStack, Stack, Text, Divider, HStack, Image, Flex, Button } from '@chakra-ui/react'
+import { VStack, Stack, Text, Divider, HStack, Image, Flex, Button, Tooltip } from '@chakra-ui/react'
 
 import Warning from "./../../../assets/Warning.svg"
 import { 
@@ -37,9 +37,16 @@ const Total: FunctionComponent = (props) => {
             fontWeight={'860'}
             lineHeight={'24px'}
           >
-            TOTAL DEPOSIT
+            TOTAL BALANCE
           </Text>
-          <Image src={Warning} w={'13px'}/>
+          <Tooltip 
+            label="Total value of your UST/Luna deposits including earnings calculated in UST" 
+            background={'#C4C4C4'} hasArrow 
+            placement='top-start' 
+            color={'black'}
+          > 
+            <Image src={Warning} w={'13px'}/>
+          </Tooltip>
         </HStack>
         <HStack align={'baseline'}>
           <Text

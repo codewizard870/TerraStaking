@@ -7,9 +7,9 @@ const TotalLocked: FunctionComponent = (props) => {
   const history = state.amountHistory;
 
   const last = history.length - 1;
-  const total = last >= 0 ? history[last].totalUST??0 : 0;
-  const _upPercent = last >= 1? (history[last].usd/history[last-1].usd -1) : 0;
-  const upPercent = _upPercent > 0? Math.floor(_upPercent*100) : 0;
+  const total = Math.floor(last >= 0 ? history[last].totalUST ?? 0 : 0);
+  const _upPercent = last >= 1 ? (history[last].usd / history[last - 1].usd - 1) : 0;
+  const upPercent = _upPercent > 0 ? Math.floor(_upPercent * 100) : 0;
 
   return (
     <>

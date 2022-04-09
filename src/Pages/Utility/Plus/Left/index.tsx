@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
-import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Divider, Button } from '@chakra-ui/react'
+import { VStack, HStack, Stack, Flex, Text, Image, Tooltip, Center, Divider, Button } from '@chakra-ui/react'
 import { MdInfoOutline } from 'react-icons/md';
-
+import Warning from '../../../../assets/Warning.svg'
 import { OpenDepositModal, useStore } from '../../../../store';
 
 const Left: FunctionComponent = (props) => {
@@ -17,7 +17,9 @@ const Left: FunctionComponent = (props) => {
         >
           TERRA TREASURY REWARDS PLUS PROGRAM 
         </Text>
+        <a href="link: https://app.gitbook.com/s/kngrjQ3XHOHWXNeVNLmt/tt-protocol/rewards" target={"_blank"} rel="noreferrer">
         <MdInfoOutline />
+        </a>
       </HStack>
       <HStack w={'100%'} align={'baseline'} mt={'88px'}>
         <Text
@@ -27,7 +29,14 @@ const Left: FunctionComponent = (props) => {
         >
           YOUR QUALIFIED DEPOSIT VALUE
         </Text>
-        <MdInfoOutline />
+        <Tooltip 
+          label="All of your qualified deposits" 
+          background={'#C4C4C4'} hasArrow 
+          placement='top-start' 
+          color={'black'}
+        > 
+          <Image src={Warning} w={'13px'}/>
+        </Tooltip>
       </HStack>
       <HStack w={'100%'} align={'baseline'}>
         <Text

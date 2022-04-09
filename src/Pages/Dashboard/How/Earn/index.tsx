@@ -32,6 +32,7 @@ const Earn: FunctionComponent<Props> = ({setTotal}) => {
 
   const ustDeposited = useUSTDeposited();
   const lunaDeposited = useLUNADeposited();
+
   const ustPrice = useUSTPrice();
   const lunaPrice = useLUNAPrice();
   const value = Math.floor(dnom == 'LUNA' ? lunaDeposited * lunaPrice / ustPrice : ustDeposited);

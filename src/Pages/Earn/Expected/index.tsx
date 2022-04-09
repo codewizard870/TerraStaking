@@ -1,7 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
-import { VStack, Stack, Text, Divider, HStack, Image, Flex, Button } from '@chakra-ui/react'
+import { VStack, Stack, Text, Divider, HStack, Image, Flex, Tooltip } from '@chakra-ui/react'
 import { Grid, GridItem } from '@chakra-ui/react'
-
 import Warning from './../../../assets/Warning.svg'
 import DateTimeTab from './DateTimeTab'
 
@@ -25,7 +24,14 @@ const Expected: FunctionComponent = (props) => {
         >
           EXPECTED INTEREST BASED ON YOUR DEPOSIT
         </Text>
-        <Image src={Warning} w={'13px'} />        
+        <Tooltip 
+          label="Estimated interest based on your deposit for the selected period" 
+          background={'#C4C4C4'} hasArrow 
+          placement='top-start' 
+          color={'black'}
+        > 
+          <Image src={Warning} w={'13px'}/>
+        </Tooltip>
       </HStack>
       <HStack spacing={'18px'} w={'100%'} align={'baseline'}>
         <Text

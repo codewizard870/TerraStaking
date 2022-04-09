@@ -1,10 +1,15 @@
 import React, { FunctionComponent, useState } from 'react';
 import { VStack, HStack} from '@chakra-ui/react'
-
+import { Dispatch, SetStateAction } from 'react';
 import Tab from './Tab';
 
-const DepositTab: FunctionComponent = (props) => {
-  const [depositTab, setDepositTab] = useState('all');
+interface Props{
+  depositTab: string,
+  setDepositTab: Dispatch<SetStateAction<string>>,
+}
+
+const DepositTab: FunctionComponent<Props> = ({depositTab, setDepositTab}) => {
+
   return (
     <HStack 
       w={'100%'}

@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { HStack, VStack, Flex, Text, Image, Button, Box } from '@chakra-ui/react'
+import { HStack, VStack, Flex, Text, Image, Button, Tooltip } from '@chakra-ui/react'
 
 import LunaIcon from "./../../../assets/Luna.svg"
 import Warning from "./../../../assets/Warning.svg"
@@ -38,7 +38,14 @@ const LunaPanel: FunctionComponent = (props) => {
             >
               INTEREST
             </Text>
-            <Image src={Warning} w={'11px'} />
+            <Tooltip 
+              label="Current annualized deposit rate" 
+              background={'#C4C4C4'} 
+              color={'black'} hasArrow 
+              placement='top-start'
+            > 
+              <Image src={Warning} />
+            </Tooltip>
           </HStack>
         </VStack>
       </HStack>

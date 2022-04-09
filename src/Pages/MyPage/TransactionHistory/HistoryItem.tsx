@@ -11,18 +11,16 @@ interface Props {
 const HistoryItem: FunctionComponent<Props> = ({ item }) => {
   let net = useNetworkName();
   let findURL = net == 'mainnet'? "https://finder.terra.money/tx/" : "https://finder.terra.money/testnet/tx/";
-
   return (
     <>
       <Flex
         w={'100%'}
-        h={'76px'}
         justify={'space-between'}
         align={'center'}
       >
         <VStack align={'baseline'}>
           {item?.msgs?.map((msg, index) => (
-            <Flex w={'100%'} key={index}>
+            <Flex w={'100%'} direction={'column'} key={index} >
               <Text
                 fontSize={'13px'}
                 fontWeight={'860'}

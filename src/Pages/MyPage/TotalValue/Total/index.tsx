@@ -1,10 +1,14 @@
 import React, { FunctionComponent } from 'react';
-import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Divider, Button } from '@chakra-ui/react'
+import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Tooltip, Button } from '@chakra-ui/react'
 
-import {MdInfo, MdSwapHoriz} from 'react-icons/md'
+import {MdSwapHoriz} from 'react-icons/md'
 import { useUSTBalance, useUSTDeposited, useLUNADeposited, useStore } from '../../../../store';
+import Warning from "./../../../../assets/Warning.svg"
+import { useNavigate } from 'react-router-dom';
 
 const Total: FunctionComponent = (props) => {
+  const navigate = useNavigate();
+
   const {state, dispatch} = useStore();
   const ustPrice = state.ustPrice;
   const lunaPrice = state.lunaPrice;
@@ -24,7 +28,14 @@ const Total: FunctionComponent = (props) => {
           >
             TOTAL VALUE
           </Text>
-          <MdInfo size={'13'}/>
+          <Tooltip 
+            label="Total value of UST/Luna deposits, payed interest, and UST Wallet Balance" 
+            background={'#C4C4C4'} 
+            color={'black'} hasArrow 
+            placement='top-start'
+          > 
+            <Image src={Warning} w={13}/>
+          </Tooltip>
         </HStack>
         <HStack align={'baseline'} w={'100%'}>
           <Text
@@ -43,7 +54,9 @@ const Total: FunctionComponent = (props) => {
           </Text>
         </HStack>
       </VStack>
+      <a href="https://app.terraswap.io/swap?to=&type=swap&from=uluna" target={'_blank'} rel="noreferrer">
       <Button w={'92px'} h={'25px'} background={'none'} rounded={'25px'} borderColor={'white'} variant='outline'>
+        
         <MdSwapHoriz />
         <Text
           fontSize={'9px'}
@@ -53,6 +66,7 @@ const Total: FunctionComponent = (props) => {
           Swap
         </Text>
       </Button>
+      </a>
     </HStack>
   );
 }

@@ -1,8 +1,6 @@
 import React, { FunctionComponent } from 'react';
-import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Divider, Button } from '@chakra-ui/react'
-import { MdInfoOutline } from 'react-icons/md';
-
-import { OpenDepositModal, useStore } from '../../../../store';
+import { VStack, HStack, Stack, Flex, Text, Tooltip, Image, Center, Divider, Button } from '@chakra-ui/react'
+import Warning from '../../../../assets/Warning.svg'
 
 const Projected: FunctionComponent = (props) => {
   return (
@@ -15,7 +13,14 @@ const Projected: FunctionComponent = (props) => {
         >
           YOUR PROJECTED ALLOCATION VALUE
         </Text>
-        <MdInfoOutline />
+        <Tooltip 
+          label="Your projected token share (x) the projected price" 
+          background={'#C4C4C4'} hasArrow 
+          placement='top-start' 
+          color={'black'}
+        > 
+          <Image src={Warning} w={'13px'}/>
+        </Tooltip>
       </HStack>
       <HStack w={'100%'} align={'baseline'}>
         <Text

@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
-import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Divider, Button } from '@chakra-ui/react'
-
-import {MdInfo, MdSwapHoriz} from 'react-icons/md'
+import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Tooltip, Button } from '@chakra-ui/react'
+import Warning from "./../../../assets/Warning.svg"
+import { MdSwapHoriz} from 'react-icons/md'
 import { OpenDepositModal, useStore } from '../../../store';
 
 const TotalPayed: FunctionComponent = (props) => {
@@ -15,13 +15,20 @@ const TotalPayed: FunctionComponent = (props) => {
       align={'baseline'}
       p={{sm:'10px', md:'20px', lg:'59px'}}
     >
-      <Text
-        fontSize={'20px'}
-        fontWeight={'860'}
-        lineHeight={'24px'}
-      >
-        TOTAL PAYED INTEREST
-      </Text>
+      <Tooltip 
+        label="Total payed interest of your UST/Luna Deposits calculated in UST" 
+        background={'#C4C4C4'} 
+        color={'black'} hasArrow 
+        placement='top-start'
+      > 
+        <Text
+          fontSize={'20px'}
+          fontWeight={'860'}
+          lineHeight={'24px'}
+        >
+          TOTAL PAYED INTEREST
+        </Text>
+      </Tooltip>
       <HStack mt={'6px'} spacing={'10px'} align={'baseline'}>
         <Text
           fontSize={'35px'}
@@ -54,7 +61,14 @@ const TotalPayed: FunctionComponent = (props) => {
         >
           TOTAL DAYS STAKED
         </Text>
-        <MdInfo size={'13'}/>
+        <Tooltip 
+          label="Total days staked with no withdraw" 
+          background={'#C4C4C4'} hasArrow 
+          placement='top-start' 
+          color={'black'}
+        > 
+          <Image src={Warning} w={'13px'}/>
+        </Tooltip>
       </HStack>
       <HStack mt={'10px'} spacing={'10px'} align={'baseline'}>
         <Text

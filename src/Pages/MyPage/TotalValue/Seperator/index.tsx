@@ -1,5 +1,6 @@
 import React, { FunctionComponent, useEffect } from 'react';
-import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Divider, Button } from '@chakra-ui/react'
+import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Divider, Tooltip } from '@chakra-ui/react'
+import Warning from "./../../../../assets/Warning.svg"
 
 import {MdInfo, MdSwapHoriz} from 'react-icons/md'
 import BlackPanel from './../../../../assets/BlackPanel.svg'
@@ -29,7 +30,14 @@ const Seperator: FunctionComponent = (props) => {
         >
           UST Wallet Balance 
         </Text>
-        <MdInfo size={'11'}/>
+        <Tooltip 
+          label="Total UST Wallet balance" 
+          background={'#C4C4C4'} 
+          color={'black'} hasArrow 
+          placement='top-start'
+        > 
+          <Image src={Warning}/>
+        </Tooltip>
       </HStack>
       <Text
         fontSize={'14px'}
@@ -46,9 +54,16 @@ const Seperator: FunctionComponent = (props) => {
           fontWeight={'860'}
           lineHeight={'24px'}
         >
-          Deposit Total 
+          Total Balance
         </Text>
-        <MdInfo size={'11'}/>
+        <Tooltip 
+          label="Total of all UST/Luna deposits, including earnings " 
+          background={'#C4C4C4'} 
+          color={'black'} hasArrow 
+          placement='top-start'
+        > 
+          <Image src={Warning}/>
+        </Tooltip>
       </HStack>
       <Text
         fontSize={'14px'}
@@ -65,9 +80,16 @@ const Seperator: FunctionComponent = (props) => {
           fontWeight={'860'}
           lineHeight={'24px'}
         >
-          UST Deposit 
+          UST Balance 
         </Text>
-        <MdInfo size={'11'}/>
+        <Tooltip 
+          label="Your total UST deposit including earnings" 
+          background={'#C4C4C4'} 
+          color={'black'} hasArrow 
+          placement='top-start'
+        > 
+          <Image src={Warning}/>
+        </Tooltip>
       </HStack>
       <Text
         fontSize={'14px'}
@@ -84,9 +106,16 @@ const Seperator: FunctionComponent = (props) => {
           fontWeight={'860'}
           lineHeight={'24px'}
         >
-          LUNA Deposit 
+          LUNA Balance
         </Text>
-        <MdInfo size={'11'}/>
+        <Tooltip 
+          label="Your total UST deposit \n including earnings" 
+          background={'#C4C4C4'} 
+          color={'black'} hasArrow 
+          placement='top-start'
+        > 
+          <Image src={Warning}/>
+        </Tooltip>
       </HStack>
       <Text
         fontSize={'14px'}

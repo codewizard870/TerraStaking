@@ -7,16 +7,13 @@ import { OpenDepositModal, useStore } from '../../../../store';
 const Deposited: FunctionComponent = (props) => {
   return (
     <Flex w={'100%'} h={'100%'} direction="column" color='#CEC0C0' align={'baseline'}>
-      <HStack>
-        <Text
-          fontSize={'20px'}
-          fontWeight={'860'}
-          lineHeight={'24px'}
-        >
-          150,000
-        </Text>
-        <MdInfoOutline />
-      </HStack>
+      <Text
+        fontSize={'20px'}
+        fontWeight={'860'}
+        lineHeight={'30px'}
+      >
+        150,000
+      </Text>
       <Divider orientation='horizontal' />
       <Text
         fontSize={'9px'}

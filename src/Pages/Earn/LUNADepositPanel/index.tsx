@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { VStack, Stack, Text, Divider, HStack, Image, Flex, Button } from '@chakra-ui/react'
+import { VStack, Stack, Text, Divider, HStack, Image, Flex, Button, Tooltip } from '@chakra-ui/react'
 import { Grid, GridItem } from '@chakra-ui/react'
 
 import LunaIcon from './../../../assets/Luna.svg'
@@ -46,7 +46,14 @@ const LUNADepositPanel: FunctionComponent = (props) => {
           >
             {apr}%
           </Text>
-          <Image src={Warning} w={'8px'} />
+          <Tooltip 
+            label="Current annualized deposit rate" 
+            background={'#C4C4C4'} hasArrow 
+            placement='top-start' 
+            color={'black'}
+          > 
+            <Image src={Warning} w={'13px'}/>
+          </Tooltip>
         </HStack>
       </HStack>
       <Divider pt={'44px'} orientation={'horizontal'} />

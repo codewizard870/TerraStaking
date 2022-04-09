@@ -1,8 +1,7 @@
 import React, { FunctionComponent } from 'react';
-import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Divider, Button } from '@chakra-ui/react'
-import { MdInfoOutline } from 'react-icons/md';
+import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Tooltip, Button } from '@chakra-ui/react'
 
-import { OpenDepositModal, useStore } from '../../../../store';
+import Warning from '../../../../assets/Warning.svg'
 
 const ProjectedPrice: FunctionComponent = (props) => {
   return (
@@ -15,7 +14,14 @@ const ProjectedPrice: FunctionComponent = (props) => {
         >
           PROJECTED TerraT PRICE 
         </Text>
-        <MdInfoOutline />
+        <Tooltip 
+          label="Projected at the public sale" 
+          background={'#C4C4C4'} hasArrow 
+          placement='top-start' 
+          color={'black'}
+        > 
+          <Image src={Warning} w={'13px'}/>
+        </Tooltip>
       </HStack>
       <HStack w={'100%'} align={'baseline'}>
         <Text

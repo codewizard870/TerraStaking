@@ -8,16 +8,17 @@ import Footer from "./Pages/Footer";
 import DepositModal from './Pages/DepositModal'
 import WithdrawModal from './Pages/WithdrawModal'
 import { useLCD, useWallet, useTerraAPIURL, useStore, useNetworkName, ActionKind } from './store';
-import {fetchData} from './Util';
+import {fetchData, checkNetwork} from './Util';
 
 const Layout = () => {
   const networkName = useNetworkName();
   const queryClient = useQueryClient();
-
+  
   const { isOpen: isOpenDeposit, onOpen: onOpenDeposit, onClose: onCloseDeposit } = useDisclosure();
   const { isOpen: isOpenWithdraw, onOpen: onOpenWithdraw, onClose: onCloseWithdraw } = useDisclosure();
   const {state, dispatch} = useStore();
   const lcd =  useLCD();
+  const wallet = useWallet();
 
   useEffect( () => {
     dispatch({type: ActionKind.setOpenDepositModal, payload: onOpenDeposit});
@@ -26,10 +27,11 @@ const Layout = () => {
 
   useEffect( () => {
     const fetchAll = async () => {
-      await fetchData(state, dispatch)
+      fetchData(state, dispatch)
     }
-    fetchAll()
-  }, [lcd])
+    if( checkNetwork(wallet, state) )
+      fetchAll()
+  }, [lcd, wallet])
 
   return (
     <QueryClientProvider client={queryClient} key={networkName}>
