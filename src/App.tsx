@@ -5,6 +5,7 @@ import Layout from './Layout';
 import Dashboard from './Pages/Dashboard'
 import MyPage from './Pages/MyPage'
 import Earn from './Pages/Earn'
+import Utility from './Pages/Utility'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="mypage" element={<MyPage />} />
           <Route path="earn" element={<Earn />} />
+          <Route path="utility" element={<Utility />} />
           <Route path="*" element={"404"} />
         </Route>
       </Routes>
