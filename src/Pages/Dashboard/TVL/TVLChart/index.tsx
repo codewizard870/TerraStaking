@@ -1,15 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import { HStack, Stack, Flex, Text, Image, Link } from '@chakra-ui/react'
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { SetStateAction, Dispatch } from 'react';
 
-import { useStore } from '../../../../store';
+interface Props{
+  data: any
+}
+const TVLChart: FunctionComponent<Props> = ({data}) => {
 
-const TVLChart: FunctionComponent = (props) => {
-  const {state, dispatch} = useStore();
-  const data = state.amountHistory;
-
-  const last = data.length - 1;
-  const total = Math.floor(last >= 0 ? data[last].totalUST ?? 0 : 0);
   return (
     <Flex w='100%' h='304px'>
       <ResponsiveContainer width="100%" height="100%">
@@ -36,7 +34,7 @@ const TVLChart: FunctionComponent = (props) => {
           {/* <Tooltip /> */}
           <Area 
             type="monotone" 
-            dataKey="usd" 
+            dataKey="totalLiquidityUSD" 
             stroke="#F9D85E" 
             fill="url(#colorUv)" 
           />

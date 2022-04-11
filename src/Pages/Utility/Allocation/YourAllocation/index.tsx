@@ -6,7 +6,10 @@ import { OpenDepositModal, useStore } from '../../../../store';
 
 const YourAllocation: FunctionComponent = (props) => {
   const {state, dispatch} = useStore();
-  
+  const farmInfo = state.farmInfo;
+  const farmPrice = state.farmPrice;
+
+  const value = Math.floor(farmInfo.amount * farmPrice / 100);
   return (
     <VStack w={'100%'} spacing={'20px'}>
       <HStack w={'100%'}>
@@ -32,7 +35,7 @@ const YourAllocation: FunctionComponent = (props) => {
           fontWeight={'860'}
           lineHeight={'36px'}
         >
-         10,355 
+         {value.toLocaleString()}
         </Text>
         <Text
           fontSize={'25px'}

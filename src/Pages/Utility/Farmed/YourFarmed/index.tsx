@@ -7,7 +7,6 @@ import { OpenDepositModal, useStore } from '../../../../store';
 const YourFarmed: FunctionComponent = (props) => {
   const {state, dispatch} = useStore();
   const farmInfo = state.farmInfo;
-console.log(farmInfo)
   const amount = farmInfo.amount;
 
   return (
@@ -35,7 +34,7 @@ console.log(farmInfo)
           fontWeight={'860'}
           lineHeight={'36px'}
         >
-         {amount}
+         {amount.toLocaleString()}
         </Text>
         <Text
           fontSize={'25px'}

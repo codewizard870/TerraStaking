@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Divider, Button } from '@chakra-ui/react'
 
 import { OpenDepositModal, useStore } from '../../../store';
@@ -9,6 +9,7 @@ import Expected from './Expected';
 
 const Earn: FunctionComponent = (props) => {
   const { state, dispatch } = useStore();
+  const [amount, setAmount] = useState('10000');
   return (
     <Stack
       direction={{ sm: 'column', md: 'column', lg: 'row' }}
@@ -21,11 +22,11 @@ const Earn: FunctionComponent = (props) => {
       spacing={{sm:'10px', md: '20px', lg:'55px'}}
     >
       <HowMuch />
-      <Deposited />
+      <Deposited amount={amount} setAmount={setAmount}/>
       <Flex w={'18px'} >
         <MdCached size={18}/>
       </Flex>
-      <Expected />
+      <Expected amount={amount}/>
     </Stack>
   );
 }

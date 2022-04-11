@@ -35,6 +35,7 @@ export interface AppContextInterface {
   userInfoLuna: any,
   farmPrice: number,
   farmInfo: any,
+  farmStartTime: number,
 }
 
 const initialState: AppContextInterface = {
@@ -60,8 +61,9 @@ const initialState: AppContextInterface = {
   lunaPrice: 100,
   userInfoUst: userInfo,
   userInfoLuna: userInfo,
-  farmPrice: 0.25,
+  farmPrice: 25,
   farmInfo: farmInfo,
+  farmStartTime: Date.now()/1000,
 }
 
 export enum ActionKind{
@@ -85,7 +87,8 @@ export enum ActionKind{
   setUserInfoUst,
   setUserInfoLuna,
   setFarmPrice,
-  setFarmInfo
+  setFarmInfo,
+  setFarmStartTime,
 }
 
 const StoreContext = createContext<{ state: AppContextInterface; dispatch: React.Dispatch<any>; }>
@@ -136,6 +139,8 @@ export const reducer = (state: AppContextInterface,  action: Action ) => {
       return {...state, farmPrice: action.payload}
     case ActionKind.setFarmInfo:
       return {...state, farmInfo: action.payload}
+    case ActionKind.setFarmStartTime:
+      return {...state, farmStartTime: action.payload}
     default:
       return state
   }

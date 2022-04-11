@@ -1,14 +1,27 @@
-import React, { FunctionComponent } from 'react';
-import { HStack, Stack, VStack, Flex, Text, Image, Link, Center, Divider, Tooltip } from '@chakra-ui/react'
-import TVLChart from './TVLChart';
-import { useStore
- } from '../../../store';
-const TVL: FunctionComponent = (props) => {
-  const {state, dispatch} = useStore();
-  const data = state.amountHistory;
+import React, { FunctionComponent, useEffect, useState } from 'react';
+import { HStack, Stack, VStack, Flex, Text, Image, Link, Center, Divider, Tooltip } from '@chakra-ui/react';
+import axios from "axios";
 
-  const last = data.length - 1;
-  const total = Math.floor(last >= 0 ? data[last].totalUST ?? 0 : 0);
+import TVLChart from './TVLChart';
+
+const TVL: FunctionComponent = (props) => {
+  const [data, setData] = useState();
+  const [total, setTotal] = useState(0);
+
+  useEffect( () => {
+    const fetchData = async () => {
+      const data: any = await axios.get(
+        "https://api.llama.fi/charts/Terra"
+      );
+      return data;
+    }
+
+    fetchData().then((res) => {
+      setData(res.data);
+      let last = res.data.length-1;
+      setTotal(res.data[last].totalLiquidityUSD);
+    })
+  }, [])
 
   return (
     <Flex 
@@ -48,7 +61,7 @@ const TVL: FunctionComponent = (props) => {
           </Text>
         </HStack>
       </VStack>
-      <TVLChart />
+      <TVLChart data={data} />
     </Flex>
   );
 }

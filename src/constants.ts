@@ -29,39 +29,15 @@ export const userInfo = {
 export const amountHistory = [
   {
     time: 1641281704,
-    usd: 135859532,
-    ust_amount: "135859532",
-    luna_amount: "135859532",
+    usd: 0,
+    ust_amount: "0",
+    luna_amount: "0",
   },
   {
     time: 1643281704,
-    usd: 125859532,
-    ust_amount: "135859532",
-    luna_amount: "135859532",
-  },
-  {
-    time: 1645281704,
-    usd: 155859532,
-    ust_amount: "135859532",
-    luna_amount: "135859532",
-  },
-  {
-    time: 1646281704,
-    usd: 145859532,
-    ust_amount: "135859532",
-    luna_amount: "135859532",
-  },
-  {
-    time: 1648281704,
-    usd: 155859532,
-    ust_amount: "135859532",
-    luna_amount: "135859532",
-  },
-  {
-    time: 1649281704,
-    usd: 165859532,
-    ust_amount: "135859532",
-    luna_amount: "135859532",
+    usd: 0,
+    ust_amount: "0",
+    luna_amount: "0",
   },
 ];
 

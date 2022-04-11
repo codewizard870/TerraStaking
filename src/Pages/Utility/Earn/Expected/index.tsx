@@ -1,7 +1,20 @@
 import React, { FunctionComponent } from 'react';
 import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Divider, Button } from '@chakra-ui/react'
+import {  useStore, useUSTPrice } from '../../../../store';
 
-const Expected: FunctionComponent = (props) => {
+interface Props{
+  amount: string,
+}
+const Expected: FunctionComponent<Props> = ({amount}) => {
+  const {state, dispatch} = useStore();
+  const ustPrice = useUSTPrice();
+  const total = ustPrice * parseInt(amount);
+  const dayReward = total/1000*24;
+  
+  const remain = 60 - Math.floor((Date.now() / 1000 - state.farmStartTime) / 60 / 60 / 24);
+  const expected = Math.floor(dayReward * remain);
+  const expectedUSD = Math.floor(expected * 1.25);
+
   return (
     <Flex w={'100%'} h={'100%'} direction="column" align={'baseline'}>
       <Text
@@ -9,7 +22,7 @@ const Expected: FunctionComponent = (props) => {
         fontWeight={'860'}
         lineHeight={'30px'}
       >
-        1,272,891
+        {expected.toLocaleString()}
       </Text>
       <Divider orientation='horizontal' />
       <Text
@@ -28,7 +41,7 @@ const Expected: FunctionComponent = (props) => {
         fontStyle={'italic'}
         color={'#CEBFBF'}
       >
-        The Projected Allocation Value: $323,121.75UST 
+        The Projected Allocation Value: {expectedUSD.toLocaleString()}UST 
       </Text>
     </Flex>
   );

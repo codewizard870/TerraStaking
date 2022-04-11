@@ -40,7 +40,8 @@ export async function fetchData(state: AppContextInterface, dispatch: React.Disp
     userInfoUst = undefined,
     userInfoLuna = undefined,
     farmPrice = undefined,
-    farmInfo = undefined
+    farmInfo = undefined,
+    farmStartTime = undefined
 
   try {
     amountHistory = await api.contractQuery(
@@ -122,6 +123,15 @@ export async function fetchData(state: AppContextInterface, dispatch: React.Disp
     )
   } catch (e) { }
 
+  try {
+    farmStartTime = await api.contractQuery(
+      POOL,
+      {
+        get_farm_starttime: {}
+      }
+    )
+  } catch (e) { }
+
   const ustPrice = ustInfo ? ustInfo?.data.prices.UST.price : state.ustPrice;
   const lunaPrice = lunaInfo ? lunaInfo?.data.prices.LUNA.price : state.lunaPrice;
 
@@ -147,6 +157,8 @@ export async function fetchData(state: AppContextInterface, dispatch: React.Disp
     dispatch({ type: ActionKind.setFarmPrice, payload: farmPrice });
   if (farmInfo !== undefined)
     dispatch({ type: ActionKind.setFarmInfo, payload: farmInfo });
+  if (farmStartTime !== undefined)
+    dispatch({ type: ActionKind.setFarmStartTime, payload: farmStartTime });
 }
 
 export function sleep(ms: number) {
