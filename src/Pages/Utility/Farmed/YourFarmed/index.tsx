@@ -6,7 +6,10 @@ import { OpenDepositModal, useStore } from '../../../../store';
 
 const YourFarmed: FunctionComponent = (props) => {
   const {state, dispatch} = useStore();
-  
+  const farmInfo = state.farmInfo;
+console.log(farmInfo)
+  const amount = farmInfo.amount;
+
   return (
     <VStack w={'100%'} spacing={'12px'}>
       <HStack w={'100%'}>
@@ -32,7 +35,7 @@ const YourFarmed: FunctionComponent = (props) => {
           fontWeight={'860'}
           lineHeight={'36px'}
         >
-         52,875.97 
+         {amount}
         </Text>
         <Text
           fontSize={'25px'}

@@ -1,8 +1,15 @@
 import React, { FunctionComponent } from 'react';
 import { HStack, Stack, VStack, Flex, Text, Image, Link, Center, Divider, Tooltip } from '@chakra-ui/react'
 import TVLChart from './TVLChart';
-
+import { useStore
+ } from '../../../store';
 const TVL: FunctionComponent = (props) => {
+  const {state, dispatch} = useStore();
+  const data = state.amountHistory;
+
+  const last = data.length - 1;
+  const total = Math.floor(last >= 0 ? data[last].totalUST ?? 0 : 0);
+
   return (
     <Flex 
       pt={'52px'} 
@@ -30,7 +37,7 @@ const TVL: FunctionComponent = (props) => {
             fontWeight={'860'}
             lineHeight={'36px'}
           >
-            525,859,532,875
+            {total.toLocaleString()}
           </Text>
           <Text
             fontSize={'15px'}

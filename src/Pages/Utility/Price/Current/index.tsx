@@ -7,7 +7,8 @@ import { OpenDepositModal, useStore } from '../../../../store';
 
 const CurrentPrice: FunctionComponent = (props) => {
   const {state, dispatch} = useStore();
-  
+  const price = state.farmPrice/100;
+
   return (
     <Flex w={'100%'} direction="column">
       <HStack>
@@ -33,7 +34,7 @@ const CurrentPrice: FunctionComponent = (props) => {
           fontWeight={'860'}
           lineHeight={'36px'}
         >
-          0.25
+          {price}
         </Text>
         <Text
           fontSize={'25px'}

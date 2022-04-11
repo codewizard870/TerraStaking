@@ -4,7 +4,6 @@ import { ConnectedWallet } from '@terra-money/wallet-provider'
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { successOption, errorOption, POOL } from './constants';
-import { flattenTokens } from '@chakra-ui/react';
 
 export function shortenAddress(address: string | undefined) {
   if (address) {
@@ -23,7 +22,7 @@ function calcUSD(amountHistory: any, ustPrice: number, lunaPrice: number) {
     amountHistory[i].luna_amount = Math.floor(parseInt(amountHistory[i].luna_amount) / (10 ** 5)) / 10;
     amountHistory[i].usd =
       amountHistory[i].ust_amount * ustPrice + amountHistory[i].luna_amount * lunaPrice;
-    amountHistory[i].totalUST = 
+    amountHistory[i].totalUST =
       amountHistory[i].ust_amount + amountHistory[i].luna_amount * lunaPrice / ustPrice;
   }
 
@@ -39,7 +38,9 @@ export async function fetchData(state: AppContextInterface, dispatch: React.Disp
     ustInfo = undefined,
     lunaInfo = undefined,
     userInfoUst = undefined,
-    userInfoLuna = undefined
+    userInfoLuna = undefined,
+    farmPrice = undefined,
+    farmInfo = undefined
 
   try {
     amountHistory = await api.contractQuery(
@@ -89,6 +90,7 @@ export async function fetchData(state: AppContextInterface, dispatch: React.Disp
       }
     )
   } catch (e) { }
+
   try {
     userInfoLuna = await api.contractQuery(
       POOL,
@@ -100,23 +102,51 @@ export async function fetchData(state: AppContextInterface, dispatch: React.Disp
     )
   } catch (e) { }
 
+  try {
+    farmPrice = await api.contractQuery(
+      POOL,
+      {
+        get_farm_price: {}
+      }
+    )
+  } catch (e) { }
+
+  try {
+    farmInfo = await api.contractQuery(
+      POOL,
+      {
+        get_farm_info: {
+          wallet: wallet?.walletAddress
+        }
+      }
+    )
+  } catch (e) { }
+
   const ustPrice = ustInfo ? ustInfo?.data.prices.UST.price : state.ustPrice;
   const lunaPrice = lunaInfo ? lunaInfo?.data.prices.LUNA.price : state.lunaPrice;
+
   // let amountHistory, aprUstHistory, aprLunaHistory, ustPrice, lunaPrice, userInfoUst, userInfoLuna
+  if (ustPrice !== undefined)
+    dispatch({ type: ActionKind.setUstPrice, payload: ustPrice });
+  if (lunaPrice !== undefined)
+    dispatch({ type: ActionKind.setLunaPrice, payload: lunaPrice });
+
   if (amountHistory !== undefined)
     dispatch({ type: ActionKind.setAmountHistory, payload: calcUSD(amountHistory, ustPrice, lunaPrice) });
   if (aprUstHistory !== undefined)
     dispatch({ type: ActionKind.setAprUstHistory, payload: aprUstHistory });
   if (aprLunaHistory !== undefined)
     dispatch({ type: ActionKind.setAprLunaHistory, payload: aprLunaHistory });
-  if (ustPrice !== undefined)
-    dispatch({ type: ActionKind.setUstPrice, payload: ustPrice });
-  if (lunaPrice !== undefined)
-    dispatch({ type: ActionKind.setLunaPrice, payload: lunaPrice });
+
   if (userInfoUst !== undefined)
     dispatch({ type: ActionKind.setUserInfoUst, payload: userInfoUst });
   if (userInfoLuna !== undefined)
     dispatch({ type: ActionKind.setUserInfoLuna, payload: userInfoLuna });
+
+  if (farmPrice !== undefined)
+    dispatch({ type: ActionKind.setFarmPrice, payload: farmPrice });
+  if (farmInfo !== undefined)
+    dispatch({ type: ActionKind.setFarmInfo, payload: farmInfo });
 }
 
 export function sleep(ms: number) {
@@ -128,7 +158,8 @@ export async function estimateSend(
   lcd: LCDClient,
   msgs: MsgExecuteContract[],
   message: string,
-  memo: string) {
+  memo: string
+) {
   console.log(msgs);
   const obj = new Fee(10_000, { uusd: 4500 })
 
@@ -227,7 +258,7 @@ export async function estimateSend(
     })
 }
 
-export function checkNetwork( wallet: ConnectedWallet | undefined, state: AppContextInterface) {
+export function checkNetwork(wallet: ConnectedWallet | undefined, state: AppContextInterface) {
   //----------verify connection--------------------------------
   if (wallet === undefined) {
     toast("Please connect wallet first!", errorOption);

@@ -1,26 +1,20 @@
 import React, { useState, FunctionComponent } from 'react';
-import { HStack, VStack, Flex, Text, Image, Box, Center, Divider, Slider, SliderTrack, SliderThumb } from '@chakra-ui/react'
+import { HStack, VStack, Flex, Text, Image, Box, Button, Input, Divider, Slider, SliderTrack, SliderThumb } from '@chakra-ui/react'
 import {
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
-  Button
 } from '@chakra-ui/react'
 import { Dispatch, SetStateAction } from "react";
 
 import { MdCode, MdArrowDropDownCircle } from "react-icons/md";
 import { 
-  useUSTDeposited, 
-  useLUNADeposited, 
   useUSTPrice, 
   useLUNAPrice, 
   useUSTApr, 
-  useLUNAApr 
+  useLUNAApr,
+  useExchangeRate
 } from '../../../../store';
 
 interface Props {
@@ -29,19 +23,18 @@ interface Props {
 const Earn: FunctionComponent<Props> = ({setTotal}) => {
   const [dnom, setDnom] = useState('LUNA');
   const [year, setYear] = useState(10);
-
-  const ustDeposited = useUSTDeposited();
-  const lunaDeposited = useLUNADeposited();
+  const [amount, setAmount] = useState('100');
 
   const ustPrice = useUSTPrice();
   const lunaPrice = useLUNAPrice();
-  const value = Math.floor(dnom == 'LUNA' ? lunaDeposited * lunaPrice / ustPrice : ustDeposited);
+  const rate = useExchangeRate();
+  const interest = Math.floor(dnom == 'LUNA' ? parseInt(amount) * rate : parseInt(amount));
 
   const ustApr = useUSTApr();
   const lunaApr = useLUNAApr();
   const apr = dnom == 'LUNA' ? lunaApr : ustApr;
 
-  setTotal(Math.floor(value * apr / 100 * year));
+  setTotal(Math.floor(interest * apr / 100 * year));
 
   return (
     <VStack
@@ -99,13 +92,14 @@ const Earn: FunctionComponent<Props> = ({setTotal}) => {
       >
         Your Deposit
       </Text>
-      <Text
-        fontSize={'20px'}
-        fontWeight={'860'}
-        lineHeight={'24px'}
-      >
-        {value.toLocaleString()}
-      </Text>
+      <Input
+        width={'100%'}
+        color={'white'}
+        border={'none'}
+        value={amount}
+        onChange={(e) => setAmount(e.target.value)}
+        _focus={{ border: 'none' }}
+      />
       <Divider orientation='horizontal' />
       <Text
         fontSize={'9px'}

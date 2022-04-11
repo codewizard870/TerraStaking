@@ -5,7 +5,7 @@ import { LCDClient } from '@terra-money/terra.js'
 // import { Set2Mainnet, Set2Testnet } from './components/Util';
 import {  useQuery } from "react-query"
 
-import { amountHistory, aprUstHistory, aprLunaHistory, userInfo } from './constants'
+import { amountHistory, aprUstHistory, aprLunaHistory, userInfo, farmInfo } from './constants'
 
 export type COINTYPE = 'ust' | 'luna';
 
@@ -33,6 +33,8 @@ export interface AppContextInterface {
   lunaPrice: number,
   userInfoUst: any,
   userInfoLuna: any,
+  farmPrice: number,
+  farmInfo: any,
 }
 
 const initialState: AppContextInterface = {
@@ -55,9 +57,11 @@ const initialState: AppContextInterface = {
   aprUstHistory: aprUstHistory,
   aprLunaHistory: aprLunaHistory,
   ustPrice: 1,
-  lunaPrice: 109,
+  lunaPrice: 100,
   userInfoUst: userInfo,
-  userInfoLuna: userInfo
+  userInfoLuna: userInfo,
+  farmPrice: 0.25,
+  farmInfo: farmInfo,
 }
 
 export enum ActionKind{
@@ -79,7 +83,9 @@ export enum ActionKind{
   setUstPrice,
   setLunaPrice,
   setUserInfoUst,
-  setUserInfoLuna
+  setUserInfoLuna,
+  setFarmPrice,
+  setFarmInfo
 }
 
 const StoreContext = createContext<{ state: AppContextInterface; dispatch: React.Dispatch<any>; }>
@@ -121,11 +127,15 @@ export const reducer = (state: AppContextInterface,  action: Action ) => {
     case ActionKind.setUstPrice:
       return {...state, ustPrice: action.payload}
     case ActionKind.setLunaPrice:
-      return {...state, lunaPrie: action.payload}
+      return {...state, lunaPrice: action.payload}
     case ActionKind.setUserInfoUst:
       return {...state, userInfoUst: action.payload}
     case ActionKind.setUserInfoLuna:
       return {...state, userInfoLuna: action.payload}
+    case ActionKind.setFarmPrice:
+      return {...state, farmPrice: action.payload}
+    case ActionKind.setFarmInfo:
+      return {...state, farmInfo: action.payload}
     default:
       return state
   }

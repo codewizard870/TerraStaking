@@ -2,35 +2,14 @@ import React, { FunctionComponent } from 'react';
 import { HStack, Stack, Flex, Text, Image, Link } from '@chakra-ui/react'
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
-const data = [
-  {
-    time: '2020',
-    value1: 4000,
-    value2: 3000,
-  },
-  {
-    time: '2020',
-    value1: 3000,
-    value2: 2000,
-  },
-  {
-    time: '2020',
-    value1: 5000,
-    value2: 4000,
-  },
-  {
-    time: '2020',
-    value1: 5000,
-    value2: 4000,
-  },
-  {
-    time: '2020',
-    value1: 6000,
-    value2: 3000,
-  },
-];
+import { useStore } from '../../../../store';
+
 const TVLChart: FunctionComponent = (props) => {
-  
+  const {state, dispatch} = useStore();
+  const data = state.amountHistory;
+
+  const last = data.length - 1;
+  const total = Math.floor(last >= 0 ? data[last].totalUST ?? 0 : 0);
   return (
     <Flex w='100%' h='304px'>
       <ResponsiveContainer width="100%" height="100%">
@@ -57,7 +36,7 @@ const TVLChart: FunctionComponent = (props) => {
           {/* <Tooltip /> */}
           <Area 
             type="monotone" 
-            dataKey="value1" 
+            dataKey="usd" 
             stroke="#F9D85E" 
             fill="url(#colorUv)" 
           />
