@@ -9,7 +9,7 @@ const TotalPayed: FunctionComponent = (props) => {
   const ustRewards = state.userInfoUst.reward_amount;
   const lunaRewards = state.userInfoLuna.reward_amount;
   const exchangeRate = useExchangeRate();
-  const rewards = Math.floor(ustRewards / 10 ** 6 + (lunaRewards * exchangeRate) / 10 ** 6);
+  const rewards = Math.floor(ustRewards / 10 ** 4 + (lunaRewards * exchangeRate) / 10 ** 4)/10**2;
 
   const depositTime_max = Math.max(state.userInfoUst.deposit_time, state.userInfoLuna.deposit_time);
   const depositTime_min = Math.min(state.userInfoUst.deposit_time, state.userInfoLuna.deposit_time);

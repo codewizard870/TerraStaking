@@ -14,8 +14,8 @@ const Total: FunctionComponent = (props) => {
   const lunaPrice = state.lunaPrice;
   const ustBalance = Math.floor(useUSTBalance() * ustPrice);
 
-  const ustDeposited = Math.floor((useUSTDeposited() + state.userInfoUst.reward_amount/10**6) * ustPrice);
-  const lunaDeposited = Math.floor((useLUNADeposited() + state.userInfoLuna.reward_amount/10**6) * lunaPrice);
+  const ustDeposited = useUSTDeposited()  * ustPrice;
+  const lunaDeposited = useLUNADeposited() * lunaPrice;
   const total = ustBalance + ustDeposited + lunaDeposited;
 
   return (

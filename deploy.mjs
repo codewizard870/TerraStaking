@@ -37,9 +37,9 @@ const codeid_cw20 = net=="main"? 3: 148;
 
 let wallet = terra.wallet(mk);
 
-let poolAddress = "terra1kp2g2dy589qvh8qwyv7rg26pv57k8e9kal9vd6";
-let vustAddress = "terra1znzw99ujkys8qwmmxtnuw0w7u6y992snmlzuk6";
-let vlunaAddress = "terra1ptnd5k3geuezpmaepknv5frq9k8t352tfenj3e";
+let poolAddress = "terra1l92t8fq8sduzyq4aazxd7v5lu8n88tu6fnqtha";
+let vustAddress = "terra1t0r74dmwl80tm7e4pcr0nwk5uda6u8qz5pxy66";
+let vlunaAddress = "terra19kdvztaaz0t5vwfjqmp25uj2h0gd8hq4cvqdk0";
 
 run();
 
@@ -109,20 +109,6 @@ async function config() {
   console.log("VLuna: " + vlunaAddress);
   
   try {
-    // console.log("minting")
-    // let mint_msg = new MsgExecuteContract(
-    //   mk.accAddress,
-    //   vustAddress,
-    //   {
-    //     "mint": {
-    //         "recipient": "terra1r56xzdvxjjeqvkpk3879wv9zxy55cjnchqueg8",
-    //         "amount": "123123000000"
-    //     }
-    //   }
-    // );
-    // let res = await EstimateSend([mint_msg], "setting apr");
-    // await sleep(12000);
-
     console.log("adding apr")
     let apr_ust_config = new MsgExecuteContract(
       mk.accAddress,
@@ -147,7 +133,7 @@ async function config() {
       }
     )
     let res = await EstimateSend([apr_ust_config, apr_luna_config, token_address], "setting apr");
-    // console.log(res.raw_log);
+    return res;
   }
   catch (e) {
     console.log(e.message);
@@ -164,8 +150,8 @@ async function upload(contractPath) {
 
     const codeId = extractCodeId(storeResult.raw_log);
     return codeId;
-  } catch (error) {
-    console.error("Error:" + error);
+  } catch (e) {
+    console.log(e);
     process.exit(1);
   }
 }
@@ -180,8 +166,8 @@ async function instantiate(codeId, instantiateMsg) {
     );
     const instantiateResult = await EstimateSend([instantiate], "instantiating");
     return extractContractAddress(instantiateResult.raw_log);
-  } catch (error) {
-    console.error(error);
+  } catch (e) {
+    console.log(e);
     process.exit(1);
   }
 }
@@ -209,56 +195,53 @@ function sleep(ms) {
 
 async function EstimateSend(msgs, memo) {
   try {
-    // const obj = new Fee(10_000, { uusd: 4500 });
-    // console.log(obj.gasPrices);
-    // let accountInfo;
-// console.log(msgs);
+    const obj = new Fee(10_000, { uusd: 4500 });
+    let accountInfo;
 
-    // await terra.auth.accountInfo(
-    //   mk.accAddress
-    // )
-    // .then((e) => {
-    //   accountInfo = e;
-    // })
-// console.log(accountInfo);
+    await terra.auth.accountInfo(
+      mk.accAddress
+    )
+    .then((e) => {
+      accountInfo = e;
+    })
 
-    // let txOptions =
-    // {
-    //   msgs: msgs,
-    //   memo: memo,
-    //   gasPrices: obj.gasPrices(),
-    //   gasAdjustment: 1.7,
-    // };
+    let txOptions =
+    {
+      msgs: msgs,
+      memo: memo,
+      gasPrices: obj.gasPrices(),
+      gasAdjustment: 1.7,
+    };
 
-    // let rawFee;
-    // await terra.tx.estimateFee(
-    //   [
-    //     {
-    //       sequenceNumber: accountInfo.getSequenceNumber(),
-    //       publicKey: accountInfo.getPublicKey(),
-    //     },
-    //   ],
-    //   txOptions
-    // )
-    // .then((e) => {
-    //   rawFee = e;
-    // })
-// console.log(rawFee);
+    let rawFee;
+    await terra.tx.estimateFee(
+      [
+        {
+          sequenceNumber: accountInfo.getSequenceNumber(),
+          publicKey: accountInfo.getPublicKey(),
+        },
+      ],
+      txOptions
+    )
+    .then((e) => {
+      rawFee = e;
+    })
 
     const res = await wallet
       .createAndSignTx({
         msgs: msgs,
         memo: memo,
-        // fee: rawFee,
-        // gasPrice: obj.gasPrices(),
-        // gasAdjustment: 1.7
+        fee: rawFee,
+        gasPrice: obj.gasPrices(),
+        gasAdjustment: 1.7,
+        sequence: accountInfo.getSequenceNumber()
       })
       .then((tx) => terra.tx.broadcast(tx))
 
     return res;
   }
   catch (e) {
-    console.error(e);
+    console.log(e.response.data);
     process.exit(1);
   }
 }
