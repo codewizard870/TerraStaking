@@ -5,9 +5,10 @@ import BlackPanel from './../../../../assets/BlackPanel.svg'
 import YellowPanel from './../../../../assets/YellowPanel.svg'
 
 interface Props{
+  interest: number,
   total: number
 }
-const Value: FunctionComponent<Props> = ({total}) => {
+const Value: FunctionComponent<Props> = ({total, interest}) => {
 
   return (
     <VStack mt={'55px'} align={'baseline'}>
@@ -16,7 +17,7 @@ const Value: FunctionComponent<Props> = ({total}) => {
         fontWeight={'860'}
         lineHeight={'36px'}
       >
-        $148,700
+        ${interest}
       </Text>
       <Text
         fontSize={'9px'}

@@ -19,8 +19,9 @@ import {
 
 interface Props {
   setTotal: Dispatch<SetStateAction<number>>,
+  setInterest: Dispatch<SetStateAction<number>>,
 }
-const Earn: FunctionComponent<Props> = ({setTotal}) => {
+const Earn: FunctionComponent<Props> = ({setTotal, setInterest}) => {
   const [dnom, setDnom] = useState('LUNA');
   const [year, setYear] = useState(10);
   const [amount, setAmount] = useState('100');
@@ -34,7 +35,8 @@ const Earn: FunctionComponent<Props> = ({setTotal}) => {
   const lunaApr = useLUNAApr();
   const apr = dnom == 'LUNA' ? lunaApr : ustApr;
 
-  setTotal(Math.floor(interest * apr / 100 * year));
+  setInterest(Math.floor(interest * apr / 100 * year));
+  setTotal(Math.floor(interest * apr / 100 * year + parseInt(amount)));
 
   return (
     <VStack

@@ -8,6 +8,7 @@ import Value from './Value';
 
 const How: FunctionComponent = (props) => {
   const [total, setTotal] = useState(0);
+  const [interest, setInterest] = useState(0);
 
   return (
     <VStack
@@ -33,7 +34,7 @@ const How: FunctionComponent = (props) => {
         spacing={'51px'}
         w={'100%'}
       >
-        <Earn setTotal={setTotal}/>
+        <Earn setTotal={setTotal} setInterest={setInterest}/>
         <Center
           height={'304px'}
           display={{ sm: 'none', md: 'block', lg: 'block' }}
@@ -46,7 +47,7 @@ const How: FunctionComponent = (props) => {
         >
           <Divider orientation={'horizontal'} />
         </Center>
-        <Value total={total} />
+        <Value total={total} interest={interest} />
         <EarnChart />
       </Stack>
     </VStack>
