@@ -15,9 +15,10 @@ const TotalPayed: FunctionComponent = (props) => {
   const depositTime_min = Math.min(state.userInfoUst.deposit_time, state.userInfoLuna.deposit_time);
   const depositTime = depositTime_min === 0 ? depositTime_max : depositTime_min
   const period = depositTime > 0 ? Date.now() - depositTime * 1000 : 0;
-  const day = Math.floor(period / 1000 / 60 / 60 / 24);
+  const day = Math.floor((period > 0 ? period : 0) / 1000 / 60 / 60 / 24);
 
   const ustPrice = useUSTPrice();
+  const usd = Math.floor(rewards * ustPrice);
   return (
     <Flex
       direction={'column'}
@@ -63,7 +64,7 @@ const TotalPayed: FunctionComponent = (props) => {
         lineHeight={'36px'}
         fontStyle={'italic'}
       >
-        USD ${ustPrice}
+        USD ${usd}
       </Text>
       <HStack mt={'31px'} spacing={'20px'} align={'baseline'}>
         <Text

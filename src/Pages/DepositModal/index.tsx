@@ -28,6 +28,9 @@ const DepositModal: FunctionComponent<Props> = ({isOpen, onClose}) => {
   const coinType = state.coinType;
 
   const deposit = async () => {
+    if(parseFloat(amount) <= 0 )
+      return;
+      
     if( coinType === 'ust' && wallet?.walletAddress ){
       let val = Math.floor(parseFloat(amount) * 10 ** 6);
       let msg = {

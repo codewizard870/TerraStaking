@@ -17,6 +17,7 @@ const CustomCheckbox: FunctionComponent<Props> = ({checked, setChecked}) => {
       rounded={'5px'}
       justify={'center'}
       align={'center'}
+      cursor={'pointer'}
       onClick = {() => setChecked(!checked)}
     >
       {checked &&

@@ -5,7 +5,7 @@ import axios from "axios";
 import TVLChart from './TVLChart';
 
 const TVL: FunctionComponent = (props) => {
-  const [data, setData] = useState();
+  const [data, setData] = useState<any[]>([]);
   const [total, setTotal] = useState(0);
 
   useEffect( () => {
@@ -18,6 +18,7 @@ const TVL: FunctionComponent = (props) => {
 
     fetchData().then((res) => {
       setData(res.data);
+
       let last = res.data.length-1;
       setTotal(res.data[last].totalLiquidityUSD);
     })
@@ -61,7 +62,7 @@ const TVL: FunctionComponent = (props) => {
           </Text>
         </HStack>
       </VStack>
-      <TVLChart data={data} />
+      <TVLChart data={data} id="TVL" />
     </Flex>
   );
 }

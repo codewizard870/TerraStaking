@@ -1,19 +1,19 @@
 import React, { FunctionComponent } from 'react';
 import { VStack, HStack, Stack, Flex, Text, Input, Link, Center, Divider, Button, useBoolean } from '@chakra-ui/react'
 import { Dispatch, SetStateAction } from "react";
-import { useUSTBalance, useLUNABalance, COINTYPE, useStore, ActionKind } from '../../../store'
+import { useUSTDeposited, useLUNADeposited, COINTYPE, useStore, ActionKind } from '../../../store'
 
 interface Props {
   amount: string,
   setAmount: Dispatch<SetStateAction<string>>,
 }
 const InputPanel: FunctionComponent<Props> = (props) => {
-  const {state, dispatch} = useStore();
-  const ustDeposited = Math.floor(parseInt(state.userInfoUst.amount)/(10**5))/10;
-  const lunaDeposited = Math.floor(parseInt(state.userInfoLuna.amount)/(10**5))/10;
+  const { state, dispatch } = useStore();
+  const ustDeposited = useUSTDeposited() + state.userInfoUst.reward_amount / 10 ** 6;
+  const lunaDeposited = useLUNADeposited() + state.userInfoLuna.reward_amount / 10 ** 6;
 
   const maxBalance = () => {
-    if(state.coinType == 'ust')
+    if (state.coinType === 'ust')
       props.setAmount(ustDeposited.toString());
     else
       props.setAmount(lunaDeposited.toString());
@@ -68,7 +68,7 @@ const InputPanel: FunctionComponent<Props> = (props) => {
           cursor={'pointer'}
           onClick={() => maxBalance()}
         >
-          {state.coinType == 'ust'? `MAX balance  ${ustDeposited} UST` : `MAX balance  ${lunaDeposited} LUNA`}
+          {state.coinType == 'ust' ? `MAX balance  ${ustDeposited} UST` : `MAX balance  ${lunaDeposited} LUNA`}
         </Text>
       </Flex>
     </VStack>

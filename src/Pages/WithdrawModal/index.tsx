@@ -63,13 +63,15 @@ const WithdrawModal: FunctionComponent<Props> = ({isOpen, onClose}) => {
           mt={'26px'} 
           background={'#493C3C'} 
           rounded={'25px'}
-          onClick={() => onOpenWarning()}
+          onClick={() => {
+            if(parseFloat(amount) > 0)
+                onOpenWarning()
+          }}
         >
           <Text
             fontSize={'13px'}
             fontWeight={'860'}
             lineHeight={'15px'}
-                       
           >
             Proceed
           </Text>
