@@ -3,49 +3,53 @@ import { VStack, Stack, Text, Divider, HStack, Image, Flex, Button } from '@chak
 import { Grid, GridItem, Tooltip } from '@chakra-ui/react'
 
 import LunaIcon from './../../../assets/Luna.svg'
-import { 
-  OpenDepositModal, 
-  OpenWithdrawModal, 
-  useStore, 
-  useLUNAApr, 
+import {
+  OpenDepositModal,
+  OpenWithdrawModal,
+  useStore,
+  useLUNAApr,
   useLUNADeposited,
   useUSTPrice,
-  useLUNAPrice
+  useLUNAPrice,
+  useExchangeRate,
 } from '../../../store';
+import { floor, floorNormalize } from '../../../Util';
+
 const LUNADepositPanel: FunctionComponent = (props) => {
-  const {state, dispatch} = useStore();
+  const { state, dispatch } = useStore();
   const apr = useLUNAApr();
-  const lunaDeposited = useLUNADeposited();
-  const ustPrice = useUSTPrice();
-  const lunaPrice = useLUNAPrice();
-  const amount = Math.floor(lunaDeposited * lunaPrice/ustPrice);
-  
+  const rate = useExchangeRate();
+
+  const lunaDeposited = useLUNADeposited() + floorNormalize(state.userInfoLuna.reward_amount);
+  const amount = lunaDeposited * rate;
+
   return (
-    <VStack 
+    <VStack
       w={'100%'}
-      rounded={'25px'} 
-      background={'#212121'} 
+      rounded={'25px'}
+      background={'#212121'}
       align={'center'}
       spacing={'34px'}
-      px={{sm:'10px', md:'20px', lg:'50px'}}
-      py={{sm:'10px', md:'20px', lg:'29px'}}
+      color={'#CEC0C0'}
+      px={{ sm: '10px', md: '20px', lg: '50px' }}
+      py={{ sm: '10px', md: '20px', lg: '29px' }}
     >
-      <Grid 
-        templateColumns='[first] 20% [line2] 20% [line3] 20% line[4] auto' 
-        gap={6} 
+      <Grid
+        templateColumns='[first] 20% [line2] 20% [line3] 20% line[4] auto'
+        gap={6}
         w={'100%'}
       >
-        <GridItem w='100%' h='70'> 
+        <GridItem w='100%' h='70'>
 
         </GridItem>
         <GridItem w='100%' h='70'>
           <Flex w={'100%'} h={'100%'} align={'center'} justify={'center'}>
-            <Tooltip 
-              label="Current annualized deposit rate" 
-              background={'#C4C4C4'} hasArrow 
-              placement='top-start' 
+            <Tooltip
+              label="Current annualized deposit rate"
+              background={'#C4C4C4'} hasArrow
+              placement='top-start'
               color={'black'}
-            > 
+            >
               <Text
                 fontSize={'13px'}
                 fontWeight={'860'}
@@ -58,12 +62,12 @@ const LUNADepositPanel: FunctionComponent = (props) => {
         </GridItem>
         <GridItem w='100%' h='70'>
           <Flex w={'100%'} h={'100%'} align={'center'} justify={'center'}>
-            <Tooltip 
-              label="Total deposit amount in LUNA without payed interest" 
-              background={'#C4C4C4'} hasArrow 
-              placement='top-start' 
+            <Tooltip
+              label="Total deposit amount in LUNA without payed interest"
+              background={'#C4C4C4'} hasArrow
+              placement='top-start'
               color={'black'}
-            > 
+            >
               <Text
                 fontSize={'13px'}
                 fontWeight={'860'}
@@ -74,7 +78,7 @@ const LUNADepositPanel: FunctionComponent = (props) => {
             </Tooltip>
           </Flex>
         </GridItem>
-        <GridItem w='100%' h='70'> 
+        <GridItem w='100%' h='70'>
           <Flex w={'100%'} h={'100%'} align={'center'} justify={'center'}>
             <Text
               fontSize={'13px'}
@@ -89,13 +93,13 @@ const LUNADepositPanel: FunctionComponent = (props) => {
           <Divider orientation={'horizontal'} />
         </GridItem>
         <GridItem w={'100%'} h={'140px'}>
-          <HStack 
-            w={'100%'} 
-            h={'100%'} 
-            spacing={'27px'} 
-            align={'center'} 
+          <HStack
+            w={'100%'}
+            h={'100%'}
+            spacing={'27px'}
+            align={'center'}
             justify={'center'}
-            display={{sm: 'none', md: 'none', lg: 'flex'}}
+            display={{ sm: 'none', md: 'none', lg: 'flex' }}
           >
             <Image src={LunaIcon} w={'50px'} />
             <VStack align={'baseline'}>
@@ -103,6 +107,7 @@ const LUNADepositPanel: FunctionComponent = (props) => {
                 fontSize={'35px'}
                 fontWeight={'860'}
                 lineHeight={'36px'}
+                color={'white'}
               >
                 LUNA
               </Text>
@@ -128,7 +133,7 @@ const LUNADepositPanel: FunctionComponent = (props) => {
           </Flex>
         </GridItem>
         <GridItem w={'100%'} h={'140px'}>
-          <Flex w={'100%'} h={'100%'} align={'center'} justify={'center'}>
+          <VStack w={'100%'} h={'100%'} align={'center'} justify={'center'} >
             <Text
               fontSize={'15px'}
               fontWeight={'860'}
@@ -136,45 +141,52 @@ const LUNADepositPanel: FunctionComponent = (props) => {
             >
               {amount.toLocaleString()} UST
             </Text>
-          </Flex>
+            <Text
+              fontSize={'15px'}
+              fontWeight={'860'}
+              lineHeight={'16px'}
+            >
+              {lunaDeposited.toLocaleString()} LUNA
+            </Text>
+          </VStack>
         </GridItem>
         <GridItem w={'100%'} h={'140px'}>
-          <Stack 
-            direction={{sm: 'column', md: 'column', lg: 'row'}}
-            w={'100%'} 
-            h={'100%'} 
-            align={'center'} 
-            justify={'center'} 
+          <Stack
+            direction={{ sm: 'column', md: 'column', lg: 'row' }}
+            w={'100%'}
+            h={'100%'}
+            align={'center'}
+            justify={'center'}
             spacing={'15px'}
           >
-            <Button 
-              w={'92px'} 
-              h={'25px'} 
-              background={'#493C3C'} 
+            <Button
+              w={'92px'}
+              h={'25px'}
+              background={'#493C3C'}
               rounded={'25px'}
-              onClick = {() => OpenDepositModal(state, dispatch, "luna")}      
+              onClick={() => OpenDepositModal(state, dispatch, "luna")}
             >
               <Text
                 fontSize={'9px'}
                 fontWeight={'860'}
                 lineHeight={'10px'}
-                
+                color={'white'}
               >
                 Deposit
               </Text>
             </Button>
-            <Button 
-              w={'92px'} 
-              h={'25px'} 
-              background={'#493C3C'} 
+            <Button
+              w={'92px'}
+              h={'25px'}
+              background={'#493C3C'}
               rounded={'25px'}
-              onClick = {() => OpenWithdrawModal(state, dispatch, "luna")}
+              border={'solid 1px #CEBFBF'}
+              onClick={() => OpenWithdrawModal(state, dispatch, "luna")}
             >
               <Text
                 fontSize={'9px'}
                 fontWeight={'860'}
-                lineHeight={'10px'}     
-                
+                lineHeight={'10px'}
               >
                 Withdraw
               </Text>

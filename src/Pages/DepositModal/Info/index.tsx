@@ -4,7 +4,6 @@ import {
   HStack, 
   Text, 
 } from '@chakra-ui/react'
-import { Dispatch, SetStateAction } from "react";
 import { useStore, useExchangeRate } from '../../../store';
 
 interface Props {

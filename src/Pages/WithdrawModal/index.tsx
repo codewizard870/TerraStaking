@@ -20,7 +20,7 @@ interface Props{
   onClose: () => void,
 }
 const WithdrawModal: FunctionComponent<Props> = ({isOpen, onClose}) => {
-  const [amount, setAmount] = useState('');
+  const [amount, setAmount] = useState('0');
   const { isOpen: isOpenWarning, onOpen: onOpenWarning, onClose: onCloseWarning } = useDisclosure();
 
   return (
@@ -55,7 +55,7 @@ const WithdrawModal: FunctionComponent<Props> = ({isOpen, onClose}) => {
         <InputPanel amount={amount} setAmount={setAmount}/>
         <SliderWish amount={amount} setAmount={setAmount}/>
         <Divider mt={'23px'} orientation='horizontal' variant={'dashed'} color={'#CEC0C0'} />
-        <Info />
+        <Info amount={amount}/>
         <Divider mt={'23px'} orientation='horizontal' variant={'dashed'} color={'#CEC0C0'} />
         <Button 
           w={'100%'} 

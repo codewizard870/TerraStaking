@@ -52,28 +52,30 @@ const WarningModal: FunctionComponent<Props> = ({isOpen, onClose, amount}) => {
         },
         {}
       );
-      await estimateSend(wallet, lcd, [withdraw_msg], "Success request withdraw", "request withdraw");
+      let res = await estimateSend(wallet, lcd, [withdraw_msg], "Success request withdraw", "request withdraw");
+      if(res)
+      {
+        var formData = new FormData()
+        formData.append('wallet', wallet.walletAddress.toString());
+        formData.append('coinType', 'ust')
+        formData.append('amount', val.toString())
 
-      var formData = new FormData()
-      formData.append('wallet', wallet.walletAddress.toString());
-      formData.append('coinType', 'ust')
-      formData.append('amount', val.toString())
+        const requestOptions = {
+          method: 'POST',
+          body: formData,
+        }
 
-      const requestOptions = {
-        method: 'POST',
-        body: formData,
+        await fetch(REQUEST_ENDPOINT + 'withdraw', requestOptions)
+          .then((res) => res.json())
+          .then((data) => {
+            toast('Request Success', successOption);
+            fetchData(state, dispatch)
+          })
+          .catch((e) => {
+            console.log('Error:' + e)
+            toast('Request error', errorOption);
+          })
       }
-
-      await fetch(REQUEST_ENDPOINT + 'withdraw', requestOptions)
-        .then((res) => res.json())
-        .then((data) => {
-          toast('Request Success', successOption);
-          fetchData(state, dispatch)
-        })
-        .catch((e) => {
-          console.log('Error:' + e)
-          toast('Request error', errorOption);
-        })
     }
     else if( coinType === 'luna' && wallet?.walletAddress ){
       let val = Math.floor(parseFloat(amount) * 10 ** 6);
@@ -91,28 +93,30 @@ const WarningModal: FunctionComponent<Props> = ({isOpen, onClose, amount}) => {
         },
         {}
       );
-      await estimateSend(wallet, lcd, [withdraw_msg], "Success request withdraw", "request withdraw");
+      let res = await estimateSend(wallet, lcd, [withdraw_msg], "Success request withdraw", "request withdraw");
+      if(res)
+      {
+        var formData = new FormData()
+        formData.append('wallet', wallet.walletAddress.toString());
+        formData.append('coinType', 'luna')
+        formData.append('amount', val.toString())
 
-      var formData = new FormData()
-      formData.append('wallet', wallet.walletAddress.toString());
-      formData.append('coinType', 'luna')
-      formData.append('amount', val.toString())
+        const requestOptions = {
+          method: 'POST',
+          body: formData,
+        }
 
-      const requestOptions = {
-        method: 'POST',
-        body: formData,
+        await fetch(REQUEST_ENDPOINT + 'withdraw', requestOptions)
+          .then((res) => res.json())
+          .then((data) => {
+            toast('Request Success', successOption);
+            fetchData(state, dispatch)
+          })
+          .catch((e) => {
+            console.log('Error:' + e)
+            toast('Request error', errorOption);
+          })
       }
-
-      await fetch(REQUEST_ENDPOINT + 'withdraw', requestOptions)
-        .then((res) => res.json())
-        .then((data) => {
-          toast('Request Success', successOption);
-          fetchData(state, dispatch)
-        })
-        .catch((e) => {
-          console.log('Error:' + e)
-          toast('Request error', errorOption);
-        })
     }
   }
   return (

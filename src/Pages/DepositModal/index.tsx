@@ -21,7 +21,7 @@ interface Props{
   onClose: () => void,
 }
 const DepositModal: FunctionComponent<Props> = ({isOpen, onClose}) => {
-  const [amount, setAmount] = useState('');
+  const [amount, setAmount] = useState('0');
   const wallet = useWallet();
   const lcd = useLCD();
   const {state, dispatch} = useStore();

@@ -2,27 +2,25 @@ import React, { FunctionComponent, useEffect } from 'react';
 import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Divider, Tooltip } from '@chakra-ui/react'
 import Warning from "./../../../../assets/Warning.svg"
 
-import { floor } from '../../../../Util';
 import BlackPanel from './../../../../assets/BlackPanel.svg'
 import YellowPanel from './../../../../assets/YellowPanel.svg'
-import GreenPanel from './../../../../assets/GreenPanel.svg'
+import PinkPanel from './../../../../assets/PinkPanel.svg'
 import BluePanel from './../../../../assets/BluePanel.svg'
-import { useUSTBalance, useUSTDeposited, useLUNADeposited, useStore } from '../../../../store';
+import { useUSTBalance, useUSTDeposited, useLUNADeposited, useStore, useUSTPrice, useLUNAPrice } from '../../../../store';
+import { floor, floorNormalize } from '../../../../Util';
 
 const Seperator: FunctionComponent = (props) => {
-  // const ustPrice = useUstPrice();
-  // const lunaPrice = useLunaPrice();
   const {state, dispatch} = useStore();
-  const ustPrice = state.ustPrice;
-  const lunaPrice = state.lunaPrice;
-  const ustBalance = floor(useUSTBalance() * ustPrice);
-  const ustDeposited = floor(useUSTDeposited() * ustPrice);
-  const lunaDeposited = floor(useLUNADeposited() * lunaPrice);
+  const ustPrice = useUSTPrice();
+  const lunaPrice = useLUNAPrice();
 
+  const ustBalance = floor(useUSTBalance() * ustPrice);
+  const ustDeposited = floor(useUSTDeposited() * ustPrice) + floorNormalize(state.userInfoUst.reward_amount * ustPrice);
+  const lunaDeposited = floor(useLUNADeposited() * lunaPrice) + floorNormalize(state.userInfoLuna.reward_amount * lunaPrice);
   return (
     <VStack align={'baseline'} w={'226px'}>
       <HStack spacing={'10px'}>
-        <Image src={BlackPanel} w={'15px'} />
+        <Image src={PinkPanel} w={'15px'} />
         <Text
           fontSize={'20px'}
           fontWeight={'860'}
@@ -48,7 +46,7 @@ const Seperator: FunctionComponent = (props) => {
       </Text>
       {/* --------------------------------- */}
       <HStack spacing={'10px'}>
-        <Image src={GreenPanel} w={'15px'} />
+        <Image src={BlackPanel} w={'15px'} />
         <Text
           fontSize={'20px'}
           fontWeight={'860'}
