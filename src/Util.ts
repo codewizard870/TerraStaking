@@ -18,8 +18,8 @@ function calcUSD(amountHistory: any, ustPrice: number, lunaPrice: number) {
   if (amountHistory == undefined) return undefined;
 
   for (let i = 0; i < amountHistory.length; i++) {
-    amountHistory[i].ust_amount = Math.floor(parseInt(amountHistory[i].ust_amount) / (10 ** 5)) / 10;
-    amountHistory[i].luna_amount = Math.floor(parseInt(amountHistory[i].luna_amount) / (10 ** 5)) / 10;
+    amountHistory[i].ust_amount = floorNormalize(amountHistory[i].ust_amount);
+    amountHistory[i].luna_amount = floorNormalize(amountHistory[i].luna_amount);
     amountHistory[i].usd =
       amountHistory[i].ust_amount * ustPrice + amountHistory[i].luna_amount * lunaPrice;
     amountHistory[i].totalUST =
@@ -29,6 +29,8 @@ function calcUSD(amountHistory: any, ustPrice: number, lunaPrice: number) {
   return amountHistory;
 }
 export async function fetchData(state: AppContextInterface, dispatch: React.Dispatch<any>) {
+  dispatch({ type: ActionKind.setLoading, payload: true});
+
   const wallet = state.wallet;
   const api = new WasmAPI(state.lcd.apiRequester);
 
@@ -41,33 +43,10 @@ export async function fetchData(state: AppContextInterface, dispatch: React.Disp
     userInfoLuna = undefined,
     farmPrice = undefined,
     farmInfo = undefined,
-    farmStartTime = undefined
-
-  try {
-    amountHistory = await api.contractQuery(
-      POOL,
-      {
-        get_amount_history: {}
-      });
-  } catch (e) { }
-
-  try {
-    aprUstHistory = await api.contractQuery(
-      POOL,
-      {
-        get_history_of_apr_ust: {}
-      }
-    )
-  } catch (e) { }
-
-  try {
-    aprLunaHistory = await api.contractQuery(
-      POOL,
-      {
-        get_history_of_apr_luna: {}
-      }
-    )
-  } catch (e) { }
+    farmStartTime = undefined,
+    ust_total_rewards = undefined,
+    luna_total_rewards = undefined,
+    status: any = undefined
 
   try {
     lunaInfo = await axios.get(
@@ -80,85 +59,149 @@ export async function fetchData(state: AppContextInterface, dispatch: React.Disp
       `https://api.extraterrestrial.money/v1/api/prices?symbol=UST`
     );
   } catch (e) { }
-
-  try {
-    userInfoUst = await api.contractQuery(
-      POOL,
-      {
-        get_user_info_ust: {
-          wallet: wallet?.walletAddress
-        }
-      }
-    )
-  } catch (e) { }
-
-  try {
-    userInfoLuna = await api.contractQuery(
-      POOL,
-      {
-        get_user_info_luna: {
-          wallet: wallet?.walletAddress
-        }
-      }
-    )
-  } catch (e) { }
-
-  try {
-    farmPrice = await api.contractQuery(
-      POOL,
-      {
-        get_farm_price: {}
-      }
-    )
-  } catch (e) { }
-
-  try {
-    farmInfo = await api.contractQuery(
-      POOL,
-      {
-        get_farm_info: {
-          wallet: wallet?.walletAddress
-        }
-      }
-    )
-  } catch (e) { }
-
-  try {
-    farmStartTime = await api.contractQuery(
-      POOL,
-      {
-        get_farm_starttime: {}
-      }
-    )
-  } catch (e) { }
-
   const ustPrice = ustInfo ? ustInfo?.data.prices.UST.price : state.ustPrice;
   const lunaPrice = lunaInfo ? lunaInfo?.data.prices.LUNA.price : state.lunaPrice;
 
-  // let amountHistory, aprUstHistory, aprLunaHistory, ustPrice, lunaPrice, userInfoUst, userInfoLuna
   if (ustPrice !== undefined)
     dispatch({ type: ActionKind.setUstPrice, payload: ustPrice });
   if (lunaPrice !== undefined)
     dispatch({ type: ActionKind.setLunaPrice, payload: lunaPrice });
 
-  if (amountHistory !== undefined)
-    dispatch({ type: ActionKind.setAmountHistory, payload: calcUSD(amountHistory, ustPrice, lunaPrice) });
-  if (aprUstHistory !== undefined)
-    dispatch({ type: ActionKind.setAprUstHistory, payload: aprUstHistory });
-  if (aprLunaHistory !== undefined)
-    dispatch({ type: ActionKind.setAprLunaHistory, payload: aprLunaHistory });
+  try {
+    status = await api.contractQuery(
+      POOL,
+      {
+        get_status: {wallet: wallet?.walletAddress}
+      });
+  } catch (e) { 
+    console.log(e)
+  }
+console.log(status)
 
-  if (userInfoUst !== undefined)
-    dispatch({ type: ActionKind.setUserInfoUst, payload: userInfoUst });
-  if (userInfoLuna !== undefined)
-    dispatch({ type: ActionKind.setUserInfoLuna, payload: userInfoLuna });
+  if(status){
+    if (status.amount_history !== undefined)
+      dispatch({ type: ActionKind.setAmountHistory, payload: calcUSD(status.amount_history, ustPrice, lunaPrice) });
+    if (status.apr_ust_history !== undefined)
+      dispatch({ type: ActionKind.setAprUstHistory, payload: status.apr_ust_history });
+    if (status.apr_luna_history !== undefined)
+      dispatch({ type: ActionKind.setAprLunaHistory, payload: status.apr_luna_history });
 
-  if (farmPrice !== undefined)
-    dispatch({ type: ActionKind.setFarmPrice, payload: farmPrice });
-  if (farmInfo !== undefined)
-    dispatch({ type: ActionKind.setFarmInfo, payload: farmInfo });
-  if (farmStartTime !== undefined)
-    dispatch({ type: ActionKind.setFarmStartTime, payload: farmStartTime });
+    if (status.userinfo_ust !== undefined)
+      dispatch({ type: ActionKind.setUserInfoUst, payload: status.userinfo_ust });
+    if (status.userinfo_luna !== undefined)
+      dispatch({ type: ActionKind.setUserInfoLuna, payload: status.userinfo_luna });
+
+    if (status.farm_price !== undefined)
+      dispatch({ type: ActionKind.setFarmPrice, payload: parseInt(status.farm_price) });
+    if (status.farm_info !== undefined)
+      dispatch({ type: ActionKind.setFarmInfo, payload: status.farm_info });
+    if (status.farm_starttime !== undefined)
+      dispatch({ type: ActionKind.setFarmStartTime, payload: parseInt(status.farm_starttime) });
+
+    if(status.total_rewards_ust != undefined)
+      dispatch({ type: ActionKind.setUstTotalRewards, payload: parseInt(status.total_rewards_ust)});
+    if(status.total_rewards_luna != undefined)
+      dispatch({ type: ActionKind.setLunaTotalRewards, payload: parseInt(status.total_rewards_luna)});
+  }
+  else {
+    try {
+      amountHistory = await api.contractQuery(
+        POOL,
+        {
+          get_amount_history: {}
+        });
+    } catch (e) { }
+
+    try {
+      aprUstHistory = await api.contractQuery(
+        POOL,
+        {
+          get_history_of_apr_ust: {}
+        }
+      )
+    } catch (e) { }
+
+    try {
+      aprLunaHistory = await api.contractQuery(
+        POOL,
+        {
+          get_history_of_apr_luna: {}
+        }
+      )
+    } catch (e) { }
+
+    try {
+      userInfoUst = await api.contractQuery(
+        POOL,
+        {
+          get_user_info_ust: {
+            wallet: wallet?.walletAddress
+          }
+        }
+      )
+    } catch (e) { }
+
+    try {
+      userInfoLuna = await api.contractQuery(
+        POOL,
+        {
+          get_user_info_luna: {
+            wallet: wallet?.walletAddress
+          }
+        }
+      )
+    } catch (e) { }
+
+    try {
+      farmPrice = await api.contractQuery(
+        POOL,
+        {
+          get_farm_price: {}
+        }
+      )
+    } catch (e) { }
+
+    try {
+      farmInfo = await api.contractQuery(
+        POOL,
+        {
+          get_farm_info: {
+            wallet: wallet?.walletAddress
+          }
+        }
+      )
+    } catch (e) { }
+
+    try {
+      farmStartTime = await api.contractQuery(
+        POOL,
+        {
+          get_farm_starttime: {}
+        }
+      )
+    } catch (e) { }
+
+    if (amountHistory !== undefined)
+      dispatch({ type: ActionKind.setAmountHistory, payload: calcUSD(amountHistory, ustPrice, lunaPrice) });
+    if (aprUstHistory !== undefined)
+      dispatch({ type: ActionKind.setAprUstHistory, payload: aprUstHistory });
+    if (aprLunaHistory !== undefined)
+      dispatch({ type: ActionKind.setAprLunaHistory, payload: aprLunaHistory });
+
+    if (userInfoUst !== undefined)
+      dispatch({ type: ActionKind.setUserInfoUst, payload: userInfoUst });
+    if (userInfoLuna !== undefined)
+      dispatch({ type: ActionKind.setUserInfoLuna, payload: userInfoLuna });
+
+    if (farmPrice !== undefined)
+      dispatch({ type: ActionKind.setFarmPrice, payload: farmPrice });
+    if (farmInfo !== undefined)
+      dispatch({ type: ActionKind.setFarmInfo, payload: farmInfo });
+    if (farmStartTime !== undefined)
+      dispatch({ type: ActionKind.setFarmStartTime, payload: farmStartTime });
+  }
+
+  dispatch({ type: ActionKind.setLoading, payload: false});
 }
 
 export function sleep(ms: number) {
@@ -290,4 +333,12 @@ export function checkNetwork(wallet: ConnectedWallet | undefined, state: AppCont
     return false;
   }
   return true;
+}
+
+export function floorNormalize(amount: number){
+  return Math.floor(amount/10**4)/100;
+}
+
+export function floor(amount: number){
+  return Math.floor(amount * 100) /100;
 }

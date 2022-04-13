@@ -93,7 +93,7 @@ const DepositModal: FunctionComponent<Props> = ({isOpen, onClose}) => {
         <InputPanel amount={amount} setAmount={setAmount}/>
         <SliderWish amount={amount} setAmount={setAmount}/>
         <Divider mt={'23px'} orientation='horizontal' variant={'dashed'} color={'#CEC0C0'} />
-        <Info />
+        <Info amount={amount}/>
         <Divider mt={'23px'} orientation='horizontal' variant={'dashed'} color={'#CEC0C0'} />
         <Button 
           w={'100%'} 

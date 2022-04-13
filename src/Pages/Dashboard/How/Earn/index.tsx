@@ -9,35 +9,17 @@ import {
 import { Dispatch, SetStateAction } from "react";
 
 import { MdCode, MdArrowDropDownCircle } from "react-icons/md";
-import { 
-  useUSTPrice, 
-  useLUNAPrice, 
-  useUSTApr, 
-  useLUNAApr,
-  useExchangeRate
-} from '../../../../store';
+
 
 interface Props {
-  setTotal: Dispatch<SetStateAction<number>>,
-  setInterest: Dispatch<SetStateAction<number>>,
+  denom: string,
+  setDenom: Dispatch<SetStateAction<string>>,
+  amount: string,
+  setAmount: Dispatch<SetStateAction<string>>,
+  year: number,
+  setYear: Dispatch<SetStateAction<number>>,
 }
-const Earn: FunctionComponent<Props> = ({setTotal, setInterest}) => {
-  const [dnom, setDnom] = useState('LUNA');
-  const [year, setYear] = useState(10);
-  const [amount, setAmount] = useState('100');
-
-  const ustPrice = useUSTPrice();
-  const lunaPrice = useLUNAPrice();
-  const rate = useExchangeRate();
-  const interest = Math.floor(dnom == 'LUNA' ? parseInt(amount) * rate : parseInt(amount));
-
-  const ustApr = useUSTApr();
-  const lunaApr = useLUNAApr();
-  const apr = dnom == 'LUNA' ? lunaApr : ustApr;
-
-  setInterest(Math.floor(interest * apr / 100 * year));
-  setTotal(Math.floor(interest * apr / 100 * year + parseInt(amount)));
-
+const Earn: FunctionComponent<Props> = ({denom, setDenom, year, setYear, amount, setAmount}) => {
   return (
     <VStack
       mt={'55px'}
@@ -54,7 +36,7 @@ const Earn: FunctionComponent<Props> = ({setTotal, setInterest}) => {
           fontWeight={'860'}
           lineHeight={'24px'}
         >
-          {dnom}
+          {denom}
         </Text>
         <Menu>
           <MenuButton
@@ -71,14 +53,14 @@ const Earn: FunctionComponent<Props> = ({setTotal, setInterest}) => {
           </MenuButton>
           <MenuList background={'black'} borderColor={'black'} p={'0px'} w={'100px'} minWidth={'0px'}>
             <MenuItem
-              onClick={() => setDnom("LUNA")}
+              onClick={() => setDenom("LUNA")}
               _hover={{ bg: '#212121', color: '#F9D85E' }}
               _focus={{ bg: '#212121', color: 'white' }}
             >
               LUNA
             </MenuItem>
             <MenuItem
-              onClick={() => setDnom("UST")}
+              onClick={() => setDenom("UST")}
               _hover={{ bg: '#212121', color: '#F9D85E' }}
             >
               UST

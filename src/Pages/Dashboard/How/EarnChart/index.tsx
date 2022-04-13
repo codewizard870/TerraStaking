@@ -2,35 +2,10 @@ import React, { FunctionComponent } from 'react';
 import { HStack, Stack, Flex, Text, Image, Link } from '@chakra-ui/react'
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
-const data = [
-  {
-    time: '2020',
-    value1: 4000,
-    value2: 3000,
-  },
-  {
-    time: '2020',
-    value1: 3000,
-    value2: 2000,
-  },
-  {
-    time: '2020',
-    value1: 5000,
-    value2: 4000,
-  },
-  {
-    time: '2020',
-    value1: 5000,
-    value2: 4000,
-  },
-  {
-    time: '2020',
-    value1: 6000,
-    value2: 3000,
-  },
-];
-const EarnChart: FunctionComponent = (props) => {
-  
+interface Props{
+  data: any[]
+}
+const EarnChart: FunctionComponent<Props> = ({data}) => {
   return (
     <Flex w='100%' h='304px'>
       <ResponsiveContainer width="100%" height="100%">
@@ -52,7 +27,7 @@ const EarnChart: FunctionComponent = (props) => {
             </linearGradient>
           </defs>
           {/* <CartesianGrid strokeDasharray="3 3" /> */}
-          {/* <XAxis dataKey="name" /> */}
+          {/* <XAxis dataKey="time" /> */}
           {/* <YAxis /> */}
           {/* <Tooltip /> */}
           <Area 

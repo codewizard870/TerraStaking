@@ -2,7 +2,7 @@ import React, { FunctionComponent, useEffect } from 'react';
 import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Divider, Tooltip } from '@chakra-ui/react'
 import Warning from "./../../../../assets/Warning.svg"
 
-import {MdInfo, MdSwapHoriz} from 'react-icons/md'
+import { floor } from '../../../../Util';
 import BlackPanel from './../../../../assets/BlackPanel.svg'
 import YellowPanel from './../../../../assets/YellowPanel.svg'
 import GreenPanel from './../../../../assets/GreenPanel.svg'
@@ -15,9 +15,9 @@ const Seperator: FunctionComponent = (props) => {
   const {state, dispatch} = useStore();
   const ustPrice = state.ustPrice;
   const lunaPrice = state.lunaPrice;
-  const ustBalance = Math.floor(useUSTBalance() * ustPrice);
-  const ustDeposited = Math.floor(useUSTDeposited() * ustPrice);
-  const lunaDeposited = Math.floor(useLUNADeposited() * lunaPrice);
+  const ustBalance = floor(useUSTBalance() * ustPrice);
+  const ustDeposited = floor(useUSTDeposited() * ustPrice);
+  const lunaDeposited = floor(useLUNADeposited() * lunaPrice);
 
   return (
     <VStack align={'baseline'} w={'226px'}>

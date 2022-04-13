@@ -2,21 +2,19 @@ import React, { FunctionComponent } from 'react';
 import { 
   VStack, 
   HStack, 
-  Stack, 
-  Box, 
-  Flex, 
-  Text, Input, 
-  Slider, 
-  SliderTrack, 
-  SliderThumb, 
-  SliderFilledTrack 
+  Text, 
 } from '@chakra-ui/react'
 import { Dispatch, SetStateAction } from "react";
+import { useStore, useExchangeRate } from '../../../store';
 
 interface Props {
-
+  amount: string 
 }
-const Info: FunctionComponent<Props> = (props) => {
+const Info: FunctionComponent<Props> = ({amount}) => {
+  const {state, dispatch} = useStore();
+  const rate = useExchangeRate();
+  const fee = 0.25;
+  const value = state.coinType=='ust' ? parseInt(amount) + fee : parseInt(amount) * rate + fee;
 
   return (
     <VStack
@@ -55,7 +53,7 @@ const Info: FunctionComponent<Props> = (props) => {
           fontWeight={'400'}
           lineHeight={'10px'}
         >
-          100,346.25 UST
+          {value.toLocaleString()} UST
         </Text>
       </HStack>
     </VStack>

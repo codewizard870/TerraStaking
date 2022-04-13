@@ -58,7 +58,7 @@ const ConnectWallet: FunctionComponent = () => {
     if (connectedWallet && lcd) {
       fetchBalance()
     }
-  }, [connectedWallet, lcd, dispatch])
+  }, [connectedWallet, lcd, dispatch, state.loading])
 
   function connectTo(to: string) {
     if (to === 'extension') {
@@ -92,10 +92,10 @@ const ConnectWallet: FunctionComponent = () => {
       }
       {state.connected &&
         <>
-          {bank &&
+          {(bank && !state.loading) &&
             <MdOutlineAccountBalanceWallet size={25} color={'#F9D85E'}/>
           }
-          {!bank && 
+          {(!bank || state.loading) && 
             <Spinner color={'#F9D85E'}/>
           }
           <Text ml={'15px'} color={'#F9D85E'}>

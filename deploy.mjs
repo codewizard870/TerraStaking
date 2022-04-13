@@ -37,9 +37,9 @@ const codeid_cw20 = net=="main"? 3: 148;
 
 let wallet = terra.wallet(mk);
 
-let poolAddress = "terra1l92t8fq8sduzyq4aazxd7v5lu8n88tu6fnqtha";
-let vustAddress = "terra1t0r74dmwl80tm7e4pcr0nwk5uda6u8qz5pxy66";
-let vlunaAddress = "terra19kdvztaaz0t5vwfjqmp25uj2h0gd8hq4cvqdk0";
+let poolAddress = "terra1x3gsvjhwp7x0vunr0z08arsgygp76j246f3suz";
+let vustAddress = "terra1akd5nsdxv0dwq97wzerrrneuzysa0qae25338x";
+let vlunaAddress = "terra1jafhjq645usg3z5zuzt3ruww7zcurdtye0pnnf";
 
 run();
 
@@ -241,7 +241,7 @@ async function EstimateSend(msgs, memo) {
     return res;
   }
   catch (e) {
-    console.log(e.response.data);
+    console.log(e);
     process.exit(1);
   }
 }

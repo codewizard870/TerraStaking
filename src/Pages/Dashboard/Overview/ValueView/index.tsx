@@ -4,15 +4,18 @@ import { HStack, VStack, Flex, Text, Image, Link, Tooltip } from '@chakra-ui/rea
 import BlackPanel from './../../../../assets/BlackPanel.svg'
 import YellowPanel from './../../../../assets/YellowPanel.svg'
 import { useStore, useUSTPrice, useLUNAPrice } from '../../../../store';
-
+import { floor, floorNormalize } from '../../../../Util';
 const ValueView: FunctionComponent = (props) => {
   const { state, dispatch } = useStore();
-  const history = state.amountHistory;
   const ustPrice = useUSTPrice();
   const lunaPrice = useLUNAPrice();
+
+  const history = state.amountHistory;
   const last = history.length - 1;
-  const ustAmount = last >= 0 ? Math.floor(history[last].ust_amount * ustPrice) : 0;
-  const lunaAmount = last >= 0 ? Math.floor(history[last].luna_amount * lunaPrice) : 0;
+  const ustAmount = (last >= 0 ? floor(history[last].ust_amount * ustPrice) : 0 )+
+                + floorNormalize(state.ust_total_rewards * ustPrice);
+  const lunaAmount = (last >= 0 ? floor(history[last].luna_amount * lunaPrice) : 0)+
+                + floorNormalize(state.luna_total_rewards * lunaPrice);
 
   return (
     <VStack mt='28px' spacing={'14px'}>

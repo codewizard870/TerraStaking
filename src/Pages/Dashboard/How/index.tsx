@@ -1,14 +1,41 @@
 import React, { FunctionComponent, useState } from 'react';
 import { HStack, Stack, VStack, Flex, Text, Image, Link, Center, Divider } from '@chakra-ui/react'
-
+import { 
+  useUSTPrice, 
+  useLUNAPrice, 
+  useUSTApr, 
+  useLUNAApr,
+  useExchangeRate
+} from '../../../store';
 
 import EarnChart from './EarnChart';
 import Earn from './Earn';
 import Value from './Value';
 
 const How: FunctionComponent = (props) => {
-  const [total, setTotal] = useState(0);
-  const [interest, setInterest] = useState(0);
+  const [denom, setDenom] = useState('LUNA');
+  const [year, setYear] = useState(10);
+  const [amount, setAmount] = useState('100');
+
+  const rate = useExchangeRate();
+  const _amount = Math.floor(denom == 'LUNA' ? parseInt(amount) * rate : parseInt(amount));
+
+  const ustApr = useUSTApr();
+  const lunaApr = useLUNAApr();
+  const apr = denom == 'LUNA' ? lunaApr : ustApr;
+
+  const interest = Math.floor(_amount * apr / 100 * year);
+  const total = Math.floor(_amount * apr / 100 * year + _amount);
+
+  const data = [];
+  for(let i=1; i<= 10; i++){
+    const val = Math.floor(_amount*apr/100 * i) * (1+(Math.random()-0.5)/10);
+    data[i-1] = {
+      time: i.toString(),
+      value1: Math.floor(_amount*apr/100 * i) * (1+(Math.random()-0.5)/10),
+      value2: val * (1+(Math.random()-0.5)/10)
+    }
+  }
 
   return (
     <VStack
@@ -34,7 +61,7 @@ const How: FunctionComponent = (props) => {
         spacing={'51px'}
         w={'100%'}
       >
-        <Earn setTotal={setTotal} setInterest={setInterest}/>
+        <Earn denom={denom} setDenom={setDenom} amount={amount} setAmount={setAmount} year={year} setYear={setYear}/>
         <Center
           height={'304px'}
           display={{ sm: 'none', md: 'block', lg: 'block' }}
@@ -48,7 +75,7 @@ const How: FunctionComponent = (props) => {
           <Divider orientation={'horizontal'} />
         </Center>
         <Value total={total} interest={interest} />
-        <EarnChart />
+        <EarnChart data={data}/>
       </Stack>
     </VStack>
   );

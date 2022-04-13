@@ -4,7 +4,7 @@ import { ConnectedWallet } from '@terra-money/wallet-provider'
 import { LCDClient } from '@terra-money/terra.js'
 // import { Set2Mainnet, Set2Testnet } from './components/Util';
 import {  useQuery } from "react-query"
-
+import { floor, floorNormalize } from './Util'
 import { amountHistory, aprUstHistory, aprLunaHistory, userInfo, farmInfo } from './constants'
 
 export type COINTYPE = 'ust' | 'luna';
@@ -15,6 +15,7 @@ interface Action {
 }
 
 export interface AppContextInterface {
+  loading: boolean,
   net: "mainnet" | "testnet",
   connected: Boolean,
   lcd: LCDClient,
@@ -36,9 +37,12 @@ export interface AppContextInterface {
   farmPrice: number,
   farmInfo: any,
   farmStartTime: number,
+  ust_total_rewards: number,
+  luna_total_rewards: number,
 }
 
 const initialState: AppContextInterface = {
+  loading: false,
   net: "testnet",
   connected: false,
   lcd: new LCDClient({ //
@@ -64,9 +68,12 @@ const initialState: AppContextInterface = {
   farmPrice: 25,
   farmInfo: farmInfo,
   farmStartTime: Date.now()/1000,
+  ust_total_rewards: 0,
+  luna_total_rewards: 0,
 }
 
 export enum ActionKind{
+  setLoading,
   setNet,
   setPoolAddr,
   setLcd,
@@ -89,6 +96,8 @@ export enum ActionKind{
   setFarmPrice,
   setFarmInfo,
   setFarmStartTime,
+  setUstTotalRewards,
+  setLunaTotalRewards
 }
 
 const StoreContext = createContext<{ state: AppContextInterface; dispatch: React.Dispatch<any>; }>
@@ -99,6 +108,8 @@ const StoreContext = createContext<{ state: AppContextInterface; dispatch: React
 
 export const reducer = (state: AppContextInterface,  action: Action ) => {
   switch (action.type) {
+    case ActionKind.setLoading:
+      return { ...state, loading: action.payload}
     case ActionKind.setNet:
       return { ...state, net: action.payload}
     case ActionKind.setConnected:
@@ -141,6 +152,10 @@ export const reducer = (state: AppContextInterface,  action: Action ) => {
       return {...state, farmInfo: action.payload}
     case ActionKind.setFarmStartTime:
       return {...state, farmStartTime: action.payload}
+    case ActionKind.setUstTotalRewards:
+      return {...state, ust_total_rewards: action.payload}
+    case ActionKind.setLunaTotalRewards:
+      return {...state, luna_total_rewards: action.payload}           
     default:
       return state
   }
@@ -197,29 +212,25 @@ export const useNetworkName = () => {
 export const useUSTBalance = () => {
   const {state, dispatch} = useStore();
   let balance = state.uusdBalance;
-  balance = Math.floor(balance /(10 ** 5)) / 10;
-  return balance;
+  return floorNormalize(balance);
 }
 
 export const useLUNABalance = () => {
   const {state, dispatch} = useStore();
   let balance = state.ulunaBalance;
-  balance = Math.floor(balance /(10 ** 5)) / 10;
-  return balance;
+  return floorNormalize(balance);
 }
 
 export const useUSTDeposited = () => {
   const {state, dispatch} = useStore();
   let balance = state.userInfoUst.amount;
-  balance = Math.floor(balance /(10 ** 5)) / 10;
-  return balance;
+  return floorNormalize(balance);
 }
 
 export const useLUNADeposited = () => {
   const {state, dispatch} = useStore();
   let balance = state.userInfoLuna.amount;
-  balance = Math.floor(balance /(10 ** 5)) / 10;
-  return balance;
+  return floorNormalize(balance);
 }
 
 export const useUSTApr = () => {
