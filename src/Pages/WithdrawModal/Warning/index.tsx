@@ -30,96 +30,99 @@ const WarningModal: FunctionComponent<Props> = ({isOpen, onClose, amount}) => {
   const [checked, setChecked] = useState(false);
 
   const withdraw = async () => {
-    if(checked == false)
+    if(checked == false || wallet == undefined)
       return;
       
-    if( coinType === 'ust' && wallet?.walletAddress ){
-      let val = Math.floor(parseFloat(amount) * 10 ** 6);
-      let withdraw_msg = new MsgExecuteContract(
-        wallet?.walletAddress,
-        VUST,
-        {
-          "increase_allowance": {
-              "spender": `${MOTHER_WALLET}`,
-              "amount": `${val}`,
-              "expires": {
-                  "never": {}
-              }
-          }
-        },
-        {}
-      );
-      let res = await estimateSend(wallet, lcd, [withdraw_msg], "Success request withdraw", "request withdraw");
-      if(res)
+    let val = Math.floor(parseFloat(amount) * 10 ** 6);
+    let withdraw_msg = new MsgExecuteContract(
+      wallet?.walletAddress,
+      coinType == 'ust' ? VUST : VLUNA,
       {
-        var formData = new FormData()
-        formData.append('wallet', wallet.walletAddress.toString());
-        formData.append('coinType', 'ust')
-        formData.append('amount', val.toString())
-
-        await axios.post(REQUEST_ENDPOINT + 'withdraw', formData, {timeout: 60 * 60 * 1000})
-        .catch(function (error) {
-          if (error.response) {
-            // The request was made and the server responded with a status code
-            // that falls out of the range of 2xx
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
-          } else if (error.request) {
-            // The request was made but no response was received
-            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-            // http.ClientRequest in node.js
-            console.log(error.request);
-          } else {
-            // Something happened in setting up the request that triggered an Error
-            console.log('Error', error.message);
-          }
-          console.log(error.config);
-        });
-      }
-    }
-    else if( coinType === 'luna' && wallet?.walletAddress ){
-      let val = Math.floor(parseFloat(amount) * 10 ** 6);
-      let withdraw_msg = new MsgExecuteContract(
-        wallet?.walletAddress,
-        VLUNA,
-        {
-          "increase_allowance": {
-              "spender": `${MOTHER_WALLET}`,
-              "amount": `${val}`,
-              "expires": {
-                  "never": {}
-              }
-          }
-        },
-        {}
-      );
-      let res = await estimateSend(wallet, lcd, [withdraw_msg], "Success request withdraw", "request withdraw");
-      if(res)
-      {
-        var formData = new FormData()
-        formData.append('wallet', wallet.walletAddress.toString());
-        formData.append('coinType', 'luna')
-        formData.append('amount', val.toString())
-
-        const requestOptions = {
-          method: 'POST',
-          body: formData,
+        "increase_allowance": {
+            "spender": `${MOTHER_WALLET}`,
+            "amount": `${val}`,
+            "expires": {
+                "never": {}
+            }
         }
+      },
+      {}
+    );
+    let res = await estimateSend(wallet, lcd, [withdraw_msg], "Success request withdraw", "request withdraw");
+    if(res)
+    {
+      var formData = new FormData()
+      formData.append('wallet', wallet.walletAddress.toString());
+      formData.append('coinType', coinType)
+      formData.append('amount', val.toString())
 
-        await fetch(REQUEST_ENDPOINT + 'withdraw', requestOptions)
-          .then((res) => {
-console.log(res)
-            toast('Request Success', successOption);
-            fetchData(state, dispatch)
-          })
-          .catch((e) => {
-            console.log('Error:' + e)
-            toast('Request error', errorOption);
-          })
-      }
+      await axios.post(REQUEST_ENDPOINT + 'withdraw', formData, {timeout: 60 * 60 * 1000})
+      .then((res) => {
+        toast("Withdraw success", successOption)
+        fetchData(state, dispatch)
+      })
+      .catch(function (error) {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+          toast(error.response.data, errorOption)
+        } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          toast(error.request, errorOption);
+          fetchData(state, dispatch)
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          toast(error.message, errorOption);
+        }
+      });
     }
   }
+//     else if( coinType === 'luna' && wallet?.walletAddress ){
+//       let val = Math.floor(parseFloat(amount) * 10 ** 6);
+//       let withdraw_msg = new MsgExecuteContract(
+//         wallet?.walletAddress,
+//         VLUNA,
+//         {
+//           "increase_allowance": {
+//               "spender": `${MOTHER_WALLET}`,
+//               "amount": `${val}`,
+//               "expires": {
+//                   "never": {}
+//               }
+//           }
+//         },
+//         {}
+//       );
+//       let res = await estimateSend(wallet, lcd, [withdraw_msg], "Success request withdraw", "request withdraw");
+//       if(res)
+//       {
+//         var formData = new FormData()
+//         formData.append('wallet', wallet.walletAddress.toString());
+//         formData.append('coinType', 'luna')
+//         formData.append('amount', val.toString())
+
+//         const requestOptions = {
+//           method: 'POST',
+//           body: formData,
+//         }
+
+//         await fetch(REQUEST_ENDPOINT + 'withdraw', requestOptions)
+//           .then((res) => {
+// console.log(res)
+//             toast('Request Success', successOption);
+//             fetchData(state, dispatch)
+//           })
+//           .catch((e) => {
+//             console.log('Error:' + e)
+//             toast('Request error', errorOption);
+//           })
+//       }
+//     }
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
