@@ -20,7 +20,7 @@ const TotalLocked: FunctionComponent = (props) => {
     <>
       <Text
         fontSize={'20px'}
-        fontWeight={'860'}
+        fontWeight={'800'}
         lineHeight={'24px'}
       >
         TOTAL VALUE LOCKED
@@ -28,21 +28,21 @@ const TotalLocked: FunctionComponent = (props) => {
       <HStack spacing={'10px'} alignItems={'baseline'}>
         <Text
           fontSize={'34px'}
-          fontWeight={'860'}
+          fontWeight={'800'}
           lineHeight={'36px'}
         >
           {total.toLocaleString()}&nbsp;
         </Text>
         <Text
           fontSize={'20px'}
-          fontWeight={'860'}
+          fontWeight={'800'}
           lineHeight={'36px'}
         >
           UST
         </Text>
         <Text
           fontSize={'14px'}
-          fontWeight={'860'}
+          fontWeight={'800'}
           lineHeight={'36px'}
           color={'green'}
         >

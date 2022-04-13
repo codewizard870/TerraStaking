@@ -31,7 +31,7 @@ const ValueView: FunctionComponent = (props) => {
           > 
             <Text
               fontSize={'20px'}
-              fontWeight={'860'}
+              fontWeight={'800'}
               lineHeight={'24px'}
             >
               LUNA
@@ -57,7 +57,7 @@ const ValueView: FunctionComponent = (props) => {
           > 
             <Text
               fontSize={'20px'}
-              fontWeight={'860'}
+              fontWeight={'800'}
               lineHeight={'24px'}
             >
               UST

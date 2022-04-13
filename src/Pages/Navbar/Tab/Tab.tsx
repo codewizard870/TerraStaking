@@ -17,7 +17,6 @@ const Tab: FunctionComponent<Props> = ({id, children}) => {
   }
   return (
     <Flex
-      fontFamily={'SF Pro'}
       fontSize={'20px'}
       fontWeight={'860'}
       width={'160px'}

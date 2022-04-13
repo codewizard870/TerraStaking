@@ -37,7 +37,8 @@ const Layout = () => {
     <QueryClientProvider client={queryClient} key={networkName}>
       <VStack
         background={'black'}
-        fontFamily={'SF Pro'}
+        fontFamily={'SF-Pro-Text'}
+        letterSpacing={'-0.06em'}
         color={'white'}
         spacing={'10px'}
       >
