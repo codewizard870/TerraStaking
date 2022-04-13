@@ -168,7 +168,7 @@ const USTDepositPanel: FunctionComponent = (props) => {
             <Button 
               w={'92px'} 
               h={'25px'} 
-              background={'#493C3C'} 
+              background={'black'} 
               rounded={'25px'}
               border={'solid 1px white'}
               onClick = {() => OpenWithdrawModal(state, dispatch, "ust")}

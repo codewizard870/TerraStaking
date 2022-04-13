@@ -15,8 +15,7 @@ const Info: FunctionComponent<Props> = ({ amount }) => {
   const rate = useExchangeRate();
   const fee = 0.25;
   const value = state.coinType == 'ust' ? parseInt(amount) + fee : parseInt(amount) * rate + fee;
-console.log(amount)
-console.log(value)
+
   return (
     <VStack
       w={'100%'}

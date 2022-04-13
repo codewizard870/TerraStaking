@@ -13,10 +13,11 @@ import {
   SliderMark
 } from '@chakra-ui/react'
 import { Dispatch, SetStateAction } from "react";
-import { MdCode, MdArrowDropDownCircle } from "react-icons/md";
+import { MdCode } from "react-icons/md";
 
+import { floorNormalize, floor } from '../../../Util';
 import Indicator from './Indicator';
-import { useUSTBalance, useLUNABalance, useStore } from '../../../store'
+import { useUSTDeposited, useLUNADeposited, useStore } from '../../../store'
 
 interface Props {
   amount: string,
@@ -24,8 +25,8 @@ interface Props {
 }
 const SliderWish: FunctionComponent<Props> = ({  amount, setAmount }) => {
   const {state, dispatch} = useStore();
-  const ustDeposited = Math.floor(parseInt(state.userInfoUst.amount)/(10**5))/10;
-  const lunaDeposited = Math.floor(parseInt(state.userInfoLuna.amount)/(10**5))/10;
+  const ustDeposited = useUSTDeposited() + floorNormalize(state.userInfoUst.reward_amount);
+  const lunaDeposited = useLUNADeposited() + floorNormalize(state.userInfoLuna.reward_amount);
 
   const [sliderValue, setSliderValue] = useState(0);
   
@@ -43,7 +44,7 @@ const SliderWish: FunctionComponent<Props> = ({  amount, setAmount }) => {
   const onChangeSlider = (value: number) => {
     setSliderValue(value);
     let balance = state.coinType == 'ust' ? ustDeposited : lunaDeposited;
-    setAmount(Math.floor(balance * value / 100).toString());
+    setAmount(floor(balance * value / 100).toString());
   }
   return (
     <Flex

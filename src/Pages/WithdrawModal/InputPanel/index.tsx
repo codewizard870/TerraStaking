@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { VStack, HStack, Stack, Flex, Text, Input, Link, Center, Divider, Button, useBoolean } from '@chakra-ui/react'
 import { Dispatch, SetStateAction } from "react";
+import { floorNormalize } from '../../../Util';
 import { useUSTDeposited, useLUNADeposited, COINTYPE, useStore, ActionKind } from '../../../store'
 
 interface Props {
@@ -9,8 +10,8 @@ interface Props {
 }
 const InputPanel: FunctionComponent<Props> = (props) => {
   const { state, dispatch } = useStore();
-  const ustDeposited = useUSTDeposited() + state.userInfoUst.reward_amount / 10 ** 6;
-  const lunaDeposited = useLUNADeposited() + state.userInfoLuna.reward_amount / 10 ** 6;
+  const ustDeposited = useUSTDeposited() + floorNormalize(state.userInfoUst.reward_amount);
+  const lunaDeposited = useLUNADeposited() + floorNormalize(state.userInfoLuna.reward_amount);
 
   const maxBalance = () => {
     if (state.coinType === 'ust')

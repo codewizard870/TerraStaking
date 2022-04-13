@@ -40,7 +40,7 @@ const CircularView: FunctionComponent = (props) => {
       <CircularProgress
         position={'absolute'}
         value={percent3}
-        size={'113px'}
+        size={'110px'}
         capIsRound={true}
         color={'#F9D85E'}
         trackColor={'none'}

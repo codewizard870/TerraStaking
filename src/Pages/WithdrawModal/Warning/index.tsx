@@ -1,19 +1,16 @@
 import React, { FunctionComponent, useState } from 'react';
 import { Stack, VStack, Flex, HStack, Button, Text, Divider, Image, Checkbox } from '@chakra-ui/react'
 import { Deposit, MsgExecuteContract, WasmAPI, Coin } from '@terra-money/terra.js'
+import axios from 'axios';
 import {
   Modal,
   ModalOverlay,
   ModalContent,
   ModalCloseButton,
-  ModalBody,
-  ModalFooter,
-
 } from '@chakra-ui/react'
 import {toast} from 'react-toastify'
 import {MdWarningAmber, MdInfoOutline} from 'react-icons/md'
 
-import Warning from "./../../../assets/Warning.svg"
 import { useStore, useWallet, useLCD } from '../../../store';
 import {estimateSend, fetchData} from '../../../Util';
 import { successOption, errorOption, REQUEST_ENDPOINT, VUST, VLUNA, MOTHER_WALLET } from '../../../constants';
@@ -60,21 +57,25 @@ const WarningModal: FunctionComponent<Props> = ({isOpen, onClose, amount}) => {
         formData.append('coinType', 'ust')
         formData.append('amount', val.toString())
 
-        const requestOptions = {
-          method: 'POST',
-          body: formData,
-        }
-
-        await fetch(REQUEST_ENDPOINT + 'withdraw', requestOptions)
-          .then((res) => res.json())
-          .then((data) => {
-            toast('Request Success', successOption);
-            fetchData(state, dispatch)
-          })
-          .catch((e) => {
-            console.log('Error:' + e)
-            toast('Request error', errorOption);
-          })
+        await axios.post(REQUEST_ENDPOINT + 'withdraw', formData, {timeout: 60 * 60 * 1000})
+        .catch(function (error) {
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          } else if (error.request) {
+            // The request was made but no response was received
+            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+            // http.ClientRequest in node.js
+            console.log(error.request);
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log('Error', error.message);
+          }
+          console.log(error.config);
+        });
       }
     }
     else if( coinType === 'luna' && wallet?.walletAddress ){
@@ -107,8 +108,8 @@ const WarningModal: FunctionComponent<Props> = ({isOpen, onClose, amount}) => {
         }
 
         await fetch(REQUEST_ENDPOINT + 'withdraw', requestOptions)
-          .then((res) => res.json())
-          .then((data) => {
+          .then((res) => {
+console.log(res)
             toast('Request Success', successOption);
             fetchData(state, dispatch)
           })

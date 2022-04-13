@@ -26,7 +26,6 @@ const DateTimeTab: FunctionComponent<Props> = ({setInterest}) => {
     case 'week': rate = 1 / 54; break;
     case 'day': rate = 1 / 365; break;
   }
-  console.log(rate);
 
   const ustDeposited = useUSTDeposited();
   const lunaDeposited = useLUNADeposited();

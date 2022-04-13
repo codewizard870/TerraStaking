@@ -15,8 +15,7 @@ const TotalLocked: FunctionComponent = (props) => {
 
   const _upPercent = last >= 1 ? (history[last].usd / history[last - 1].usd - 1) : 0;
   const upPercent = _upPercent > 0 ? floor(_upPercent * 100) : 0;
-console.log(_upPercent);
-console.log(history)
+
   return (
     <>
       <Text
