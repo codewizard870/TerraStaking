@@ -24,13 +24,13 @@ const USTDepositPanel: FunctionComponent = (props) => {
     >
       <Grid 
         templateColumns='[first] 20% [line2] 20% [line3] 20% line[4] auto' 
-        gap={6} 
+        gap={0} 
         w={'100%'}
       >
-        <GridItem w='100%' h='70'> 
+        <GridItem w='100%' h='60px'> 
 
         </GridItem>
-        <GridItem w='100%' h='70'>
+        <GridItem w='100%' h='60px'>
           <Flex w={'100%'} h={'100%'} align={'center'} justify={'center'}>
             <Tooltip 
               label="Current annualized deposit rate" 
@@ -48,7 +48,7 @@ const USTDepositPanel: FunctionComponent = (props) => {
             </Tooltip>
           </Flex>
         </GridItem>
-        <GridItem w='100%' h='70'>
+        <GridItem w='100%' h='60px'>
           <Flex w={'100%'} h={'100%'} align={'center'} justify={'center'}>
             <Tooltip 
               label="Total of all UST deposits including earnings" 
@@ -66,7 +66,7 @@ const USTDepositPanel: FunctionComponent = (props) => {
             </Tooltip>
           </Flex>
         </GridItem>
-        <GridItem w='100%' h='70'> 
+        <GridItem w='100%' h='60px'> 
           <Flex w={'100%'} h={'100%'} align={'center'} justify={'center'}>
             <Text
               fontSize={'13px'}

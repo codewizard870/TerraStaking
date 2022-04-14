@@ -119,7 +119,7 @@ const TVLChart: FunctionComponent<Props> = ({data, id}) => {
     createChart()
   }, [data])
   return (
-    <div style={{width: '100%', position: 'relative', height: '300px', marginTop:'30px'}}>
+    <div style={{width: '100%', position: 'relative', height: '330px', marginTop:'30px'}}>
       <canvas ref={canvasRef} />
       <div ref={tooltipRef} className="root" id={`tooltip${id}`} >
         <hr className="hr0"/>

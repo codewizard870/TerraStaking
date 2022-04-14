@@ -31,7 +31,8 @@ const TVL: FunctionComponent = (props) => {
       h={'100%'}
       rounded={'25px'} 
       background={'#212121'} 
-      p={{sm:'10px', md:'20px', lg:'59px'}}
+      px={{sm:'10px', md:'20px', lg:'50px'}}
+      py={{sm:'10px', md:'20px', lg:'59px'}}
       align={'baseline'}
     >
       <VStack
@@ -40,7 +41,7 @@ const TVL: FunctionComponent = (props) => {
       >
         <Text
           fontSize={'20px'}
-          fontWeight={'860'}
+          fontWeight={'800'}
           lineHeight={'24px'}
         >
           TVL OF THE ENTIRE ECOSYSTEM 
@@ -48,14 +49,14 @@ const TVL: FunctionComponent = (props) => {
         <HStack spacing={'5px'} align={'baseline'}>
           <Text
             fontSize={'35px'}
-            fontWeight={'860'}
+            fontWeight={'800'}
             lineHeight={'36px'}
           >
             {total.toLocaleString()}
           </Text>
           <Text
             fontSize={'15px'}
-            fontWeight={'860'}
+            fontWeight={'800'}
             lineHeight={'36px'}
           >
             UST

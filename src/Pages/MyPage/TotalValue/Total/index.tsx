@@ -2,9 +2,10 @@ import React, { FunctionComponent } from 'react';
 import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Tooltip, Button } from '@chakra-ui/react'
 
 import { MdSwapHoriz } from 'react-icons/md'
-import { useUSTBalance, useUSTDeposited, useLUNADeposited, useStore } from '../../../../store';
+import { useUSTBalance, useUSTDeposited, useLUNADeposited, useStore, useExchangeRate } from '../../../../store';
 import Warning from "./../../../../assets/Warning.svg"
 import { useNavigate } from 'react-router-dom';
+import { floorNormalize, floor } from '../../../../Util';
 
 const Total: FunctionComponent = (props) => {
   const navigate = useNavigate();
@@ -12,10 +13,11 @@ const Total: FunctionComponent = (props) => {
   const { state, dispatch } = useStore();
   const ustPrice = state.ustPrice;
   const lunaPrice = state.lunaPrice;
-  const ustBalance = Math.floor(useUSTBalance() * ustPrice);
+  const ustBalance = useUSTBalance();
+  const rate = useExchangeRate();
 
-  const ustDeposited = useUSTDeposited()  * ustPrice;
-  const lunaDeposited = useLUNADeposited() * lunaPrice;
+  const ustDeposited = useUSTDeposited() + floorNormalize(state.userInfoUst.reward_amount);
+  const lunaDeposited = useLUNADeposited() * rate + floorNormalize(state.userInfoLuna.reward_amount * rate);
   const total = ustBalance + ustDeposited + lunaDeposited;
 
   return (

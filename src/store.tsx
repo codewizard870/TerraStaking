@@ -1,9 +1,7 @@
-import React, { createContext, useContext, useEffect, useReducer, useMemo, useCallback } from 'react'
-import axios from "axios"
+import React, { createContext, useContext, useReducer } from 'react'
 import { ConnectedWallet } from '@terra-money/wallet-provider'
 import { LCDClient } from '@terra-money/terra.js'
-// import { Set2Mainnet, Set2Testnet } from './components/Util';
-import {  useQuery } from "react-query"
+
 import { floor, floorNormalize } from './Util'
 import { amountHistory, aprUstHistory, aprLunaHistory, userInfo, farmInfo } from './constants'
 
@@ -25,6 +23,8 @@ export interface AppContextInterface {
   tab: "dashboard" | "mypage" | "earn" | "utility",
   openDepositModal: (() => void) | undefined,
   openWithdrawModal: (() => void) | undefined,
+  openWaitingModal: (() => void) | undefined,
+  closeWaitingModal: (() => void) | undefined,
   coinType: COINTYPE,
   isPending: boolean,
   amountHistory: any,
@@ -39,6 +39,7 @@ export interface AppContextInterface {
   farmStartTime: number,
   ust_total_rewards: number,
   luna_total_rewards: number,
+  txhash: string | undefined,
 }
 
 const initialState: AppContextInterface = {
@@ -56,6 +57,8 @@ const initialState: AppContextInterface = {
   tab: 'dashboard',
   openDepositModal: undefined,
   openWithdrawModal: undefined,
+  openWaitingModal: undefined,
+  closeWaitingModal: undefined,
   coinType: 'ust',
   isPending: false,
   amountHistory: amountHistory,
@@ -70,6 +73,7 @@ const initialState: AppContextInterface = {
   farmStartTime: Date.now()/1000,
   ust_total_rewards: 0,
   luna_total_rewards: 0,
+  txhash: undefined,
 }
 
 export enum ActionKind{
@@ -84,6 +88,8 @@ export enum ActionKind{
   setTab,
   setOpenDepositModal,
   setOpenWithdrawModal,
+  setOpenWaitingModal,
+  setCloseWaitingModal,
   setCoinType,
   setIsPending,
   setAmountHistory,
@@ -97,7 +103,8 @@ export enum ActionKind{
   setFarmInfo,
   setFarmStartTime,
   setUstTotalRewards,
-  setLunaTotalRewards
+  setLunaTotalRewards,
+  setTxhash
 }
 
 const StoreContext = createContext<{ state: AppContextInterface; dispatch: React.Dispatch<any>; }>
@@ -128,6 +135,10 @@ export const reducer = (state: AppContextInterface,  action: Action ) => {
       return { ...state, openDepositModal: action.payload}
     case ActionKind.setOpenWithdrawModal:
       return { ...state, openWithdrawModal: action.payload}
+    case ActionKind.setOpenWaitingModal:
+      return { ...state, openWaitingModal: action.payload}
+    case ActionKind.setCloseWaitingModal:
+      return { ...state, closeWaitingModal: action.payload}      
     case ActionKind.setCoinType:
       return { ...state, coinType: action.payload}
     case ActionKind.setIsPending:
@@ -155,7 +166,9 @@ export const reducer = (state: AppContextInterface,  action: Action ) => {
     case ActionKind.setUstTotalRewards:
       return {...state, ust_total_rewards: action.payload}
     case ActionKind.setLunaTotalRewards:
-      return {...state, luna_total_rewards: action.payload}           
+      return {...state, luna_total_rewards: action.payload}
+    case ActionKind.setTxhash:
+      return {...state, txhash: action.payload}
     default:
       return state
   }

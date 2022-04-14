@@ -13,9 +13,8 @@ const TotalLocked: FunctionComponent = (props) => {
   const last = history.length - 1;
   const total = floor((last >= 0 ? history[last].totalUST ?? 0 : 0) + rewards);
 
-  const _upPercent = last >= 1 ? (history[last].usd / history[last - 1].usd - 1) : 0;
-  const upPercent = _upPercent > 0 ? floor(_upPercent * 100) : 0;
-
+  const upPercent = last >= 1 ? floor(100 *(history[last].usd / history[last - 1].usd - 1)) : 0;
+  
   return (
     <>
       <Text
@@ -46,7 +45,7 @@ const TotalLocked: FunctionComponent = (props) => {
           lineHeight={'36px'}
           color={'green'}
         >
-          ▲ {upPercent}%
+          {upPercent > 0 ? `▲${upPercent}` : `▼${-1 * upPercent}`}%
         </Text>
       </HStack>
     </>

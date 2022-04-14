@@ -232,7 +232,7 @@ export async function estimateSend(
     })
   console.log(accountInfo);
   if (!accountInfo)
-    return false;
+    return undefined;
 
   let txOptions =
   {
@@ -261,7 +261,7 @@ export async function estimateSend(
     })
 
   if (!rawFee)
-    return false;
+    return undefined;
 
   return await wallet
     .post({
@@ -274,42 +274,17 @@ export async function estimateSend(
     .then(async (e) => {
       if (e.success) {
         toast("Successs! Please wait", successOption);
+        return e.result.txhash;
       } else {
         toast(e.result.raw_log, errorOption);
         console.log(e.result.raw_log);
-        return false;
+        return undefined;
       }
-
-      let count = 10;
-      let height = 0;
-      while (count > 0) {
-        await lcd.tx.txInfo(e.result.txhash)
-          // eslint-disable-next-line no-loop-func
-          .then((e) => {
-            console.log(e)
-            if (e.height > 0) {
-              toast.dismiss();
-              toast(message, successOption);
-              height = e.height;
-            }
-          })
-          .catch((e) => {
-            // console.log(e)
-          })
-        if (height > 0) break;
-
-        await sleep(1000);
-
-        count--;
-        console.log(count);
-      }
-
-      return true;
     })
     .catch((e) => {
       toast(e.message, errorOption);
       console.log(e.message);
-      return false;
+      return undefined;
     })
 }
 

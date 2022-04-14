@@ -11,23 +11,23 @@ import {
 import {toast} from 'react-toastify'
 import {MdWarningAmber, MdInfoOutline} from 'react-icons/md'
 
-import { useStore, useWallet, useLCD } from '../../../store';
-import {estimateSend, fetchData} from '../../../Util';
+import { useStore, useWallet, useLCD, ActionKind } from '../../../store';
+import {estimateSend, fetchData, sleep} from '../../../Util';
 import { successOption, errorOption, REQUEST_ENDPOINT, VUST, VLUNA, MOTHER_WALLET } from '../../../constants';
 import CustomCheckbox from './CustomCheckbox';
-
 
 interface Props{
   isOpen: boolean,
   onClose: () => void,
+  onCloseParent: () => void,
   amount: string,
 }
-const WarningModal: FunctionComponent<Props> = ({isOpen, onClose, amount}) => {
+const WarningModal: FunctionComponent<Props> = ({isOpen, onClose, amount, onCloseParent}) => {
+  const [checked, setChecked] = useState(false);
+  const {state, dispatch} = useStore();
   const wallet = useWallet();
   const lcd = useLCD();
-  const {state, dispatch} = useStore();
   const coinType = state.coinType;
-  const [checked, setChecked] = useState(false);
 
   const withdraw = async () => {
     if(checked == false || wallet == undefined)
@@ -51,6 +51,33 @@ const WarningModal: FunctionComponent<Props> = ({isOpen, onClose, amount}) => {
     let res = await estimateSend(wallet, lcd, [withdraw_msg], "Success request withdraw", "request withdraw");
     if(res)
     {
+      dispatch({type: ActionKind.setTxhash, payload: res});
+
+      onClose();
+      onCloseParent();
+      if(state.openWaitingModal)
+        state.openWaitingModal();
+
+      let count = 10;
+      let height = 0;
+      while (count > 0) {
+        await lcd.tx.txInfo(res)
+          // eslint-disable-next-line no-loop-func
+          .then((e) => {
+            if (e.height > 0) {
+              toast.dismiss();
+              toast("Success request withdraw", successOption);
+              height = e.height;
+            }
+          })
+          .catch((e) => {})
+
+        if (height > 0) break;
+
+        await sleep(1000);
+        count--;
+      }
+
       var formData = new FormData()
       formData.append('wallet', wallet.walletAddress.toString());
       formData.append('coinType', coinType)
@@ -59,70 +86,25 @@ const WarningModal: FunctionComponent<Props> = ({isOpen, onClose, amount}) => {
       await axios.post(REQUEST_ENDPOINT + 'withdraw', formData, {timeout: 60 * 60 * 1000})
       .then((res) => {
         toast("Withdraw success", successOption)
+        if(state.closeWaitingModal)
+          state.closeWaitingModal();
         fetchData(state, dispatch)
       })
       .catch(function (error) {
         if (error.response) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-          toast(error.response.data, errorOption)
+          toast(error.response.data.data.message, errorOption)
         } else if (error.request) {
-          // The request was made but no response was received
-          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-          // http.ClientRequest in node.js
           toast(error.request, errorOption);
           fetchData(state, dispatch)
         } else {
-          // Something happened in setting up the request that triggered an Error
           toast(error.message, errorOption);
         }
+        if(state.closeWaitingModal)
+          state.closeWaitingModal();
       });
     }
   }
-//     else if( coinType === 'luna' && wallet?.walletAddress ){
-//       let val = Math.floor(parseFloat(amount) * 10 ** 6);
-//       let withdraw_msg = new MsgExecuteContract(
-//         wallet?.walletAddress,
-//         VLUNA,
-//         {
-//           "increase_allowance": {
-//               "spender": `${MOTHER_WALLET}`,
-//               "amount": `${val}`,
-//               "expires": {
-//                   "never": {}
-//               }
-//           }
-//         },
-//         {}
-//       );
-//       let res = await estimateSend(wallet, lcd, [withdraw_msg], "Success request withdraw", "request withdraw");
-//       if(res)
-//       {
-//         var formData = new FormData()
-//         formData.append('wallet', wallet.walletAddress.toString());
-//         formData.append('coinType', 'luna')
-//         formData.append('amount', val.toString())
 
-//         const requestOptions = {
-//           method: 'POST',
-//           body: formData,
-//         }
-
-//         await fetch(REQUEST_ENDPOINT + 'withdraw', requestOptions)
-//           .then((res) => {
-// console.log(res)
-//             toast('Request Success', successOption);
-//             fetchData(state, dispatch)
-//           })
-//           .catch((e) => {
-//             console.log('Error:' + e)
-//             toast('Request error', errorOption);
-//           })
-//       }
-//     }
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -131,7 +113,7 @@ const WarningModal: FunctionComponent<Props> = ({isOpen, onClose, amount}) => {
         rounded={'25px'}
         w={{sm:'80%', md: '562px', lg:'562px'}}
         minW={{sm:'80%', md: '562px', lg:'562px'}}
-        h={'453px'}
+        h={'413px'}
         px={{sm:'10px', md: '47px', lg: '47px'}}
         py={'39px'}
       >
@@ -146,7 +128,7 @@ const WarningModal: FunctionComponent<Props> = ({isOpen, onClose, amount}) => {
             fontWeight={'860'}
             lineHeight={'20px'}
           >
-            Withdraw
+            WITHDRAW WARNING
           </Text>
           <MdWarningAmber size={20}/>
         </HStack>
@@ -186,7 +168,7 @@ const WarningModal: FunctionComponent<Props> = ({isOpen, onClose, amount}) => {
           <HStack>
             <CustomCheckbox checked={checked} setChecked={setChecked} />
             <Text
-              fontSize={'8px'}
+              fontSize={'9px'}
               fontWeight={'400'}
               lineHeight={'11px'}
               color={'#CEC0C0'} 

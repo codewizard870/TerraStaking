@@ -28,7 +28,7 @@ const Total: FunctionComponent = (props) => {
       align={'center'}
       spacing={'64px'}
       px={{sm:'10px', md:'20px', lg:'50px'}}
-      py={{sm:'10px', md:'20px', lg:'59px'}}
+      py={{sm:'10px', md:'20px', lg:'56px'}}
     >
       <VStack w={'100%'} align={'baseline'}>
         <HStack spacing={'10px'}>
@@ -85,7 +85,7 @@ const Total: FunctionComponent = (props) => {
           h={'45px'} 
           background={'black'} 
           border={'solid 1px'}
-          borderColor={'white'} 
+          borderColor={'#CEBFBF'} 
           rounded={'25px'}
           onClick = {() => OpenWithdrawModal(state, dispatch, "ust")}
         >

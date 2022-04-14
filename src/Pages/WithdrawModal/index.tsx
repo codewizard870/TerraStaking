@@ -64,8 +64,9 @@ const WithdrawModal: FunctionComponent<Props> = ({isOpen, onClose}) => {
           background={'#493C3C'} 
           rounded={'25px'}
           onClick={() => {
-            if(parseFloat(amount) > 0)
+            if(parseFloat(amount) > 0){
                 onOpenWarning()
+            }
           }}
         >
           <Text
@@ -77,7 +78,7 @@ const WithdrawModal: FunctionComponent<Props> = ({isOpen, onClose}) => {
           </Text>
         </Button>
         <ModalCloseButton color={'#CEBFBF'} />
-        <WarningModal onClose={onCloseWarning} isOpen={isOpenWarning} amount={amount}/>
+        <WarningModal onClose={onCloseWarning} isOpen={isOpenWarning} onCloseParent = {onClose} amount={amount}/>
       </ModalContent>
     </Modal>
   );

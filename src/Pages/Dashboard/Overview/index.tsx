@@ -16,7 +16,8 @@ const Overview: FunctionComponent = (props) => {
       background={'#212121'} 
       align={'center'}
       spacing={'63px'}
-      p={{sm:'10px', md:'20px', lg:'59px'}}
+      px={{sm:'10px', md:'20px', lg:'50px'}}
+      py={{sm:'10px', md:'20px', lg:'60px'}}
     >
       <Flex 
         direction={'column'}

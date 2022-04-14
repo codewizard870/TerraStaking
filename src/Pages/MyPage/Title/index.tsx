@@ -8,7 +8,7 @@ const Title: FunctionComponent = (props) => {
     <Flex ml={'13px'} w={'100%'} justify={'left'}  align={'flex-end'}>
       <Text
         fontSize={'40px'}
-        fontWeight={'860'}
+        fontWeight={'800'}
       >
         My Page
       </Text>

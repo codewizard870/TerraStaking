@@ -7,14 +7,15 @@ import {
   ModalContent,
   ModalCloseButton,
 } from '@chakra-ui/react'
+import { toast } from 'react-toastify';
 
 import CoinTab from './CoinTab';
 import InputPanel from './InputPanel';
 import SliderWish from './SliderWish';
 import Info from './Info';
-import { useStore, useWallet, useLCD } from '../../store';
-import {estimateSend, fetchData} from '../../Util';
-import {POOL} from '../../constants';
+import { useStore, useWallet, useLCD, ActionKind } from '../../store';
+import {estimateSend, fetchData, sleep} from '../../Util';
+import {POOL, successOption} from '../../constants';
 
 interface Props{
   isOpen: boolean,
@@ -28,38 +29,53 @@ const DepositModal: FunctionComponent<Props> = ({isOpen, onClose}) => {
   const coinType = state.coinType;
 
   const deposit = async () => {
-    if(parseFloat(amount) <= 0 )
+    if(parseFloat(amount) <= 0  || !wallet?.walletAddress)
       return;
       
-    if( coinType === 'ust' && wallet?.walletAddress ){
-      let val = Math.floor(parseFloat(amount) * 10 ** 6);
-      let msg = {
-        deposit_ust: {}
+    let val = Math.floor(parseFloat(amount) * 10 ** 6);
+    let msg;
+    if(coinType === 'ust')
+      msg = { deposit_ust: {} }
+    else
+      msg = { deposit_luna: {} }
+
+    let deposit_msg = new MsgExecuteContract(
+      wallet?.walletAddress,
+      POOL,
+      msg,
+      coinType === 'ust'? {uusd: val} : {uluna: val}
+    );
+    let res = await estimateSend(wallet, lcd, [deposit_msg], "Success Deposit", "deposit");
+    if(res){
+      dispatch({type: ActionKind.setTxhash, payload: res});
+      onClose();
+      if(state.openWaitingModal)
+        state.openWaitingModal();
+
+      let count = 10;
+      let height = 0;
+      while (count > 0) {
+        await lcd.tx.txInfo(res)
+          // eslint-disable-next-line no-loop-func
+          .then((e) => {
+            if (e.height > 0) {
+              toast.dismiss();
+              toast("Success", successOption);
+              height = e.height;
+            }
+          })
+          .catch((e) => {})
+
+        if (height > 0) break;
+
+        await sleep(1000);
+        count--;
       }
-      let deposit_msg = new MsgExecuteContract(
-        wallet?.walletAddress,
-        POOL,
-        msg,
-        {uusd: val}
-      );
-      let res = await estimateSend(wallet, lcd, [deposit_msg], "Success Deposit", "deposit");
-      if(res)
-        fetchData(state, dispatch);
-    }
-    else if( coinType === 'luna' && wallet?.walletAddress ){
-      let val = Math.floor(parseFloat(amount) * 10 ** 6);
-      let msg = {
-        deposit_luna: {}
-      }
-      let deposit_msg = new MsgExecuteContract(
-        wallet?.walletAddress,
-        POOL,
-        msg,
-        {uluna: val}
-      );
-      let res = await estimateSend(wallet, lcd, [deposit_msg], "Success Deposit", "deposit");
-      if(res)
-        fetchData(state, dispatch)
+      
+      if(state.closeWaitingModal)
+        state.closeWaitingModal();
+
+      fetchData(state, dispatch);
     }
   }
   return (

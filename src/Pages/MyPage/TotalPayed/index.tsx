@@ -11,15 +11,14 @@ const TotalPayed: FunctionComponent = (props) => {
   const lunaRewards = state.userInfoLuna.reward_amount;
   const exchangeRate = useExchangeRate();
   const rewards = floorNormalize(ustRewards) + floorNormalize(lunaRewards * exchangeRate);
+  const ustPrice = useUSTPrice();
+  const usd = floor(rewards * ustPrice);
 
   const depositTime_max = Math.max(state.userInfoUst.deposit_time, state.userInfoLuna.deposit_time);
   const depositTime_min = Math.min(state.userInfoUst.deposit_time, state.userInfoLuna.deposit_time);
   const depositTime = depositTime_min === 0 ? depositTime_max : depositTime_min
   const period = depositTime > 0 ? Date.now() - depositTime * 1000 : 0;
   const day = Math.floor((period > 0 ? period : 0) / 1000 / 60 / 60 / 24);
-
-  const ustPrice = useUSTPrice();
-  const usd = floor(rewards * ustPrice);
 
   return (
     <Flex
@@ -28,7 +27,8 @@ const TotalPayed: FunctionComponent = (props) => {
       rounded={'25px'}
       background={'#212121'}
       align={'baseline'}
-      p={{ sm: '10px', md: '20px', lg: '59px' }}
+      px={{ sm: '10px', md: '20px', lg: '50px' }}
+      py={{ sm: '10px', md: '20px', lg: '60px' }}
     >
       <Tooltip
         label="Total payed interest of your UST/Luna Deposits calculated in UST"

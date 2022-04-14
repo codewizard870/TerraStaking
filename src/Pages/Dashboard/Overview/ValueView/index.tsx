@@ -24,7 +24,7 @@ const ValueView: FunctionComponent = (props) => {
           
           <Image src={YellowPanel} w={'15px'} />
           <Tooltip 
-            label="Deposited LUNA Calculated in USD" 
+            label="Deposited LUNA Calculated in UST" 
             background={'#C4C4C4'} 
             color={'black'} hasArrow 
             placement='top-start'

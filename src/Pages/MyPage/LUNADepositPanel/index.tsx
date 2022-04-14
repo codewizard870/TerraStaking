@@ -36,13 +36,13 @@ const LUNADepositPanel: FunctionComponent = (props) => {
     >
       <Grid
         templateColumns='[first] 20% [line2] 20% [line3] 20% line[4] auto'
-        gap={6}
+        gap={0}
         w={'100%'}
       >
-        <GridItem w='100%' h='70'>
+        <GridItem w='100%' h='60px'>
 
         </GridItem>
-        <GridItem w='100%' h='70'>
+        <GridItem w='100%' h='60px'>
           <Flex w={'100%'} h={'100%'} align={'center'} justify={'center'}>
             <Tooltip
               label="Current annualized deposit rate"
@@ -60,10 +60,10 @@ const LUNADepositPanel: FunctionComponent = (props) => {
             </Tooltip>
           </Flex>
         </GridItem>
-        <GridItem w='100%' h='70'>
+        <GridItem w='100%' h='60px'>
           <Flex w={'100%'} h={'100%'} align={'center'} justify={'center'}>
             <Tooltip
-              label="Total deposit amount in LUNA without payed interest"
+              label="Total of all LUNA deposits including earnings "
               background={'#C4C4C4'} hasArrow
               placement='top-start'
               color={'black'}
@@ -73,12 +73,12 @@ const LUNADepositPanel: FunctionComponent = (props) => {
                 fontWeight={'860'}
                 lineHeight={'15px'}
               >
-                Deposit Amount
+                Total Balance
               </Text>
             </Tooltip>
           </Flex>
         </GridItem>
-        <GridItem w='100%' h='70'>
+        <GridItem w='100%' h='60px'>
           <Flex w={'100%'} h={'100%'} align={'center'} justify={'center'}>
             <Text
               fontSize={'13px'}
