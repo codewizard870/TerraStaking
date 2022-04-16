@@ -27,11 +27,5 @@ code {
 @font-face {
   font-family: 'SF-Pro-Text';
   src: url('./fonts/San-Francisco-Pro-Fonts/SF-Pro-Text-Bold.otf') format('OpenType');
-  font-weight: 700;
-}
-
-@font-face {
-  font-family: 'SF-Pro-Text';
-  src: url('./fonts/San-Francisco-Pro-Fonts/SF-Pro-Text-Heavy.otf') format('OpenType');
   font-weight: 900;
 }
