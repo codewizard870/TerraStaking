@@ -10,7 +10,7 @@ const Title: FunctionComponent = (props) => {
         fontSize={'40px'}
         fontWeight={'800'}
       >
-        My Page
+        MY PAGE
       </Text>
       <Link href={'https://www.wefund.app'}>
         <HStack spacing={'3px'}  pb={'10px'}>

@@ -21,7 +21,7 @@ const Navbar: FunctionComponent = (props) => {
         spacing={'10px'}
       >
         <Tab id={'dashboard'} >DASHBOARD</Tab>
-        <Tab id={'mypage'} >MYPAGE</Tab>
+        <Tab id={'mypage'} >MY PAGE</Tab>
         <Tab id={'earn'} >EARN</Tab>
         <Tab id={'utility'} >UTILITY+</Tab>
       </Stack>

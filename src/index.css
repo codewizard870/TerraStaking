@@ -24,14 +24,31 @@ code {
   src: url('./fonts/Pro-Fonts/SF-Pro-Display-Regular.otf') format('OpenType');
   font-weight: 400;
 }
+/* @font-face {
+  font-family: 'SF-Pro-Text';
+  font-style: 'italic';
+  src: url('./fonts/Pro-Fonts/SF-Pro-Text-RegularItalic.otf') format('OpenType');
+  font-weight: 400;
+} */
 @font-face {
   font-family: 'SF-Pro-Text';
   src: url('./fonts/Pro-Fonts/SF-Pro-Text-Bold.otf') format('OpenType');
   font-weight: 700;
 }
-
+/* @font-face {
+  font-family: 'SF-Pro-Text';
+  font-style: 'italic';
+  src: url('./fonts/Pro-Fonts/SF-Pro-Text-BoldItalic.otf') format('OpenType');
+  font-weight: 700;
+} */
 @font-face {
   font-family: 'SF-Pro-Text';
   src: url('./fonts/Pro-Fonts/SF-Pro-Text-Heavy.otf') format('OpenType');
   font-weight: 900;
 }
+/* @font-face {
+  font-family: 'SF-Pro-Text';
+  font-style: 'italic';
+  src: url('./fonts/Pro-Fonts/SF-Pro-Text-HeavyItalic.otf') format('OpenType');
+  font-weight: 900;
+} */

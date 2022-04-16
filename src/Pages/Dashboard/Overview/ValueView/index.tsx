@@ -42,6 +42,7 @@ const ValueView: FunctionComponent = (props) => {
           fontSize={'14px'}
           fontWeight={'400'}
           lineHeight={'36px'}
+          fontStyle={'italic'}
         >
           $&nbsp;{lunaAmount.toLocaleString()}
         </Text>
@@ -68,6 +69,7 @@ const ValueView: FunctionComponent = (props) => {
           fontSize={'14px'}
           fontWeight={'400'}
           lineHeight={'36px'}
+          fontStyle={'italic'}
         >
           $&nbsp;{ustAmount.toLocaleString()}
         </Text>
