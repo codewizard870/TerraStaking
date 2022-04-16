@@ -21,5 +21,17 @@ code {
 }
 @font-face {
   font-family: 'SF-Pro-Text';
-  src: local('SF-Pro-Text'), url('./fonts/SF-Pro-Text-Black.otf') format('OpenType');
+  src: url('./fonts/San-Francisco-Pro-Fonts/SF-Pro-Display-Regular.otf') format('OpenType');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'SF-Pro-Text';
+  src: url('./fonts/San-Francisco-Pro-Fonts/SF-Pro-Text-Bold.otf') format('OpenType');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'SF-Pro-Text';
+  src: url('./fonts/San-Francisco-Pro-Fonts/SF-Pro-Text-Heavy.otf') format('OpenType');
+  font-weight: 900;
 }

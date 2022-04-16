@@ -46,7 +46,7 @@ const Layout = () => {
         w={'100%'}
       >
         <VStack
-          fontFamily={'SF-Pro'}
+          fontFamily={'SF-Pro-Text'}
           letterSpacing={'-0.06em'}
           spacing={'10px'}
           color={'white'}
