@@ -23,14 +23,14 @@ const USTDepositPanel: FunctionComponent = (props) => {
       py={{sm:'10px', md:'20px', lg:'29px'}}
     >
       <Grid 
-        templateColumns='[first] 20% [line2] 20% [line3] 20% line[4] auto' 
+        templateColumns="15% 25% 25% auto" 
         gap={0} 
         w={'100%'}
       >
-        <GridItem w='100%' h='60px'> 
+        <GridItem w='100%' h='45px'> 
 
         </GridItem>
-        <GridItem w='100%' h='60px'>
+        <GridItem w='100%' h='45px'>
           <Flex w={'100%'} h={'100%'} align={'center'} justify={'center'}>
             <Tooltip 
               label="Current annualized deposit rate" 
@@ -48,7 +48,7 @@ const USTDepositPanel: FunctionComponent = (props) => {
             </Tooltip>
           </Flex>
         </GridItem>
-        <GridItem w='100%' h='60px'>
+        <GridItem w='100%' h='45px'>
           <Flex w={'100%'} h={'100%'} align={'center'} justify={'center'}>
             <Tooltip 
               label="Total of all UST deposits including earnings" 
@@ -66,7 +66,7 @@ const USTDepositPanel: FunctionComponent = (props) => {
             </Tooltip>
           </Flex>
         </GridItem>
-        <GridItem w='100%' h='60px'> 
+        <GridItem w='100%' h='45px'> 
           <Flex w={'100%'} h={'100%'} align={'center'} justify={'center'}>
             <Text
               fontSize={'13px'}
@@ -80,7 +80,7 @@ const USTDepositPanel: FunctionComponent = (props) => {
         <GridItem colSpan={4}>
           <Divider orientation={'horizontal'} />
         </GridItem>
-        <GridItem w={'100%'} h={'140px'}>
+        <GridItem w={'100%'} h={'100px'}>
           <HStack 
             w={'100%'} 
             h={'100%'} 
@@ -109,7 +109,7 @@ const USTDepositPanel: FunctionComponent = (props) => {
             </VStack>
           </HStack>
         </GridItem>
-        <GridItem w={'100%'} h={'140px'}>
+        <GridItem w={'100%'} h={'100px'}>
           <Flex w={'100%'} h={'100%'} align={'center'} justify={'center'}>
             <Text
               fontSize={'13px'}
@@ -120,7 +120,7 @@ const USTDepositPanel: FunctionComponent = (props) => {
             </Text>
           </Flex>
         </GridItem>
-        <GridItem w={'100%'} h={'140px'}>
+        <GridItem w={'100%'} h={'100px'}>
           <VStack w={'100%'} h={'100%'} align={'center'} justify={'center'} >
             <Text
               fontSize={'13px'}
@@ -138,7 +138,7 @@ const USTDepositPanel: FunctionComponent = (props) => {
             </Text>
           </VStack>
         </GridItem>
-        <GridItem w={'100%'} h={'140px'}>
+        <GridItem w={'100%'} h={'100px'}>
           <Stack 
             direction={{sm: 'column', md: 'column', lg: 'row'}}
             w={'100%'} 
