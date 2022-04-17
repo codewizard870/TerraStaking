@@ -52,7 +52,7 @@ const LUNADepositPanel: FunctionComponent = (props) => {
             >
               <Text
                 fontSize={'13px'}
-                fontWeight={'860'}
+                fontWeight={'800'}
                 lineHeight={'15px'}
               >
                 APY
@@ -70,7 +70,7 @@ const LUNADepositPanel: FunctionComponent = (props) => {
             >
               <Text
                 fontSize={'13px'}
-                fontWeight={'860'}
+                fontWeight={'800'}
                 lineHeight={'15px'}
               >
                 Total Balance
@@ -82,7 +82,7 @@ const LUNADepositPanel: FunctionComponent = (props) => {
           <Flex w={'100%'} h={'100%'} align={'center'} justify={'center'}>
             <Text
               fontSize={'13px'}
-              fontWeight={'860'}
+              fontWeight={'800'}
               lineHeight={'15px'}
             >
               Actions
@@ -102,19 +102,19 @@ const LUNADepositPanel: FunctionComponent = (props) => {
             display={{ sm: 'none', md: 'none', lg: 'flex' }}
           >
             <Image src={LunaIcon} w={'50px'} />
-            <VStack align={'baseline'}>
+            <VStack align={'baseline'} spacing={'0px'}>
               <Text
-                fontSize={'35px'}
-                fontWeight={'860'}
+                fontSize={'20px'}
+                fontWeight={'800'}
                 lineHeight={'36px'}
                 color={'white'}
               >
                 LUNA
               </Text>
               <Text
-                fontSize={'15px'}
-                fontWeight={'860'}
-                lineHeight={'16px'}
+                fontSize={'13px'}
+                fontWeight={'400'}
+                lineHeight={'15.6px'}
               >
                 Luna
               </Text>
@@ -124,9 +124,9 @@ const LUNADepositPanel: FunctionComponent = (props) => {
         <GridItem w={'100%'} h={'140px'}>
           <Flex w={'100%'} h={'100%'} align={'center'} justify={'center'}>
             <Text
-              fontSize={'15px'}
-              fontWeight={'860'}
-              lineHeight={'16px'}
+              fontSize={'13px'}
+              fontWeight={'400'}
+              lineHeight={'15.6px'}
             >
               {apr}%
             </Text>
@@ -135,16 +135,16 @@ const LUNADepositPanel: FunctionComponent = (props) => {
         <GridItem w={'100%'} h={'140px'}>
           <VStack w={'100%'} h={'100%'} align={'center'} justify={'center'} >
             <Text
-              fontSize={'15px'}
-              fontWeight={'860'}
-              lineHeight={'16px'}
+              fontSize={'13px'}
+              fontWeight={'400'}
+              lineHeight={'15.6px'}
             >
               {amount.toLocaleString()} UST
             </Text>
             <Text
-              fontSize={'15px'}
-              fontWeight={'860'}
-              lineHeight={'16px'}
+              fontSize={'13px'}
+              fontWeight={'400'}
+              lineHeight={'15.6px'}
             >
               {lunaDeposited.toLocaleString()} LUNA
             </Text>
@@ -168,8 +168,8 @@ const LUNADepositPanel: FunctionComponent = (props) => {
             >
               <Text
                 fontSize={'9px'}
-                fontWeight={'860'}
-                lineHeight={'10px'}
+                fontWeight={'800'}
+                lineHeight={'10.8px'}
                 color={'white'}
               >
                 Deposit
@@ -185,8 +185,9 @@ const LUNADepositPanel: FunctionComponent = (props) => {
             >
               <Text
                 fontSize={'9px'}
-                fontWeight={'860'}
+                fontWeight={'800'}
                 lineHeight={'10px'}
+                color={'#CEBFBF'}
               >
                 Withdraw
               </Text>

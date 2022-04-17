@@ -40,7 +40,7 @@ const USTDepositPanel: FunctionComponent = (props) => {
             > 
               <Text
                 fontSize={'13px'}
-                fontWeight={'860'}
+                fontWeight={'800'}
                 lineHeight={'15px'}
               >
                 APY
@@ -58,7 +58,7 @@ const USTDepositPanel: FunctionComponent = (props) => {
             > 
               <Text
                 fontSize={'13px'}
-                fontWeight={'860'}
+                fontWeight={'800'}
                 lineHeight={'15px'}
               >
                 Total Balance
@@ -70,7 +70,7 @@ const USTDepositPanel: FunctionComponent = (props) => {
           <Flex w={'100%'} h={'100%'} align={'center'} justify={'center'}>
             <Text
               fontSize={'13px'}
-              fontWeight={'860'}
+              fontWeight={'800'}
               lineHeight={'15px'}
             >
               Actions
@@ -90,20 +90,19 @@ const USTDepositPanel: FunctionComponent = (props) => {
             display={{sm: 'none', md: 'none', lg: 'flex'}}
           >
             <Image src={TerraIcon} w={'50px'} />
-            <VStack align={'baseline'}>
+            <VStack align={'baseline'} spacing={'0px'}>
               <Text
-                fontSize={'35px'}
-                fontWeight={'860'}
+                fontSize={'20px'}
+                fontWeight={'800'}
                 lineHeight={'36px'}
                 color={'white'}
               >
                 UST
               </Text>
               <Text
-                fontSize={'15px'}
-                fontWeight={'860'}
-                lineHeight={'16px'}
-                
+                fontSize={'13px'}
+                fontWeight={'400'}
+                lineHeight={'15.6px'}
               >
                 Terra USD
               </Text>
@@ -113,10 +112,9 @@ const USTDepositPanel: FunctionComponent = (props) => {
         <GridItem w={'100%'} h={'140px'}>
           <Flex w={'100%'} h={'100%'} align={'center'} justify={'center'}>
             <Text
-              fontSize={'15px'}
-              fontWeight={'860'}
-              lineHeight={'16px'}
-              
+              fontSize={'13px'}
+              fontWeight={'400'}
+              lineHeight={'15.6px'}
             >
               {apr}%
             </Text>
@@ -125,16 +123,16 @@ const USTDepositPanel: FunctionComponent = (props) => {
         <GridItem w={'100%'} h={'140px'}>
           <VStack w={'100%'} h={'100%'} align={'center'} justify={'center'} >
             <Text
-              fontSize={'15px'}
-              fontWeight={'860'}
-              lineHeight={'16px'}
+              fontSize={'13px'}
+              fontWeight={'400'}
+              lineHeight={'15px'}
             >
               {amount.toLocaleString()} UST
             </Text>
             <Text
-              fontSize={'15px'}
-              fontWeight={'860'}
-              lineHeight={'16px'}
+              fontSize={'13px'}
+              fontWeight={'400'}
+              lineHeight={'15.6px'}
             >
               {amount.toLocaleString()} UST
             </Text>
@@ -158,8 +156,8 @@ const USTDepositPanel: FunctionComponent = (props) => {
             >
               <Text
                 fontSize={'9px'}
-                fontWeight={'860'}
-                lineHeight={'10px'}
+                fontWeight={'800'}
+                lineHeight={'10.8px'}
                 color={'white'}
               >
                 Deposit
@@ -170,14 +168,14 @@ const USTDepositPanel: FunctionComponent = (props) => {
               h={'25px'} 
               background={'black'} 
               rounded={'25px'}
-              border={'solid 1px white'}
+              border={'solid 1px #CEBFBF'}
               onClick = {() => OpenWithdrawModal(state, dispatch, "ust")}
             >
               <Text
                 fontSize={'9px'}
-                fontWeight={'860'}
-                lineHeight={'10px'}
-                      
+                fontWeight={'800'}
+                lineHeight={'10.8px'}
+                color={'#CEBFBF'}
               >
                 Withdraw
               </Text>
