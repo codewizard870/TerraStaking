@@ -317,3 +317,11 @@ export function floorNormalize(amount: number){
 export function floor(amount: number){
   return Math.floor(amount * 100) /100;
 }
+
+export function getDateString(time: number)
+{
+  const month=["January", "Feburary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+  let datetime = new Date(time * 1000)
+  return (month[datetime.getMonth()] + "   " + datetime.getDate() + " , " + datetime.getFullYear());
+}

@@ -25,7 +25,7 @@ const LunaPanel: FunctionComponent = (props) => {
         <VStack align={'baseline'}>
           <Text
             fontSize={'35px'}
-            fontWeight={'860'}
+            fontWeight={'800'}
             lineHeight={'36px'}
           >
             LUNA
@@ -33,7 +33,7 @@ const LunaPanel: FunctionComponent = (props) => {
           <HStack>
             <Text
               fontSize={'13px'}
-              fontWeight={'860'}
+              fontWeight={'800'}
               lineHeight={'15px'}
             >
               INTEREST
@@ -60,7 +60,7 @@ const LunaPanel: FunctionComponent = (props) => {
       >
         <Text
           fontSize={'13px'}
-          fontWeight={'860'}
+          fontWeight={'800'}
           lineHeight={'15px'}
         >
           APY
@@ -69,7 +69,7 @@ const LunaPanel: FunctionComponent = (props) => {
       <HStack mt={'14px'} align={'baseline'}>
         <Text
           fontSize={'35px'}
-          fontWeight={'860'}
+          fontWeight={'800'}
           lineHeight={'36px'}      
         >
           {apr}
@@ -89,7 +89,7 @@ const LunaPanel: FunctionComponent = (props) => {
       >
         <Text
           fontSize={'13px'}
-          fontWeight={'860'}
+          fontWeight={'800'}
           lineHeight={'15px'}
         >
           STAKE YOUR LUNA NOW!

@@ -10,7 +10,6 @@ const UstPanel: FunctionComponent = (props) => {
   const {state, dispatch} = useStore();
   const data = state.aprUstHistory;
   const apr = useUSTApr();
-
   return (
     <VStack
       w={'100%'}
@@ -25,7 +24,7 @@ const UstPanel: FunctionComponent = (props) => {
         <VStack align={'baseline'}>
           <Text
             fontSize={'35px'}
-            fontWeight={'860'}
+            fontWeight={'800'}
             lineHeight={'36px'}
           >
             UST
@@ -33,7 +32,7 @@ const UstPanel: FunctionComponent = (props) => {
           <HStack>
             <Text
               fontSize={'13px'}
-              fontWeight={'860'}
+              fontWeight={'800'}
               lineHeight={'15px'}
             >
               INTEREST
@@ -60,7 +59,7 @@ const UstPanel: FunctionComponent = (props) => {
       >
         <Text
           fontSize={'13px'}
-          fontWeight={'860'}
+          fontWeight={'800'}
           lineHeight={'15px'}
         >
           APY
@@ -69,7 +68,7 @@ const UstPanel: FunctionComponent = (props) => {
       <HStack mt={'14px'} align={'baseline'}>
         <Text
           fontSize={'35px'}
-          fontWeight={'860'}
+          fontWeight={'800'}
           lineHeight={'36px'}      
         >
           {apr}
@@ -89,7 +88,7 @@ const UstPanel: FunctionComponent = (props) => {
       >
         <Text
           fontSize={'13px'}
-          fontWeight={'860'}
+          fontWeight={'800'}
           lineHeight={'15px'}
         >
           STAKE YOUR UST NOW!

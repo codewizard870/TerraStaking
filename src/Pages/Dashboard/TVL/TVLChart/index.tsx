@@ -3,6 +3,7 @@ import React, { FunctionComponent, createRef, useEffect } from 'react';
 import Chart from 'chart.js/auto'
 import './Chart.css'
 
+import { getDateString } from '../../../../Util';
 import Indicator from './../../../../assets/Indicator.svg'
 
 interface Props{
@@ -49,12 +50,10 @@ const TVLChart: FunctionComponent<Props> = ({data, id}) => {
                   const i = tooltip.dataPoints[0].dataIndex;
                   const item = data[i];
 
-                  let datetime = new Date(item.date * 1000)
-
-                  div1.innerHTML = `${datetime.toDateString()}`;
+                  div1.innerHTML = `${getDateString(item.date)}`;
                   div2.innerHTML = `${item.totalLiquidityUSD.toLocaleString()}`;
 
-                  let style="border-radius: 50%; background-color: rgb(11, 11, 11); width: 20px; height: 20px; position: absolute; ";
+                  let style="border-radius: 50%; background-color: #493C3C; width: 20px; height: 20px; position: absolute; ";
                   style += `top: ${chart.scales.y.height-10}px;`;
                   div3.setAttribute('style', style);
                 } catch {}

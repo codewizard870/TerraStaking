@@ -3,7 +3,7 @@ import { HStack, VStack, Flex, Text, Image, Button, Box } from '@chakra-ui/react
 
 import Chart from 'chart.js/auto'
 import './Chart.css'
-
+import { getDateString } from '../../../Util';
 import Indicator from './../../../assets/Indicator.svg'
 
 interface Props{
@@ -17,7 +17,7 @@ const AprChart: FunctionComponent<Props> = ({data, id}) => {
   let canvasRef = createRef<HTMLCanvasElement>();
   let tooltipRef = createRef<HTMLDivElement>();
   let chart!: Chart;
-
+console.log(data)
   const createChart = () => {
     if(canvasRef.current == null)
       return;
@@ -53,12 +53,10 @@ const AprChart: FunctionComponent<Props> = ({data, id}) => {
                   const i = tooltip.dataPoints[0].dataIndex;
                   const item = data[i];
 
-                  let datetime = new Date(item.time * 1000)
-
-                  div1.innerHTML = `${datetime.toDateString()}`;
+                  div1.innerHTML = `${getDateString(item.time)}`;
                   div2.innerHTML = `${item.apr/100}%`;
 
-                  let style="border-radius: 50%; background-color: rgb(11, 11, 11); width: 20px; height: 20px; position: absolute; ";
+                  let style="border-radius: 50%; background-color: #493C3C; width: 20px; height: 20px; position: absolute; ";
                   style += `top: ${chart.scales.y.height-10}px;`;
                   div3.setAttribute('style', style);
                 } catch {}
