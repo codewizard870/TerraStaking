@@ -8,11 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { floorNormalize, floor } from '../../../../Util';
 
 const Total: FunctionComponent = (props) => {
-  const navigate = useNavigate();
-
   const { state, dispatch } = useStore();
-  const ustPrice = state.ustPrice;
-  const lunaPrice = state.lunaPrice;
   const ustBalance = useUSTBalance();
   const rate = useExchangeRate();
 
@@ -21,7 +17,7 @@ const Total: FunctionComponent = (props) => {
   const total = ustBalance + ustDeposited + lunaDeposited;
 
   return (
-    <HStack justify={"space-between"} w={'100%'}>
+    <HStack justify={"space-between"} w={'100%'} align={'baseline'}>
       <VStack align={'baseline'} w={'100%'}>
         <HStack align={'baseline'} w={'100%'}>
           <Text

@@ -103,7 +103,7 @@ const TotalPayed: FunctionComponent = (props) => {
       </HStack>
       <Button
         w={'100%'}
-        mt={'99px'}
+        mt={'75px'}
         h={'45px'}
         background={'#493C3C'}
         rounded={'25px'}

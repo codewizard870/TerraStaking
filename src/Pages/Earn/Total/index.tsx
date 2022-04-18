@@ -9,16 +9,18 @@ import {
   useUSTDeposited, 
   useLUNADeposited,
   useUSTPrice,
-  useLUNAPrice
+  useLUNAPrice,
+  useExchangeRate
 } from '../../../store';
+import { floorNormalize } from '../../../Util';
 
 const Total: FunctionComponent = (props) => {
   const {state, dispatch} = useStore();
-  const ustDeposited = useUSTDeposited();
-  const lunaDeposited = useLUNADeposited();
-  const ustPrice = useUSTPrice();
-  const lunaPrice = useLUNAPrice();
-  const total = Math.floor(lunaDeposited * lunaPrice/ustPrice + ustDeposited);
+  const rate = useExchangeRate();
+
+  const ustDeposited = useUSTDeposited() + floorNormalize(state.userInfoUst.reward_amount);
+  const lunaDeposited = useLUNADeposited() * rate + floorNormalize(state.userInfoLuna.reward_amount * rate);
+  const total = ustDeposited + lunaDeposited;
 
   return (
     <VStack 

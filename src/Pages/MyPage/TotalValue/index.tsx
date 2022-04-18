@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { VStack, Stack } from '@chakra-ui/react'
+import { VStack, Stack, Flex } from '@chakra-ui/react'
 
 import CircularView from './CircularView';
 import {MdInfo, MdSwapHoriz} from 'react-icons/md'
@@ -9,7 +9,8 @@ import Seperator from './Seperator';
 const TotalValue: FunctionComponent = (props) => {
   return (
     <VStack
-      w={'100%'} 
+      w={{sm: '100%', md: '100%', lg:'696px'}}
+      minW={{sm: '100%', md: '100%', lg:'696px'}}
       rounded={'25px'} 
       background={'#212121'} 
       align={'center'}
@@ -18,14 +19,15 @@ const TotalValue: FunctionComponent = (props) => {
       py={{sm:'10px', md:'20px', lg:'60px'}}
     >
       <Total />
-      <Stack 
+      <Flex 
         w={'100%'}
         direction={{sm: 'column', md:'column', lg:'row'}}
         align={'center'}
+        justify={'space-between'}
       >
         <Seperator />
         <CircularView />
-      </Stack>
+      </Flex>
     </VStack>
   );
 }

@@ -26,7 +26,7 @@ const MyPage: FunctionComponent = (props) => {
       <Stack 
         mt={'53px'} 
         direction={{sm: 'column', md:'column', lg:'row'}}
-        spacing={'56px'}
+        spacing={'55px'}
         w={'100%'}
       >
         <TotalValue />

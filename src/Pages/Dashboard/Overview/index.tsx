@@ -15,14 +15,14 @@ const Overview: FunctionComponent = (props) => {
       rounded={'25px'} 
       background={'#212121'} 
       align={'center'}
-      spacing={'63px'}
+      spacing={'50px'}
       px={{sm:'10px', md:'20px', lg:'50px'}}
       py={{sm:'10px', md:'20px', lg:'60px'}}
     >
       <Flex 
         direction={'column'}
-        w={{sm:'100%', md: '100%', lg:'472px'}}
-
+        minW={{sm:'100%', md: '100%', lg:'372px'}}
+        w={{sm:'100%', md: '100%', lg:'372px'}}
       >
         <TotalLocked />
         <HStack mt={'53px'} spacing={'56px'} align={'center'}>

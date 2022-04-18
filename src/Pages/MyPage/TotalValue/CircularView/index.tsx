@@ -18,11 +18,11 @@ const CircularView: FunctionComponent = (props) => {
   const percent3 = Math.floor(lunaDeposited * 100 / total);
 
   return (
-    <Flex align={'center'} minWidth={'250px'} h={'250px'} justify='center' transform={'rotate(-90deg)'}>
+    <Flex align={'center'} minWidth={'220px'} h={'220px'} justify='center' transform={'rotate(-90deg)'} mr={'36px'}>
       <CircularProgress
         position={'absolute'}
         value={percent1}
-        size={'215px'}
+        size={'220px'}
         capIsRound={true}
         color={'#F72585'}
         trackColor={'#493C3C'}
@@ -31,10 +31,10 @@ const CircularView: FunctionComponent = (props) => {
       <CircularProgress
         position={'absolute'}
         value={percent2}
-        size={'162px'}
+        size={'165px'}
         capIsRound={true}
         color={'#6493F1'}
-        trackColor={'none'}
+        trackColor={'black'}
         // thickness='12px'
       />
       <CircularProgress
@@ -43,7 +43,7 @@ const CircularView: FunctionComponent = (props) => {
         size={'110px'}
         capIsRound={true}
         color={'#F9D85E'}
-        trackColor={'none'}
+        trackColor={'black'}
         thickness='15px'
       />
     </Flex>

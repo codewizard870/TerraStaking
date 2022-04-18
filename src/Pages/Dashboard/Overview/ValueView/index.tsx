@@ -18,10 +18,9 @@ const ValueView: FunctionComponent = (props) => {
                 + floorNormalize(state.luna_total_rewards * lunaPrice);
 
   return (
-    <VStack mt='28px' spacing={'14px'}>
+    <VStack mt='28px' spacing={'30px'}  alignItems={'baseline'}>
       <VStack alignItems={'baseline'}>
         <HStack spacing={'10px'} alignItems={'center'}>
-          
           <Image src={YellowPanel} w={'15px'} />
           <Tooltip 
             label="Deposited LUNA Calculated in UST" 
@@ -41,7 +40,7 @@ const ValueView: FunctionComponent = (props) => {
         <Text
           fontSize={'14px'}
           fontWeight={'400'}
-          lineHeight={'36px'}
+          lineHeight={'15px'}
           fontStyle={'italic'}
         >
           $&nbsp;{lunaAmount.toLocaleString()}
@@ -68,7 +67,7 @@ const ValueView: FunctionComponent = (props) => {
         <Text
           fontSize={'14px'}
           fontWeight={'400'}
-          lineHeight={'36px'}
+          lineHeight={'15px'}
           fontStyle={'italic'}
         >
           $&nbsp;{ustAmount.toLocaleString()}

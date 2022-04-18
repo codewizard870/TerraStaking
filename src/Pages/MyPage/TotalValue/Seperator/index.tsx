@@ -18,7 +18,7 @@ const Seperator: FunctionComponent = (props) => {
   const ustDeposited = floor(useUSTDeposited() * ustPrice) + floorNormalize(state.userInfoUst.reward_amount * ustPrice);
   const lunaDeposited = floor(useLUNADeposited() * lunaPrice) + floorNormalize(state.userInfoLuna.reward_amount * lunaPrice);
   return (
-    <VStack align={'baseline'} w={'226px'}>
+    <VStack align={'baseline'} w={'230px'} spacing={'4px'}>
       <HStack spacing={'10px'}>
         <Image src={PinkPanel} w={'15px'} />
         <Text
