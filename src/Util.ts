@@ -320,7 +320,7 @@ export function floor(amount: number){
 
 export function getDateString(time: number)
 {
-  const month=["January", "Feburary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const month=["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
   let datetime = new Date(time * 1000)
   return (month[datetime.getMonth()] + "   " + datetime.getDate() + " , " + datetime.getFullYear());

@@ -83,7 +83,7 @@ const USTDepositPanel: FunctionComponent = (props) => {
         <Button
           w={'200px'}
           h={'45px'}
-          background={'black'}
+          background={'#212121'}
           border={'solid 1px'}
           borderColor={'#CEBFBF'}
           rounded={'25px'}

@@ -18,6 +18,13 @@ const TVLChart: FunctionComponent<Props> = ({data, id}) => {
   const createChart = () => {
     if(canvasRef.current == null)
       return;
+
+    var canvas = canvasRef.current;
+    var ctx = canvas?.getContext('2d');
+    var gradient = ctx?.createLinearGradient(0, 0, 0, 400);
+    gradient?.addColorStop(0, 'rgba(10, 147, 150, 0.21)');   
+    gradient?.addColorStop(0.9, 'rgba(255, 255, 255, 0)');
+
     chart = new Chart(canvasRef.current, {
       type: 'line',
       options: {
@@ -78,6 +85,7 @@ const TVLChart: FunctionComponent<Props> = ({data, id}) => {
             grid: {
               borderColor: '#434040',
               display: false,
+              drawBorder: false,
             },
             ticks: {
               display: false,
@@ -105,6 +113,10 @@ const TVLChart: FunctionComponent<Props> = ({data, id}) => {
             ),
             borderColor: "#F9D85E",
             borderWidth: 2,
+            fill: {
+              target: 'origin',
+              above: gradient,   // Area will be red above the origin
+            }
           },
         ],
       },
@@ -127,7 +139,7 @@ const TVLChart: FunctionComponent<Props> = ({data, id}) => {
             <img src={Indicator} alt="loading" style={{maxWidth:'10px'}}/>
           </div>
           <div className="div0"/>
-          <div className="div0"/>
+          <div className="div0" style={{marginTop: '45px'}}/>
          </section>
       </div>      
     </div>

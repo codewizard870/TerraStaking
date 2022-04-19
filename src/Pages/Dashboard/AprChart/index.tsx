@@ -17,7 +17,7 @@ const AprChart: FunctionComponent<Props> = ({data, id}) => {
   let canvasRef = createRef<HTMLCanvasElement>();
   let tooltipRef = createRef<HTMLDivElement>();
   let chart!: Chart;
-console.log(data)
+
   const createChart = () => {
     if(canvasRef.current == null)
       return;
@@ -127,7 +127,7 @@ console.log(data)
             <img src={Indicator} alt="loading" style={{maxWidth:'10px'}}/>
           </div>
           <div className="div0"/>
-          <div className="div0"/>
+          <div className="div0" style={{marginTop: '45px'}}/>
          </section>
       </div>      
     </div>

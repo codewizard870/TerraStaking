@@ -27,7 +27,7 @@ export interface AppContextInterface {
   closeWaitingModal: (() => void) | undefined,
   coinType: COINTYPE,
   isPending: boolean,
-  amountHistory: any,
+  amountHistory: any[],
   aprUstHistory: any,
   aprLunaHistory: any,
   ustPrice: number,

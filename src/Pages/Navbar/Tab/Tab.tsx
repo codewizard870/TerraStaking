@@ -18,14 +18,14 @@ const Tab: FunctionComponent<Props> = ({id, children}) => {
   return (
     <Flex
       fontSize={'20px'}
-      fontWeight={'860'}
-      width={'160px'}
+      fontWeight={'800'}
       height={'53px'}
       background={selected ? '#212121' : 'black'} //#212121
       justify={'center'}
       align={'center'}
       rounded={'20px'}
       cursor={'pointer'}
+      p={'18px'}
       onClick={() => {clickTab()}}
     >
       <Text color='white'>{children}</Text>

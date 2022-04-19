@@ -178,7 +178,7 @@ const LUNADepositPanel: FunctionComponent = (props) => {
             <Button
               w={'92px'}
               h={'25px'}
-              background={'black'}
+              background={'#212121'}
               rounded={'25px'}
               border={'solid 1px #CEBFBF'}
               onClick={() => OpenWithdrawModal(state, dispatch, "luna")}

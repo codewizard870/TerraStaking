@@ -31,14 +31,16 @@ export const amountHistory = [
   {
     time: 1641281704,
     usd: 0,
-    ust_amount: "0",
-    luna_amount: "0",
+    ust_amount: 0,
+    luna_amount: 0,
+    totalUST: 0,
   },
   {
     time: 1643281704,
     usd: 0,
-    ust_amount: "0",
-    luna_amount: "0",
+    ust_amount: 0,
+    luna_amount: 0,
+    totalUST: 0
   },
 ];
 

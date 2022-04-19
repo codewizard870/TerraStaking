@@ -18,7 +18,7 @@ const Navbar: FunctionComponent = (props) => {
     >
       <Stack
         direction={{ sm: 'column', md:'row', lg: 'row' }}
-        spacing={'10px'}
+        spacing={'0px'}
       >
         <Tab id={'dashboard'} >DASHBOARD</Tab>
         <Tab id={'mypage'} >MY PAGE</Tab>

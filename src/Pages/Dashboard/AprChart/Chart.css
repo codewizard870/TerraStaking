@@ -7,6 +7,9 @@ color: #CEC0C0;
 padding: 5px 10px;
 border-radius: 14px;
 font-size: 11px;
+width: 92px;
+height: 29px;
+align-items: center;
 }
 .section0{
   display: flex;
@@ -21,6 +24,7 @@ font-size: 11px;
   border: 0;
   border-left: 1px dashed;
   width: 1px;
+  color: #493C3C;
 }
 .root{
   position: absolute;
