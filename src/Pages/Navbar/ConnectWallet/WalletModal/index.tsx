@@ -68,7 +68,6 @@ const WalletModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
             lineHeight={'14px'}
             color={'#CEC0C0'}
           >
-            {shortenAddress(txhash)}
           </Text>
         </HStack>
         <ModalCloseButton color={'#CEBFBF'} />
