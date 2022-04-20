@@ -1,8 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 import { HStack, Stack, VStack, Flex, Text, Image, Link, Center, Divider } from '@chakra-ui/react'
 import { 
-  useUSTPrice, 
-  useLUNAPrice, 
   useUSTApr, 
   useLUNAApr,
   useExchangeRate

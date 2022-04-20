@@ -13,7 +13,7 @@ const TotalLocked: FunctionComponent = (props) => {
   const last = history.length - 1;
   const total = floor((last >= 0 ? history[last].totalUST ?? 0 : 0) + rewards);
 
-  const upPercent = last >= 1 ? floor(100 *(history[last].usd / history[last - 1].usd - 1)) : 0;
+  const upPercent = last >= 1 ? floor(100 *(history[last].totalUST / history[last - 1].totalUST - 1)) : 0;
   
   return (
     <>

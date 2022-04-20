@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Tooltip, Button } from '@chakra-ui/react'
 import Warning from "./../../../assets/Warning.svg"
 
-import { OpenDepositModal, useStore, useExchangeRate, useUSTPrice } from '../../../store';
+import { OpenDepositModal, useStore, useExchangeRate } from '../../../store';
 import { floorNormalize, floor } from '../../../Util';
 
 const TotalPayed: FunctionComponent = (props) => {
@@ -11,8 +11,7 @@ const TotalPayed: FunctionComponent = (props) => {
   const lunaRewards = state.userInfoLuna.reward_amount;
   const exchangeRate = useExchangeRate();
   const rewards = floorNormalize(ustRewards) + floorNormalize(lunaRewards * exchangeRate);
-  const ustPrice = useUSTPrice();
-  const usd = floor(rewards * ustPrice);
+  const usd = floor(rewards);
 
   const depositTime_max = Math.max(state.userInfoUst.deposit_time, state.userInfoLuna.deposit_time);
   const depositTime_min = Math.min(state.userInfoUst.deposit_time, state.userInfoLuna.deposit_time);

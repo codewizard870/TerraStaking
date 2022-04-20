@@ -1,14 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Divider, Button } from '@chakra-ui/react'
-import {  useStore, useUSTPrice } from '../../../../store';
+import {  useStore } from '../../../../store';
 
 interface Props{
   amount: string,
 }
 const Expected: FunctionComponent<Props> = ({amount}) => {
   const {state, dispatch} = useStore();
-  const ustPrice = useUSTPrice();
-  const total = ustPrice * parseInt(amount);
+  const total = parseInt(amount);
   const dayReward = total/1000*24;
   
   const remain = 60 - Math.floor((Date.now() / 1000 - state.farmStartTime) / 60 / 60 / 24);

@@ -20,8 +20,6 @@ function calcUSD(amountHistory: any, ustPrice: number, lunaPrice: number) {
   for (let i = 0; i < amountHistory.length; i++) {
     amountHistory[i].ust_amount = floorNormalize(amountHistory[i].ust_amount);
     amountHistory[i].luna_amount = floorNormalize(amountHistory[i].luna_amount);
-    amountHistory[i].usd =
-      amountHistory[i].ust_amount * ustPrice + amountHistory[i].luna_amount * lunaPrice;
     amountHistory[i].totalUST =
       amountHistory[i].ust_amount + amountHistory[i].luna_amount * lunaPrice / ustPrice;
   }

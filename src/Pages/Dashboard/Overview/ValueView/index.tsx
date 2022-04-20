@@ -3,19 +3,18 @@ import { HStack, VStack, Flex, Text, Image, Link, Tooltip } from '@chakra-ui/rea
 
 import BlackPanel from './../../../../assets/BlackPanel.svg'
 import YellowPanel from './../../../../assets/YellowPanel.svg'
-import { useStore, useUSTPrice, useLUNAPrice } from '../../../../store';
+import { useStore, useExchangeRate } from '../../../../store';
 import { floor, floorNormalize } from '../../../../Util';
 const ValueView: FunctionComponent = (props) => {
   const { state, dispatch } = useStore();
-  const ustPrice = useUSTPrice();
-  const lunaPrice = useLUNAPrice();
+  const rate = useExchangeRate();
 
   const history = state.amountHistory;
   const last = history.length - 1;
-  const ustAmount = (last >= 0 ? floor(history[last].ust_amount * ustPrice) : 0 )+
-                + floorNormalize(state.ust_total_rewards * ustPrice);
-  const lunaAmount = (last >= 0 ? floor(history[last].luna_amount * lunaPrice) : 0)+
-                + floorNormalize(state.luna_total_rewards * lunaPrice);
+  const ustAmount = (last >= 0 ? history[last].ust_amount : 0 )+
+                + floorNormalize(state.ust_total_rewards);
+  const lunaAmount = (last >= 0 ? floor(history[last].luna_amount * rate) : 0)+
+                + floorNormalize(state.luna_total_rewards * rate);
 
   return (
     <VStack mt='28px' spacing={'30px'}  alignItems={'baseline'}>
@@ -23,7 +22,7 @@ const ValueView: FunctionComponent = (props) => {
         <HStack spacing={'10px'} alignItems={'center'}>
           <Image src={YellowPanel} w={'15px'} />
           <Tooltip 
-            label="Deposited LUNA Calculated in UST" 
+            label="Total deposited LUNA & compounded interest Calculated in UST" 
             background={'#C4C4C4'} 
             color={'black'} hasArrow 
             placement='top-start'
@@ -50,7 +49,7 @@ const ValueView: FunctionComponent = (props) => {
         <HStack spacing={'10px'} alignItems={'center'}>
           <Image src={BlackPanel} w={'15px'} />
           <Tooltip 
-            label="Deposited UST" 
+            label="Total deposited UST & compounded interest" 
             background={'#C4C4C4'} hasArrow 
             placement='top-start' 
             color={'black'}

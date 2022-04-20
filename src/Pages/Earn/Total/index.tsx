@@ -8,8 +8,6 @@ import {
   useStore, 
   useUSTDeposited, 
   useLUNADeposited,
-  useUSTPrice,
-  useLUNAPrice,
   useExchangeRate
 } from '../../../store';
 import { floorNormalize } from '../../../Util';

@@ -1,15 +1,14 @@
 import React, { FunctionComponent } from 'react';
 import { VStack, HStack, Stack, Flex, Text, Tooltip, Image, Center, Divider, Button } from '@chakra-ui/react'
 import Warning from '../../../../assets/Warning.svg'
-import { OpenDepositModal, useStore, useUSTDeposited, useLUNADeposited, useUSTPrice, useLUNAPrice } from '../../../../store';
+import { OpenDepositModal, useStore, useUSTDeposited, useLUNADeposited, useExchangeRate } from '../../../../store';
 
 const Projected: FunctionComponent = (props) => {
   const {state, dispatch} = useStore();
   const ustDeposited = useUSTDeposited();
   const lunaDeposited = useLUNADeposited();
-  const ustPrice = useUSTPrice();
-  const lunaPrice = useLUNAPrice();
-  const total = ustPrice * ustDeposited + lunaDeposited * lunaPrice;
+  const rate = useExchangeRate();
+  const total = ustDeposited + lunaDeposited * rate;
   const dayReward = total/1000*24;
 
   const remain = 60 - Math.floor((Date.now() / 1000 - state.farmStartTime) / 60 / 60 / 24);

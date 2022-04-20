@@ -1,19 +1,18 @@
 import React, { FunctionComponent } from 'react';
 import { HStack, Stack, Flex, Text, CircularProgress, CircularProgressLabel } from '@chakra-ui/react'
 
-import { useStore, useUSTPrice, useLUNAPrice } from '../../../../store';
+import { useStore, useExchangeRate} from '../../../../store';
 import { floorNormalize, floor } from '../../../../Util';
 const CircularView: FunctionComponent = (props) => {
   const { state, dispatch } = useStore();
-  const ustPrice = useUSTPrice();
-  const lunaPrice = useLUNAPrice();
+  const rate = useExchangeRate();
 
   const history = state.amountHistory;
   const last = history.length - 1;
-  const ustAmount = (last >= 0 ? floor(history[last].ust_amount * ustPrice) : 0 )+
-                + floorNormalize(state.ust_total_rewards * ustPrice);
-  const lunaAmount = (last >= 0 ? floor(history[last].luna_amount * lunaPrice) : 0)+
-                + floorNormalize(state.luna_total_rewards * lunaPrice);
+  const ustAmount = (last >= 0 ? history[last].ust_amount : 0 )+
+                + floorNormalize(state.ust_total_rewards * rate);
+  const lunaAmount = (last >= 0 ? floor(history[last].luna_amount * rate) : 0)+
+                + floorNormalize(state.luna_total_rewards * rate);
                 
   const percent = ustAmount + lunaAmount > 0 ? lunaAmount * 100 / (ustAmount + lunaAmount) : 0;
 

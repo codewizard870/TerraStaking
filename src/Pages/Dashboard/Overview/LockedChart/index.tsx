@@ -65,7 +65,7 @@ const LockedChart: FunctionComponent<Props> = () => {
                   const item = data[i];
 
                   div1.innerHTML = `${getDateString(item.time)}`;
-                  div2.innerHTML = `$${item.usd.toLocaleString()}`;
+                  div2.innerHTML = `$${item.totalUST.toLocaleString()}`;
 
                   let style="border-radius: 50%; background-color: #493C3C; width: 20px; height: 20px; position: absolute; ";
                   style += `top: ${chart.scales.y.height-10}px;`;
@@ -115,8 +115,8 @@ const LockedChart: FunctionComponent<Props> = () => {
         labels: data.map(({ time }) => time.toString()),
         datasets: [
           {
-            data: data.map(({ usd }) =>
-            usd,
+            data: data.map(({ totalUST }) =>
+            totalUST,
             ),
             borderColor: "#F9D85E",
             borderWidth: 2,

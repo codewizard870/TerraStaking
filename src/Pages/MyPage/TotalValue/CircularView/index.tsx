@@ -1,16 +1,15 @@
 import React, { FunctionComponent } from 'react';
 import { HStack, Stack, Flex, Text, CircularProgress, CircularProgressLabel } from '@chakra-ui/react'
-import { useUSTBalance, useUSTDeposited, useLUNADeposited, useStore, useUSTPrice, useLUNAPrice } from '../../../../store';
+import { useUSTBalance, useUSTDeposited, useLUNADeposited, useStore, useExchangeRate } from '../../../../store';
 import { floor, floorNormalize } from '../../../../Util';
 
 const CircularView: FunctionComponent = (props) => {
   const { state, dispatch } = useStore();
-  const ustPrice = useUSTPrice();
-  const lunaPrice = useLUNAPrice();
+  const rate = useExchangeRate();
 
-  const ustBalance = floor(useUSTBalance() * ustPrice);
-  const ustDeposited = floor(useUSTDeposited() * ustPrice) + floorNormalize(state.userInfoUst.reward_amount * ustPrice);
-  const lunaDeposited = floor(useLUNADeposited() * lunaPrice) + floorNormalize(state.userInfoLuna.reward_amount * lunaPrice);
+  const ustBalance = useUSTBalance();
+  const ustDeposited = useUSTDeposited() + floorNormalize(state.userInfoUst.reward_amount);
+  const lunaDeposited = floor(useLUNADeposited() * rate) + floorNormalize(state.userInfoLuna.reward_amount * rate);
   const total = ustBalance + ustDeposited + lunaDeposited;
 
   const percent1 = Math.floor(ustBalance * 100 / total);

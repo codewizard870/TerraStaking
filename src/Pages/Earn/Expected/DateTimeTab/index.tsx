@@ -6,8 +6,7 @@ import Tab from './Tab';
 import {
   useUSTDeposited,
   useLUNADeposited,
-  useUSTPrice,
-  useLUNAPrice,
+  useExchangeRate,
   useUSTApr,
   useLUNAApr
 } from '../../../../store';
@@ -29,13 +28,12 @@ const DateTimeTab: FunctionComponent<Props> = ({setInterest}) => {
 
   const ustDeposited = useUSTDeposited();
   const lunaDeposited = useLUNADeposited();
-  const ustPrice = useUSTPrice();
-  const lunaPrice = useLUNAPrice();
+  const exchangeRate = useExchangeRate();
   const ustApr = useUSTApr();
   const lunaApr = useLUNAApr();
 
   const ustValue = ustDeposited * ustApr / 100 * rate;
-  const lunaValue = lunaDeposited * lunaPrice / ustPrice * lunaApr / 100 * rate;
+  const lunaValue = lunaDeposited * exchangeRate * lunaApr / 100 * rate;
 
   setInterest(Math.floor(ustValue + lunaValue));
 

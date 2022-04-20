@@ -9,8 +9,6 @@ import {
   useStore,
   useLUNAApr,
   useLUNADeposited,
-  useUSTPrice,
-  useLUNAPrice,
   useExchangeRate,
 } from '../../../store';
 import { floor, floorNormalize } from '../../../Util';

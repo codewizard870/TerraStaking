@@ -262,16 +262,6 @@ export const useLUNAApr = () => {
   return apr;
 }
 
-export const useUSTPrice = () => {
-  const {state, dispatch} = useStore();
-  return state.ustPrice;
-}
-
-export const useLUNAPrice = () => {
-  const {state, dispatch} = useStore();
-  return state.lunaPrice;
-}
-
 export const useExchangeRate = () => {
   const {state, dispatch} = useStore();
   return state.lunaPrice/state.ustPrice;

@@ -6,17 +6,16 @@ import BlackPanel from './../../../../assets/BlackPanel.svg'
 import YellowPanel from './../../../../assets/YellowPanel.svg'
 import PinkPanel from './../../../../assets/PinkPanel.svg'
 import BluePanel from './../../../../assets/BluePanel.svg'
-import { useUSTBalance, useUSTDeposited, useLUNADeposited, useStore, useUSTPrice, useLUNAPrice } from '../../../../store';
+import { useUSTBalance, useUSTDeposited, useLUNADeposited, useStore, useExchangeRate } from '../../../../store';
 import { floor, floorNormalize } from '../../../../Util';
 
 const Seperator: FunctionComponent = (props) => {
   const {state, dispatch} = useStore();
-  const ustPrice = useUSTPrice();
-  const lunaPrice = useLUNAPrice();
+  const rate = useExchangeRate();
 
-  const ustBalance = floor(useUSTBalance() * ustPrice);
-  const ustDeposited = floor(useUSTDeposited() * ustPrice) + floorNormalize(state.userInfoUst.reward_amount * ustPrice);
-  const lunaDeposited = floor(useLUNADeposited() * lunaPrice) + floorNormalize(state.userInfoLuna.reward_amount * lunaPrice);
+  const ustBalance = useUSTBalance();
+  const ustDeposited = useUSTDeposited() + floorNormalize(state.userInfoUst.reward_amount);
+  const lunaDeposited = floor(useLUNADeposited() * rate) + floorNormalize(state.userInfoLuna.reward_amount * rate);
   return (
     <VStack align={'baseline'} w={'230px'} spacing={'4px'}>
       <HStack spacing={'10px'}>
