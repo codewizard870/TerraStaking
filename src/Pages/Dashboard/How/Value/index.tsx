@@ -12,7 +12,7 @@ interface Props{
 const Value: FunctionComponent<Props> = ({total, interest}) => {
 
   return (
-    <VStack mt={'55px'} align={'baseline'}>
+    <VStack mt={'55px'} align={'baseline'} minW={'220px'} w={'220px'}>
       <Text
         fontSize={'35px'}
         fontWeight={'860'}

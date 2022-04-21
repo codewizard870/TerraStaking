@@ -10,7 +10,7 @@ const CircularView: FunctionComponent = (props) => {
   const history = state.amountHistory;
   const last = history.length - 1;
   const ustAmount = (last >= 0 ? history[last].ust_amount : 0 )+
-                + floorNormalize(state.ust_total_rewards * rate);
+                + floorNormalize(state.ust_total_rewards);
   const lunaAmount = (last >= 0 ? floor(history[last].luna_amount * rate) : 0)+
                 + floorNormalize(state.luna_total_rewards * rate);
                 

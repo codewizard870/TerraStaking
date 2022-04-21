@@ -97,7 +97,8 @@ const Earn: FunctionComponent<Props> = ({denom, setDenom, year, setYear, amount,
         lineHeight={'24px'}
         pt={'30px'}
       >
-        <AnimationNumber value={year} /> Years
+        {/* <AnimationNumber value={year} /> Years */}
+        {year} Years
       </Text>
       <Slider
         aria-label='slider-ex-4'

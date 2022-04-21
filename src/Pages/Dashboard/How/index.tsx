@@ -1,7 +1,7 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState, useMemo } from 'react';
 import { HStack, Stack, VStack, Flex, Text, Image, Link, Center, Divider } from '@chakra-ui/react'
-import { 
-  useUSTApr, 
+import {
+  useUSTApr,
   useLUNAApr,
   useExchangeRate
 } from '../../../store';
@@ -18,25 +18,34 @@ const How: FunctionComponent = (props) => {
   const rate = useExchangeRate();
   const _amount = floor(denom == 'LUNA' ? parseFloat(amount) * rate : parseFloat(amount));
 
-  const ustApr = useUSTApr();
-  const lunaApr = useLUNAApr();
+  const ustApr = 38//useUSTApr();
+  const lunaApr = 17//useLUNAApr();
   const apr = denom == 'LUNA' ? lunaApr : ustApr;
 
-  const interest = floor(_amount * apr / 100 * year);
-  const total = floor(_amount * apr / 100 * year + _amount);
+  let total = _amount;
+  for (let i = 0; i < year; i++) {
+    total = floor(total * (1 + apr / 100));
+  }
+  const interest = total - _amount;
+
+  const otherApr = 8;
 
   const data = [];
   let prev = _amount;
-  for(let i=1; i<= 10; i++){
-    const val = floor(prev*apr/100) * (1+(Math.random()-0.5)/10);
-    data[i-1] = {
+  let otherPrev = _amount;
+  for (let i = 1; i <= 10; i++) {
+    const val = floor(prev * (1 + apr / 100)) * (1 + (Math.random() - 0.5) / 10);
+    const otherVal = floor(otherPrev * (1 + otherApr / 100)) * (1 + (Math.random() - 0.5) / 10);
+    data[i - 1] = {
       time: i.toString(),
       value1: val,
-      value2: val * (1+(Math.random()-0.5)/10)
+      value2: otherVal
     }
     prev = val;
+    otherPrev = otherVal;
   }
 
+  console.log(data)
   return (
     <VStack
       pt={'52px'}
@@ -61,7 +70,7 @@ const How: FunctionComponent = (props) => {
         spacing={'51px'}
         w={'100%'}
       >
-        <Earn denom={denom} setDenom={setDenom} amount={amount} setAmount={setAmount} year={year} setYear={setYear}/>
+        <Earn denom={denom} setDenom={setDenom} amount={amount} setAmount={setAmount} year={year} setYear={setYear} />
         <Center
           height={'304px'}
           display={{ sm: 'none', md: 'block', lg: 'block' }}
@@ -75,7 +84,7 @@ const How: FunctionComponent = (props) => {
           <Divider orientation={'horizontal'} />
         </Center>
         <Value total={total} interest={interest} />
-        <EarnChart data={data}/>
+        <EarnChart data={data} />
       </Stack>
     </VStack>
   );
