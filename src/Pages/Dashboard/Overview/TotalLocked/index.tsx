@@ -7,13 +7,10 @@ import AnimationNumber from '../../../Components/AnimationNumber';
 const TotalLocked: FunctionComponent = (props) => {
   const { state, dispatch } = useStore();
   
-  const rate = useExchangeRate();
-  const rewards = floorNormalize(state.ust_total_rewards + state.luna_total_rewards * rate)
-
   const history = state.amountHistory;
   const last = history.length - 1;
-  const total = floor((last >= 0 ? history[last].totalUST ?? 0 : 0) + rewards);
 
+  const total = floor(last >= 0 ? history[last].totalUST : 0);
   const upPercent = last >= 1 ? floor(100 *(history[last].totalUST / history[last - 1].totalUST - 1)) : 0;
   
   return (

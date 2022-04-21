@@ -18,8 +18,8 @@ const How: FunctionComponent = (props) => {
   const rate = useExchangeRate();
   const _amount = floor(denom == 'LUNA' ? parseFloat(amount) * rate : parseFloat(amount));
 
-  const ustApr = 38//useUSTApr();
-  const lunaApr = 17//useLUNAApr();
+  const ustApr = useUSTApr();
+  const lunaApr = useLUNAApr();
   const apr = denom == 'LUNA' ? lunaApr : ustApr;
 
   let total = _amount;

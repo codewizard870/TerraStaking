@@ -14,6 +14,7 @@ interface Props{
 const LockedChart: FunctionComponent<Props> = () => {
   const {state, dispatch} = useStore();  
   const data = state.amountHistory;
+
   const [chart, setChart] = useState<Chart | undefined>(undefined);
 
   let canvasRef = createRef<HTMLCanvasElement>();

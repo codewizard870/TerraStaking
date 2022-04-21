@@ -18,8 +18,8 @@ function calcUSD(amountHistory: any, ustPrice: number, lunaPrice: number) {
   if (amountHistory == undefined) return undefined;
 
   for (let i = 0; i < amountHistory.length; i++) {
-    amountHistory[i].ust_amount = floorNormalize(amountHistory[i].ust_amount);
-    amountHistory[i].luna_amount = floorNormalize(amountHistory[i].luna_amount);
+    amountHistory[i].ust_amount = floorNormalize(amountHistory[i].ust_amount) + floorNormalize(amountHistory[i].ust_reward);
+    amountHistory[i].luna_amount = floorNormalize(amountHistory[i].luna_amount) + floorNormalize(amountHistory[i].luna_reward);
     amountHistory[i].totalUST =
       amountHistory[i].ust_amount + amountHistory[i].luna_amount * lunaPrice / ustPrice;
   }

@@ -37,9 +37,9 @@ const codeid_cw20 = net=="main"? 3: 148;
 
 let wallet = terra.wallet(mk);
 
-let poolAddress = "terra1m9wnxfsrd7x2rwxl7whtpfpvej5q93dp9e9gra";
-let vustAddress = "terra15705h9j5lrj823wznkzvhwz7lxt63atcvdapgu";
-let vlunaAddress = "terra1rlgyjy5hms0c4q8k3rd78zp0fpsk2mhzp4d64x";
+let poolAddress = "terra1cn6mggfxa3jp6dgteuerj2nx05xmrav6985r3f";
+let vustAddress = "terra1q252ygsrgah5v7mwrjpsxsntgwveh5647tkfzc";
+let vlunaAddress = "terra1jh85u6wwf4ekdm7q97scf50fsu3py43hmwht4f";
 
 run();
 
@@ -113,13 +113,13 @@ async function config() {
     let apr_ust_config = new MsgExecuteContract(
       mk.accAddress,
       poolAddress,
-      { "set_apr_ust": { "apr": "34870" } }
+      { "set_apr_ust": { "apr": "3487" } }
     );
 
     let apr_luna_config = new MsgExecuteContract(
       mk.accAddress,
       poolAddress,
-      { "set_apr_luna": { "apr": "18610" } }
+      { "set_apr_luna": { "apr": "1861" } }
     );
 
     let token_address = new MsgExecuteContract(
@@ -136,7 +136,7 @@ async function config() {
     return res;
   }
   catch (e) {
-    console.log(e.message);
+    console.log(e);
     process.exit(1);
   }
 }
