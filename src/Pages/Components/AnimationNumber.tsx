@@ -11,23 +11,21 @@ const AnimationNumber: FunctionComponent<Props> = ({ value }) => {
   const [prevRest, setPrevRest] = useState(0);
 
   useEffect(() => {
-    setTimeout(() =>{
+    setTimeout(() => {
       setPrev(value);
       setPrevRest(getRest(value));
     }, 1000);
   }, [value])
 
-  function getRest(num: number){
-    return (num * 100 - Math.floor(num) * 100);
+  function getRest(num: number) {
+    return Math.floor(num * 100 - Math.floor(num) * 100);
   }
+
+  const rest = getRest(value) < 10 ? ".0" + getRest(value).toString() : "." + getRest(value).toString();
   return (
     <span>
       <CountUp start={prev} end={value} separator=',' />
-      .
-      {getRest(value) < 10 &&
-        <span>0</span>
-      }
-      <CountUp start={prevRest} end={getRest(value)}/>
+      {getRest(value) > 0 ? `${rest}` : "" }
     </span>
   )
 }

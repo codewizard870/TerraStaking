@@ -31,13 +31,16 @@ const SliderWish: FunctionComponent<Props> = ({  amount, setAmount }) => {
   
   useEffect(() => {
     let balance = state.coinType == 'ust' ? ustBalance : lunaBalance;
-    if(amount == '')
-      setSliderValue(0)
-    else {
-      let percent = Math.floor(parseInt(amount) * 100 / balance);
+
+    if(parseFloat(amount) > 0)
+    {
+      let percent = Math.floor(parseFloat(amount) * 100 / balance);
       if (percent > 100) percent = 100;
       setSliderValue(percent);
     }
+    else
+      setSliderValue(0)
+
   }, [amount]);
 
   const onChangeSlider = (value: number) => {

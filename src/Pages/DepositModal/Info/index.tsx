@@ -13,7 +13,9 @@ const Info: FunctionComponent<Props> = ({amount}) => {
   const {state, dispatch} = useStore();
   const rate = useExchangeRate();
   const fee = 0.25;
-  const value = state.coinType=='ust' ? parseFloat(amount) + fee : parseFloat(amount) * rate + fee;
+
+  let _amount = parseFloat(amount) > 0? parseFloat(amount) : 0;
+  const value = state.coinType=='ust' ? _amount + fee : _amount * rate + fee;
 
   return (
     <VStack

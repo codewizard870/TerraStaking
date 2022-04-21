@@ -45,7 +45,6 @@ const How: FunctionComponent = (props) => {
     otherPrev = otherVal;
   }
 
-  console.log(data)
   return (
     <VStack
       pt={'52px'}

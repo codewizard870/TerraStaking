@@ -1,20 +1,29 @@
 import React, { FunctionComponent, useState, useMemo, useEffect } from 'react';
-import { Flex, Text, Button, Image, Spinner } from '@chakra-ui/react'
+import { Flex, Text, Button, Image, Spinner, useDisclosure } from '@chakra-ui/react'
+import {
+  Popover,
+  PopoverTrigger,
+} from '@chakra-ui/react'
 import { useWallet, useConnectedWallet } from '@terra-money/wallet-provider'
 import { LCDClient, WasmAPI, Coins, Coin } from '@terra-money/terra.js'
 import { toast } from 'react-toastify';
 import {MdOutlineAccountBalanceWallet} from 'react-icons/md'
 
 import Wallet from './../../../assets/Wallet.svg';
-import { useStore, ActionKind } from '../../../store';
-import { shortenAddress } from '../../../Util';
+import InformationPopover from './InformationPopover';
+import { VUST, VLUNA } from '../../../constants';
+import { useStore, ActionKind, useUSTBalance } from '../../../store';
+import { shortenAddress, floorNormalize } from '../../../Util';
 
 
 const ConnectWallet: FunctionComponent = () => {
   const { state, dispatch } = useStore();
   const [bank, setBank] = useState(false);
-  let wallet = useWallet()
-  let connectedWallet = useConnectedWallet()
+  const { isOpen: isOpenInfomation, onOpen: onOpenInfomation, onClose: onCloseInfomation } = useDisclosure();
+
+  const wallet = useWallet()
+  const connectedWallet = useConnectedWallet()
+  const ustBalance = useUSTBalance();
 
   const lcd = useMemo(() => {
     if (!connectedWallet) {
@@ -72,38 +81,54 @@ const ConnectWallet: FunctionComponent = () => {
   }
 
   return (
-    <Button
-      fontSize={'15px'}
-      fontWeight={'700'}
-      width={'171px'}
-      height={'36px'}
-      background={'none'}
-      border={'solid 2px #F9D85E'}
-      rounded={'25px'}
-      onClick={() => { connectTo('extension') }}
-    >
+    <>
       {!state.connected && 
-        <>
+        <Button
+          fontSize={'15px'}
+          fontWeight={'700'}
+          width={'171px'}
+          height={'36px'}
+          background={'none'}
+          border={'solid 2px #F9D85E'}
+          rounded={'25px'}
+          onClick={() => { connectTo('extension') }}
+        >
         <Image src={Wallet} width={'15px'} />
-        <Text ml={'11px'} color={'#F9D85E'}>
-          Connect Wallet
-        </Text>
-        </>
+          <Text ml={'11px'} color={'#F9D85E'}>
+            Connect Wallet
+          </Text>
+        </Button>
       }
       {state.connected &&
-        <>
-          {(bank && !state.loading) &&
-            <MdOutlineAccountBalanceWallet size={25} color={'#F9D85E'}/>
-          }
-          {(!bank || state.loading) && 
-            <Spinner color={'#F9D85E'}/>
-          }
-          <Text ml={'15px'} color={'#F9D85E'}>
-            {shortenAddress(connectedWallet?.walletAddress.toString())}
-          </Text>
-        </>
+        <Popover>
+          <PopoverTrigger>
+            <Button
+              fontSize={'15px'}
+              fontWeight={'700'}
+              // width={'171px'}
+              height={'36px'}
+              background={'none'}
+              border={'solid 2px #F9D85E'}
+              rounded={'25px'}
+              onClick={() => { onOpenInfomation() }}
+            >
+              {(bank && !state.loading) &&
+                <MdOutlineAccountBalanceWallet size={25} color={'#F9D85E'}/>
+              }
+              {(!bank || state.loading) && 
+                <Spinner color={'#F9D85E'}/>
+              }
+              <Text ml={'15px'} color={'#F9D85E'}>
+                {shortenAddress(connectedWallet?.walletAddress.toString())}
+                &nbsp;|&nbsp;
+                {ustBalance}&nbsp;UST
+              </Text>
+            </Button>
+          </PopoverTrigger>
+          <InformationPopover isOpen={isOpenInfomation} onClose={onCloseInfomation} connectTo={connectTo}/>
+        </Popover>
       } 
-    </Button>
+    </>
   );
 }
 

@@ -1,16 +1,15 @@
 export let net = "testnet";
 
-
 export const POOL_MAIN = "terra1hvddgv0nvddlvdxu3trupun3uc0hd9hax8d8lz";
-export const POOL_TEST = "terra1x3gsvjhwp7x0vunr0z08arsgygp76j246f3suz";
+export const POOL_TEST = "terra1m9wnxfsrd7x2rwxl7whtpfpvej5q93dp9e9gra";
 export const POOL = net == 'mainnet'? POOL_MAIN: POOL_TEST;
 
 export const VUST_MAIN = "terra1cfpye9qfwgxq2qewng0atk30jtufjt90h4zp6g";
-export const VUST_TEST = "terra1akd5nsdxv0dwq97wzerrrneuzysa0qae25338x";
+export const VUST_TEST = "terra15705h9j5lrj823wznkzvhwz7lxt63atcvdapgu";
 export const VUST = net == 'mainnet'? VUST_MAIN : VUST_TEST;
 
 export const VLUNA_MAIN = "terra1ldzv0yhxpeszkm9wup7g20y7q8m9txkw35wqn5";
-export const VLUNA_TEST = "terra1jafhjq645usg3z5zuzt3ruww7zcurdtye0pnnf";
+export const VLUNA_TEST = "terra1rlgyjy5hms0c4q8k3rd78zp0fpsk2mhzp4d64x";
 export const VLUNA = net == 'mainnet'? VLUNA_MAIN : VLUNA_TEST;
 
 export const MOTHER_WALLET = "terra1qvyj7tqs35hckd395rglc7lsyf2acuhgdcmj77";
