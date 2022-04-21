@@ -4,6 +4,7 @@ import { HStack, VStack, Flex, Text, Image, Button, Tooltip } from '@chakra-ui/r
 import LunaIcon from "./../../../assets/Luna.svg"
 import Warning from "./../../../assets/Warning.svg"
 import LunaAprChart from '../AprChart';
+import AnimationNumber from '../../Components/AnimationNumber';
 import { useStore, OpenDepositModal, useLUNAApr } from '../../../store';
 
 const LunaPanel: FunctionComponent = (props) => {
@@ -72,7 +73,7 @@ const LunaPanel: FunctionComponent = (props) => {
           fontWeight={'800'}
           lineHeight={'36px'}      
         >
-          {apr}
+          <AnimationNumber value={apr} />
         </Text>
         <Text
           fontSize={'20px'}

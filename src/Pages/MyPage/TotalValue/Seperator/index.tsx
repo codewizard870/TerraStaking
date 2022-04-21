@@ -6,6 +6,7 @@ import BlackPanel from './../../../../assets/BlackPanel.svg'
 import YellowPanel from './../../../../assets/YellowPanel.svg'
 import PinkPanel from './../../../../assets/PinkPanel.svg'
 import BluePanel from './../../../../assets/BluePanel.svg'
+import AnimationNumber from '../../../Components/AnimationNumber';
 import { useUSTBalance, useUSTDeposited, useLUNADeposited, useStore, useExchangeRate } from '../../../../store';
 import { floor, floorNormalize } from '../../../../Util';
 
@@ -41,7 +42,7 @@ const Seperator: FunctionComponent = (props) => {
         fontWeight={'400'}
         fontStyle={'italic'}
       >
-          $&nbsp;{ustBalance.toLocaleString()}
+          $&nbsp;<AnimationNumber value={ustBalance} />
       </Text>
       {/* --------------------------------- */}
       <HStack spacing={'10px'}>
@@ -67,7 +68,7 @@ const Seperator: FunctionComponent = (props) => {
         fontWeight={'400'}
         fontStyle={'italic'}
       >
-        $&nbsp;{(ustDeposited + lunaDeposited).toLocaleString()}
+        $&nbsp;<AnimationNumber value={(ustDeposited + lunaDeposited)} />
       </Text>
       {/* --------------------------------- */}
       <HStack spacing={'10px'}>
@@ -93,7 +94,7 @@ const Seperator: FunctionComponent = (props) => {
         fontWeight={'400'}
         fontStyle={'italic'}
       >
-        $&nbsp;{ustDeposited.toLocaleString()}
+        $&nbsp;<AnimationNumber value={ustDeposited} />
       </Text>
       {/* --------------------------------- */}
       <HStack spacing={'10px'}>
@@ -119,7 +120,7 @@ const Seperator: FunctionComponent = (props) => {
         fontWeight={'400'}
         fontStyle={'italic'}
       >
-        $&nbsp;{lunaDeposited.toLocaleString()}
+        $&nbsp;<AnimationNumber value={lunaDeposited} />
       </Text>
     </VStack>
   );

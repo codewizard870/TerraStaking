@@ -4,6 +4,7 @@ import { HStack, VStack, Flex, Text, Image, Button, Box, Tooltip } from '@chakra
 import TerraIcon from "./../../../assets/Terra.svg"
 import Warning from "./../../../assets/Warning.svg"
 import UstAprChart from '../AprChart';
+import AnimationNumber from '../../Components/AnimationNumber';
 import { useStore, OpenDepositModal, useUSTApr} from '../../../store';
 
 const UstPanel: FunctionComponent = (props) => {
@@ -71,7 +72,7 @@ const UstPanel: FunctionComponent = (props) => {
           fontWeight={'800'}
           lineHeight={'36px'}      
         >
-          {apr}
+          <AnimationNumber value={apr} />
         </Text>
         <Text
           fontSize={'20px'}

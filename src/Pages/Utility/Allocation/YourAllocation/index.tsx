@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { VStack, HStack, Stack, Flex, Text, Image, Tooltip, Center, Divider, Button } from '@chakra-ui/react'
 
+import AnimationNumber from '../../../Components/AnimationNumber';
 import Warning from '../../../../assets/Warning.svg'
 import { OpenDepositModal, useStore } from '../../../../store';
 
@@ -35,7 +36,7 @@ const YourAllocation: FunctionComponent = (props) => {
           fontWeight={'860'}
           lineHeight={'36px'}
         >
-         {value.toLocaleString()}
+         <AnimationNumber value={value} />
         </Text>
         <Text
           fontSize={'25px'}

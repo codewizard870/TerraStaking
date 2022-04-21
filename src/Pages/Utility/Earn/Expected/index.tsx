@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Divider, Button } from '@chakra-ui/react'
+import AnimationNumber from '../../../Components/AnimationNumber';
 import {  useStore } from '../../../../store';
 
 interface Props{
@@ -21,7 +22,7 @@ const Expected: FunctionComponent<Props> = ({amount}) => {
         fontWeight={'860'}
         lineHeight={'30px'}
       >
-        {expected.toLocaleString()}
+        <AnimationNumber value={expected} />
       </Text>
       <Divider orientation='horizontal' />
       <Text

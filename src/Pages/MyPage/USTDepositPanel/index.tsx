@@ -4,6 +4,7 @@ import { Grid, GridItem } from '@chakra-ui/react'
 
 import TerraIcon from '../../../assets/Terra.svg'
 import { OpenDepositModal, OpenWithdrawModal, useStore, useUSTApr, useUSTDeposited } from '../../../store';
+import AnimationNumber from '../../Components/AnimationNumber';
 import { floor, floorNormalize } from '../../../Util';
 
 const USTDepositPanel: FunctionComponent = (props) => {
@@ -116,7 +117,7 @@ const USTDepositPanel: FunctionComponent = (props) => {
               fontWeight={'400'}
               lineHeight={'15.6px'}
             >
-              {apr}%
+              <AnimationNumber value={apr}/>%
             </Text>
           </Flex>
         </GridItem>
@@ -127,14 +128,14 @@ const USTDepositPanel: FunctionComponent = (props) => {
               fontWeight={'400'}
               lineHeight={'15px'}
             >
-              {amount.toLocaleString()} UST
+              <AnimationNumber value={amount} /> UST
             </Text>
             <Text
               fontSize={'13px'}
               fontWeight={'400'}
               lineHeight={'15.6px'}
             >
-              {amount.toLocaleString()} UST
+              <AnimationNumber value={amount} /> UST
             </Text>
           </VStack>
         </GridItem>

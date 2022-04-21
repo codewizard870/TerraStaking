@@ -10,6 +10,7 @@ import {
   useLUNADeposited,
   useExchangeRate
 } from '../../../store';
+import AnimationNumber from '../../Components/AnimationNumber';
 import { floorNormalize } from '../../../Util';
 
 const Total: FunctionComponent = (props) => {
@@ -54,7 +55,7 @@ const Total: FunctionComponent = (props) => {
             fontWeight={'860'}
             lineHeight={'36px'}
           >
-            {total.toLocaleString()}
+            <AnimationNumber value={total} />
           </Text>
           <Text
             fontSize={'20px'}

@@ -2,6 +2,7 @@ import React, { FunctionComponent, useEffect, useState } from 'react';
 import { HStack, Stack, VStack, Flex, Text, Image, Link, Center, Divider, Tooltip } from '@chakra-ui/react';
 import axios from "axios";
 
+import AnimationNumber from '../../Components/AnimationNumber';
 import TVLChart from './TVLChart';
 
 const TVL: FunctionComponent = (props) => {
@@ -52,7 +53,7 @@ const TVL: FunctionComponent = (props) => {
             fontWeight={'800'}
             lineHeight={'36px'}
           >
-            {total.toLocaleString()}
+            <AnimationNumber value={total} />
           </Text>
           <Text
             fontSize={'15px'}

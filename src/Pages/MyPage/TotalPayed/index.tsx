@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Tooltip, Button } from '@chakra-ui/react'
 import Warning from "./../../../assets/Warning.svg"
 
+import AnimationNumber from '../../Components/AnimationNumber';
 import { OpenDepositModal, useStore, useExchangeRate } from '../../../store';
 import { floorNormalize, floor } from '../../../Util';
 
@@ -49,7 +50,7 @@ const TotalPayed: FunctionComponent = (props) => {
           fontWeight={'860'}
           lineHeight={'36px'}
         >
-          {rewards.toLocaleString()}
+          <AnimationNumber value={rewards} />
         </Text>
         <Text
           fontSize={'20px'}
@@ -65,7 +66,7 @@ const TotalPayed: FunctionComponent = (props) => {
         lineHeight={'36px'}
         fontStyle={'italic'}
       >
-        USD ${usd}
+        USD $<AnimationNumber value={usd} />
       </Text>
       <HStack mt={'31px'} spacing={'20px'} align={'baseline'}>
         <Text
@@ -90,7 +91,7 @@ const TotalPayed: FunctionComponent = (props) => {
           fontWeight={'860'}
           lineHeight={'36px'}
         >
-          {day}
+          <AnimationNumber value={day} />
         </Text>
         <Text
           fontSize={'20px'}

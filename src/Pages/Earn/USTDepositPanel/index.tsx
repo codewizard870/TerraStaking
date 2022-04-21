@@ -4,7 +4,7 @@ import { Grid, GridItem } from '@chakra-ui/react'
 
 import TerraIcon from './../../../assets/Terra.svg'
 import Warning from './../../../assets/Warning.svg'
-
+import AnimationNumber from '../../Components/AnimationNumber';
 import { OpenDepositModal, OpenWithdrawModal, useStore, useUSTApr } from '../../../store';
 
 const USTDepositPanel: FunctionComponent = (props) => {
@@ -45,7 +45,7 @@ const USTDepositPanel: FunctionComponent = (props) => {
             lineHeight={'36px'}
             fontStyle={'italic'}
           >
-            {apr}%
+            <AnimationNumber value={apr}/>%
           </Text>
           <Tooltip 
             label="Current annualized deposit rate" 

@@ -1,6 +1,7 @@
 import React, { useState, FunctionComponent } from 'react';
 import { HStack, VStack, Flex, Text, Image } from '@chakra-ui/react'
 
+import AnimationNumber from '../../../Components/AnimationNumber';
 import BlackPanel from './../../../../assets/BlackPanel.svg'
 import YellowPanel from './../../../../assets/YellowPanel.svg'
 
@@ -17,7 +18,7 @@ const Value: FunctionComponent<Props> = ({total, interest}) => {
         fontWeight={'860'}
         lineHeight={'36px'}
       >
-        ${interest}
+        $<AnimationNumber value={interest} />
       </Text>
       <Text
         fontSize={'9px'}
@@ -32,7 +33,7 @@ const Value: FunctionComponent<Props> = ({total, interest}) => {
         lineHeight={'36px'}
         pt={'17px'}
       >
-        ${total}
+        $<AnimationNumber value={total} />
       </Text>
       <Text
         fontSize={'9px'}

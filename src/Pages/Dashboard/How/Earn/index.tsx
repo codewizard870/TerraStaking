@@ -7,9 +7,8 @@ import {
   MenuItem,
 } from '@chakra-ui/react'
 import { Dispatch, SetStateAction } from "react";
-
 import { MdCode, MdArrowDropDownCircle } from "react-icons/md";
-
+import AnimationNumber from '../../../Components/AnimationNumber';
 
 interface Props {
   denom: string,
@@ -98,7 +97,7 @@ const Earn: FunctionComponent<Props> = ({denom, setDenom, year, setYear, amount,
         lineHeight={'24px'}
         pt={'30px'}
       >
-        {year} Years
+        <AnimationNumber value={year} /> Years
       </Text>
       <Slider
         aria-label='slider-ex-4'

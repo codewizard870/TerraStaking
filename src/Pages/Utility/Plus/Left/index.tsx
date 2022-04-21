@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { VStack, HStack, Stack, Flex, Text, Image, Tooltip, Center, Divider, Button } from '@chakra-ui/react'
+import AnimationNumber from '../../../Components/AnimationNumber';
 import { MdInfoOutline } from 'react-icons/md';
 import Warning from '../../../../assets/Warning.svg'
 import { OpenDepositModal, useStore } from '../../../../store';
@@ -44,7 +45,7 @@ const Left: FunctionComponent = (props) => {
           fontWeight={'860'}
           lineHeight={'36px'}
         >
-          532,875
+          <AnimationNumber value={532875} />
         </Text>
         <Text
           fontSize={'25px'}

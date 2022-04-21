@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Tooltip, Button } from '@chakra-ui/react'
 import { MdInfoOutline } from 'react-icons/md';
-
+import AnimationNumber from '../../../Components/AnimationNumber';
 import Warning from '../../../../assets/Warning.svg'
 import { OpenDepositModal, useStore } from '../../../../store';
 
@@ -34,7 +34,7 @@ const CurrentPrice: FunctionComponent = (props) => {
           fontWeight={'860'}
           lineHeight={'36px'}
         >
-          {price}
+          <AnimationNumber value={price} />
         </Text>
         <Text
           fontSize={'25px'}

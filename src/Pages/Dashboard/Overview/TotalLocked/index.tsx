@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { HStack, Stack, Flex, Text, Image, Link } from '@chakra-ui/react'
 import { useStore, useExchangeRate, useLUNADeposited } from '../../../../store';
 import { floor, floorNormalize } from '../../../../Util';
+import AnimationNumber from '../../../Components/AnimationNumber';
 
 const TotalLocked: FunctionComponent = (props) => {
   const { state, dispatch } = useStore();
@@ -30,7 +31,7 @@ const TotalLocked: FunctionComponent = (props) => {
           fontWeight={'800'}
           lineHeight={'36px'}
         >
-          {total.toLocaleString()}&nbsp;
+          <AnimationNumber value={total} />&nbsp;
         </Text>
         <Text
           fontSize={'20px'}

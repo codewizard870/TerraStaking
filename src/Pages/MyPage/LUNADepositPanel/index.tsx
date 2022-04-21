@@ -11,6 +11,7 @@ import {
   useLUNADeposited,
   useExchangeRate,
 } from '../../../store';
+import AnimationNumber from '../../Components/AnimationNumber';
 import { floor, floorNormalize } from '../../../Util';
 
 const LUNADepositPanel: FunctionComponent = (props) => {
@@ -126,7 +127,7 @@ const LUNADepositPanel: FunctionComponent = (props) => {
               fontWeight={'400'}
               lineHeight={'15.6px'}
             >
-              {apr}%
+              <AnimationNumber value={apr} />%
             </Text>
           </Flex>
         </GridItem>
@@ -137,14 +138,14 @@ const LUNADepositPanel: FunctionComponent = (props) => {
               fontWeight={'400'}
               lineHeight={'15.6px'}
             >
-              {amount.toLocaleString()} UST
+              <AnimationNumber value={amount} /> UST
             </Text>
             <Text
               fontSize={'13px'}
               fontWeight={'400'}
               lineHeight={'15.6px'}
             >
-              {lunaDeposited.toLocaleString()} LUNA
+              <AnimationNumber value={lunaDeposited} /> LUNA
             </Text>
           </VStack>
         </GridItem>

@@ -1,10 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import { HStack, VStack, Flex, Text, Image, Link, Tooltip } from '@chakra-ui/react'
 
-import BlackPanel from './../../../../assets/BlackPanel.svg'
-import YellowPanel from './../../../../assets/YellowPanel.svg'
+import BlackPanel from '../../../../assets/BlackPanel.svg'
+import YellowPanel from '../../../../assets/YellowPanel.svg'
 import { useStore, useExchangeRate } from '../../../../store';
+import AnimationNumber from '../../../Components/AnimationNumber';
 import { floor, floorNormalize } from '../../../../Util';
+
+
 const ValueView: FunctionComponent = (props) => {
   const { state, dispatch } = useStore();
   const rate = useExchangeRate();
@@ -42,7 +45,7 @@ const ValueView: FunctionComponent = (props) => {
           lineHeight={'15px'}
           fontStyle={'italic'}
         >
-          $&nbsp;{lunaAmount.toLocaleString()}
+          $&nbsp;<AnimationNumber value={lunaAmount} />
         </Text>
       </VStack>
       <VStack alignItems={'baseline'}>
@@ -69,7 +72,7 @@ const ValueView: FunctionComponent = (props) => {
           lineHeight={'15px'}
           fontStyle={'italic'}
         >
-          $&nbsp;{ustAmount.toLocaleString()}
+          $&nbsp;<AnimationNumber value={ustAmount} />
         </Text>
       </VStack>
     </VStack>

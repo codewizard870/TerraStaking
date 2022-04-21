@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { VStack, Stack, Text, Divider, HStack, Image, Flex, Button, Tooltip } from '@chakra-ui/react'
 import { Grid, GridItem } from '@chakra-ui/react'
 
+import AnimationNumber from '../../Components/AnimationNumber';
 import LunaIcon from './../../../assets/Luna.svg'
 import Warning from './../../../assets/Warning.svg'
 import { OpenDepositModal, OpenWithdrawModal, useStore, useLUNAApr } from '../../../store';
@@ -44,7 +45,7 @@ const LUNADepositPanel: FunctionComponent = (props) => {
             lineHeight={'36px'}
             fontStyle={'italic'}
           >
-            {apr}%
+            <AnimationNumber value={apr} />%
           </Text>
           <Tooltip 
             label="Current annualized deposit rate" 

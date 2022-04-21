@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Tooltip, Button } from '@chakra-ui/react'
-
+import AnimationNumber from '../../../Components/AnimationNumber';
 import Warning from '../../../../assets/Warning.svg'
 
 const ProjectedPrice: FunctionComponent = (props) => {
@@ -29,7 +29,7 @@ const ProjectedPrice: FunctionComponent = (props) => {
           fontWeight={'860'}
           lineHeight={'36px'}
         >
-          1.25
+          <AnimationNumber value={1.25} />
         </Text>
         <Text
           fontSize={'25px'}

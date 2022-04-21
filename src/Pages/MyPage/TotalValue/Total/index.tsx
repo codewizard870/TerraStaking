@@ -4,6 +4,7 @@ import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Tooltip, Button
 import { MdSwapHoriz } from 'react-icons/md'
 import { useUSTBalance, useUSTDeposited, useLUNADeposited, useStore, useExchangeRate } from '../../../../store';
 import Warning from "./../../../../assets/Warning.svg"
+import AnimationNumber from '../../../Components/AnimationNumber';
 import { useNavigate } from 'react-router-dom';
 import { floorNormalize, floor } from '../../../../Util';
 
@@ -42,7 +43,7 @@ const Total: FunctionComponent = (props) => {
             fontWeight={'860'}
             lineHeight={'36px'}
           >
-            {total.toLocaleString()}
+            <AnimationNumber value={total}/>
           </Text>
           <Text
             fontSize={'20px'}
@@ -55,7 +56,6 @@ const Total: FunctionComponent = (props) => {
       </VStack>
       <a href="https://app.terraswap.io/swap?to=&type=swap&from=uluna" target={'_blank'} rel="noreferrer">
         <Button w={'92px'} h={'25px'} background={'none'} rounded={'25px'} borderColor={'white'} variant='outline'>
-
           <MdSwapHoriz />
           <Text
             fontSize={'9px'}

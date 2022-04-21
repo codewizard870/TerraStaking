@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 import { VStack, Stack, Text, Divider, HStack, Image, Flex, Tooltip } from '@chakra-ui/react'
-import { Grid, GridItem } from '@chakra-ui/react'
+import AnimationNumber from '../../Components/AnimationNumber';
 import Warning from './../../../assets/Warning.svg'
 import DateTimeTab from './DateTimeTab'
 
@@ -39,7 +39,7 @@ const Expected: FunctionComponent = (props) => {
           fontWeight={'860'}
           lineHeight={'36px'}
         >
-          {interest.toLocaleString()}
+          <AnimationNumber value={interest} />
         </Text>
         <Text
           fontSize={'20px'}
