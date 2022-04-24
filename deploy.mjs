@@ -37,9 +37,9 @@ const codeid_cw20 = net=="main"? 3: 148;
 
 let wallet = terra.wallet(mk);
 
-let poolAddress = "terra1cn6mggfxa3jp6dgteuerj2nx05xmrav6985r3f";
-let vustAddress = "terra1q252ygsrgah5v7mwrjpsxsntgwveh5647tkfzc";
-let vlunaAddress = "terra1jh85u6wwf4ekdm7q97scf50fsu3py43hmwht4f";
+let poolAddress = "terra1yl8ad8n2uqz3560akwqs2k7zc0zn9dg9z9tjuv";
+let vustAddress = "terra1hx9v3xu7kc7fuleqxzsags5pezwn8x5wmjxm5p";
+let vlunaAddress = "terra1swr7jq37664wgqn48qtnlfgexg77dglm9ytxgg";
 
 run();
 

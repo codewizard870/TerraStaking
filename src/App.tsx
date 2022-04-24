@@ -6,6 +6,8 @@ import Dashboard from './Pages/Dashboard'
 import MyPage from './Pages/MyPage'
 import Earn from './Pages/Earn'
 import Utility from './Pages/Utility'
+import CommunityFarm from './Pages/CommunityFarm';
+import PotReward from './Pages/PotReward';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
           <Route path="mypage" element={<MyPage />} />
           <Route path="earn" element={<Earn />} />
           <Route path="utility" element={<Utility />} />
+          <Route path="farm" element={<CommunityFarm />} />
+          <Route path="pot" element={<PotReward />} />
           <Route path="*" element={"404"} />
         </Route>
       </Routes>

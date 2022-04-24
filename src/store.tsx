@@ -3,7 +3,7 @@ import { ConnectedWallet } from '@terra-money/wallet-provider'
 import { LCDClient } from '@terra-money/terra.js'
 
 import { floor, floorNormalize } from './Util'
-import { amountHistory, aprUstHistory, aprLunaHistory, userInfo, farmInfo } from './constants'
+import { amountHistory, aprUstHistory, aprLunaHistory, userInfo, farmInfo, potInfo } from './constants'
 
 export type COINTYPE = 'ust' | 'luna';
 
@@ -40,6 +40,8 @@ export interface AppContextInterface {
   ust_total_rewards: number,
   luna_total_rewards: number,
   txhash: string | undefined,
+  qualified: boolean,
+  potInfo: any,
 }
 
 const initialState: AppContextInterface = {
@@ -74,6 +76,8 @@ const initialState: AppContextInterface = {
   ust_total_rewards: 0,
   luna_total_rewards: 0,
   txhash: undefined,
+  qualified: false,
+  potInfo: potInfo,
 }
 
 export enum ActionKind{
@@ -104,7 +108,9 @@ export enum ActionKind{
   setFarmStartTime,
   setUstTotalRewards,
   setLunaTotalRewards,
-  setTxhash
+  setTxhash,
+  setQualified,
+  setPotInfo
 }
 
 const StoreContext = createContext<{ state: AppContextInterface; dispatch: React.Dispatch<any>; }>
@@ -169,6 +175,10 @@ export const reducer = (state: AppContextInterface,  action: Action ) => {
       return {...state, luna_total_rewards: action.payload}
     case ActionKind.setTxhash:
       return {...state, txhash: action.payload}
+    case ActionKind.setQualified:
+      return {...state, qualified: action.payload}
+    case ActionKind.setPotInfo:
+      return {...state, potInfo: action.payload}
     default:
       return state
   }

@@ -3,11 +3,16 @@ import { VStack, HStack, Stack, Flex, Text, Image, Tooltip, Center, Divider, But
 import AnimationNumber from '../../../Components/AnimationNumber';
 import { MdInfoOutline } from 'react-icons/md';
 import Warning from '../../../../assets/Warning.svg'
-import { OpenDepositModal, useStore } from '../../../../store';
+import { floorNormalize } from '../../../../Util';
+import { OpenDepositModal, useStore, useExchangeRate } from '../../../../store';
 
 const Left: FunctionComponent = (props) => {
   const {state, dispatch} = useStore();
-  
+  const ustAmount = state.potInfo.qualified_ust_amount;
+  const lunaAmount = state.potInfo.qualified_luna_amount;
+  const rate = useExchangeRate();
+  const amount = floorNormalize(parseFloat(ustAmount) + parseFloat(lunaAmount) * rate);
+
   return (
     <Flex w={'100%'} direction="column">
       <HStack>
@@ -45,7 +50,7 @@ const Left: FunctionComponent = (props) => {
           fontWeight={'860'}
           lineHeight={'36px'}
         >
-          <AnimationNumber value={532875} />
+          <AnimationNumber value={amount} />
         </Text>
         <Text
           fontSize={'25px'}

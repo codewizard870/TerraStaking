@@ -27,7 +27,7 @@ function calcUSD(amountHistory: any, ustPrice: number, lunaPrice: number) {
   return amountHistory;
 }
 export async function fetchData(state: AppContextInterface, dispatch: React.Dispatch<any>) {
-  dispatch({ type: ActionKind.setLoading, payload: true});
+  dispatch({ type: ActionKind.setLoading, payload: true });
 
   const wallet = state.wallet;
   const api = new WasmAPI(state.lcd.apiRequester);
@@ -69,14 +69,14 @@ export async function fetchData(state: AppContextInterface, dispatch: React.Disp
     status = await api.contractQuery(
       POOL,
       {
-        get_status: {wallet: wallet?.walletAddress}
+        get_status: { wallet: wallet?.walletAddress }
       });
-  } catch (e) { 
+  } catch (e) {
     console.log(e)
   }
-console.log(status)
+  console.log(status)
 
-  if(status){
+  if (status) {
     if (status.amount_history !== undefined)
       dispatch({ type: ActionKind.setAmountHistory, payload: calcUSD(status.amount_history, ustPrice, lunaPrice) });
     if (status.apr_ust_history !== undefined)
@@ -96,10 +96,13 @@ console.log(status)
     if (status.farm_starttime !== undefined)
       dispatch({ type: ActionKind.setFarmStartTime, payload: parseInt(status.farm_starttime) });
 
-    if(status.total_rewards_ust != undefined)
-      dispatch({ type: ActionKind.setUstTotalRewards, payload: parseInt(status.total_rewards_ust)});
-    if(status.total_rewards_luna != undefined)
-      dispatch({ type: ActionKind.setLunaTotalRewards, payload: parseInt(status.total_rewards_luna)});
+    if (status.total_rewards_ust != undefined)
+      dispatch({ type: ActionKind.setUstTotalRewards, payload: parseInt(status.total_rewards_ust) });
+    if (status.total_rewards_luna != undefined)
+      dispatch({ type: ActionKind.setLunaTotalRewards, payload: parseInt(status.total_rewards_luna) });
+
+    if(status.pot_info != undefined)
+      dispatch({ type: ActionKind.setPotInfo, payload: status.pot_info });
   }
   else {
     try {
@@ -199,7 +202,7 @@ console.log(status)
       dispatch({ type: ActionKind.setFarmStartTime, payload: farmStartTime });
   }
 
-  dispatch({ type: ActionKind.setLoading, payload: false});
+  dispatch({ type: ActionKind.setLoading, payload: false });
 }
 
 export function sleep(ms: number) {
@@ -308,17 +311,16 @@ export function checkNetwork(wallet: ConnectedWallet | undefined, state: AppCont
   return true;
 }
 
-export function floorNormalize(amount: number){
-  return Math.floor(amount/10**4)/100;
+export function floorNormalize(amount: number) {
+  return Math.floor(amount / 10 ** 4) / 100;
 }
 
-export function floor(amount: number){
-  return Math.floor(amount * 100) /100;
+export function floor(amount: number) {
+  return Math.floor(amount * 100) / 100;
 }
 
-export function getDateString(time: number)
-{
-  const month=["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+export function getDateString(time: number) {
+  const month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
   let datetime = new Date(time * 1000)
   return (month[datetime.getMonth()] + "   " + datetime.getDate() + " , " + datetime.getFullYear());

@@ -197,7 +197,7 @@ const InformationPopover: FunctionComponent<Props> = ({ isOpen, onClose, connect
       <Flex
         w={'100%'}
         h={'34px'}
-        background={'#212121'}
+        background={'#2e2525'}
         justify={'center'}
         align={'center'}
         rounded={'0 0 25px 25px'}

@@ -35,9 +35,9 @@ const DepositModal: FunctionComponent<Props> = ({isOpen, onClose}) => {
     let val = Math.floor(parseFloat(amount) * 10 ** 6);
     let msg;
     if(coinType === 'ust')
-      msg = { deposit_ust: {} }
+      msg = { deposit_ust: {qualified: state.qualified} }
     else
-      msg = { deposit_luna: {} }
+      msg = { deposit_luna: {qualified: state.qualified} }
 
     let deposit_msg = new MsgExecuteContract(
       wallet?.walletAddress,
@@ -129,16 +129,6 @@ const DepositModal: FunctionComponent<Props> = ({isOpen, onClose}) => {
           </Text>
         </Button>
         <ModalCloseButton color={'#CEBFBF'} />
-        {/* <ModalBody>
-          <h1>Hello</h1>
-        </ModalBody> */}
-
-        {/* <ModalFooter>
-          <Button colorScheme='blue' mr={3} onClick={onClose}>
-            Close
-          </Button>
-          <Button variant='ghost'>Secondary Action</Button>
-        </ModalFooter> */}
       </ModalContent>
     </Modal>
   );
