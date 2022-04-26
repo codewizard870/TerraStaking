@@ -49,7 +49,7 @@ const CommunityFarm: FunctionComponent = (props) => {
       textColor={'black'}
     >
       <TableContainer>
-        <Table variant='striped' colorScheme='yellow'>
+        <Table variant='simple' colorScheme='yellow' textColor={'white'}>
           <TableCaption>Community Farm</TableCaption>
           <Thead>
             <Tr>
