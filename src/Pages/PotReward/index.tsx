@@ -50,7 +50,7 @@ const PotReward: FunctionComponent = (props) => {
     >
       <TableContainer>
         <Table variant='simple' colorScheme='yellow' textColor={'white'}>
-          <TableCaption>Community Farm</TableCaption>
+          <TableCaption>Monthly Reward</TableCaption>
           <Thead>
             <Tr>
               <Th>Wallet</Th>
