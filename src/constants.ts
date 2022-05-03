@@ -51,27 +51,27 @@ export const amountHistory = [
 export const aprUstHistory = [
   {
     time: 1648939268,
-    apr: "3547",
+    apr: "3487",
   },
   {
     time: 1648939268,
-    apr: "3547",
+    apr: "3487",
   },
   {
     time: 1648939268,
-    apr: "3547",
+    apr: "3487",
   },
   {
     time: 1648939268,
-    apr: "3547",
+    apr: "3487",
   },
   {
     time: 1648939268,
-    apr: "3547",
+    apr: "3487",
   },
   {
     time: 1648939268,
-    apr: "3547",
+    apr: "3487",
   },
 ];
 
