@@ -18,7 +18,7 @@ const AnimationNumber: FunctionComponent<Props> = ({ value }) => {
   }, [value])
 
   function getRest(num: number) {
-    return Math.round(num * 100 - Math.floor(num) * 100);
+    return Math.round(num * 100 - Math.floor(num) * 100)
   }
 
   const rest = getRest(value) < 10 ? ".0" + getRest(value).toString() : "." + getRest(value).toString();
