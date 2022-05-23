@@ -1,88 +1,97 @@
 import React, { FunctionComponent, useState, useMemo, useEffect } from 'react';
 import { Flex, Text, Button, Image, Spinner, useDisclosure } from '@chakra-ui/react'
-import {
-  Popover,
-  PopoverTrigger,
-} from '@chakra-ui/react'
-import { useWallet, useConnectedWallet } from '@terra-money/wallet-provider'
-import { LCDClient, WasmAPI, Coins, Coin } from '@terra-money/terra.js'
+import { Popover, PopoverTrigger } from '@chakra-ui/react'
+
+import "regenerator-runtime/runtime";
+import * as nearAPI from "near-api-js"
+import getConfig from "./config"
+
 import { toast } from 'react-toastify';
-import {MdOutlineAccountBalanceWallet} from 'react-icons/md'
+import { MdOutlineAccountBalanceWallet } from 'react-icons/md'
 
 import Wallet from './../../../assets/Wallet.svg';
 import InformationPopover from './InformationPopover';
+import ConnectWalletModal from './ConnectWalletModal';
 import { VUST, VLUNA } from '../../../constants';
 import { useStore, ActionKind, useUSTBalance } from '../../../store';
-import { shortenAddress, floorNormalize } from '../../../Util';
+import { shortenAddress, floorNormalize, floor } from '../../../Util';
 
+declare let window: any;
+const nearConfig = getConfig("testnet");
 
 const ConnectWallet: FunctionComponent = () => {
   const { state, dispatch } = useStore();
   const [bank, setBank] = useState(false);
-  const { isOpen: isOpenInfomation, onOpen: onOpenInfomation, onClose: onCloseInfomation } = useDisclosure();
+  const [address, setAddress] = useState('');
+  const [balance, setBalance] = useState('0');
 
-  const wallet = useWallet()
-  const connectedWallet = useConnectedWallet()
-  const ustBalance = useUSTBalance();
+  const { isOpen: isOpenInfomation,
+     onOpen: onOpenInfomation, 
+     onClose: onCloseInfomation } = useDisclosure();
 
-  const lcd = useMemo(() => {
-    if (!connectedWallet) {
-      dispatch({ type: ActionKind.setConnected, payload: false });
-      dispatch({ type: ActionKind.setWallet, payload: undefined });
-
-      return undefined;
-    }
-    dispatch({ type: ActionKind.setConnected, payload: true });
-    dispatch({ type: ActionKind.setWallet, payload: connectedWallet });
-    
-    let lcd =  new LCDClient({
-      URL: connectedWallet.network.lcd,
-      chainID: connectedWallet.network.chainID,
-    })
-    dispatch({ type: ActionKind.setLcd, payload: lcd });
-
-    return lcd;
-  }, [connectedWallet, dispatch])
+  const { isOpen: isOpenConnectWallet, 
+    onOpen: onOpenConnectWallet, 
+    onClose: onCloseConnectWallet } = useDisclosure();
 
   useEffect(() => {
     async function fetchBalance() {
-      if (connectedWallet?.walletAddress && lcd) {
-        let coins: Coins;
-        try {
-          [coins,] = await lcd.bank.balance(connectedWallet.walletAddress);
-        } catch (e) {
-          toast("Can't fetch Wallet balance");
-          return;
-        }
+      if (state.walletType == 'near' && state.wallet) {
+        const account = state.wallet.account();
+        const balance = await account.getAccountBalance();
+        const { utils } = nearAPI;
+        const amountInNEAR = utils.format.formatNearAmount(balance.available);
+
         setBank(true);
-        if (coins.get('uusd')) {
-          dispatch({type: ActionKind.setUusdBalance, payload: coins.get('uusd')?.amount.toNumber()});
-        }
-        if (coins.get('uluna')) {
-          dispatch({type: ActionKind.setUlunaBalance, payload: coins.get('uluna')?.amount.toNumber()});
-        }
+        setBalance(floor(parseFloat(amountInNEAR)).toString());
       }
     }
 
-    if (connectedWallet && lcd) {
+    if (state.connected && state.wallet) {
       fetchBalance()
     }
-  }, [connectedWallet, lcd, dispatch, state.loading])
+  }, [state.connected, state.wallet, dispatch, state.loading, state.walletType])
 
-  function connectTo(to: string) {
-    if (to === 'extension') {
-      wallet.connect(wallet.availableConnectTypes[0])
-    } else if (to === 'mobile') {
-      wallet.connect(wallet.availableConnectTypes[1])
-    } else if (to === 'disconnect') {
-      wallet.disconnect()
-      // dispatch({ type: 'setWallet', message: {} })
+  function connectTo() {
+    onOpenConnectWallet();
+  }
+
+  async function connectToNearWallet() {
+    dispatch({ type: ActionKind.setWalletType, payload: 'near' });
+    onCloseConnectWallet();
+
+    const near = await nearAPI.connect(
+      Object.assign(
+      { deps: { keyStore: new nearAPI.keyStores.BrowserLocalStorageKeyStore() } }, 
+      nearConfig)
+    );
+
+    const wallet = new nearAPI.WalletAccount(near, null);
+    let signed = wallet.isSignedIn();
+
+    if (!signed) {
+      dispatch({ type: ActionKind.setConnected, payload: false });
+      dispatch({ type: ActionKind.setWallet, payload: undefined });
+
+      wallet.requestSignIn(
+        // The contract name that would be authorized to be called by the user's account.
+        "dev-1653290629414-32294702545396",
+        // This is the app name. It can be anything.
+        'Who was the last person to say "Hi!"?',
+        // We can also provide URLs to redirect on success and failure.
+        // The current URL is used by default.
+      );
+    } else {
+      dispatch({ type: ActionKind.setConnected, payload: true });
+      dispatch({ type: ActionKind.setWallet, payload: wallet });
+
+      let accountId = wallet.getAccountId();
+      setAddress(accountId);
     }
   }
 
   return (
     <>
-      {!state.connected && 
+      {!state.connected &&
         <Button
           fontSize={'15px'}
           fontWeight={'700'}
@@ -91,9 +100,9 @@ const ConnectWallet: FunctionComponent = () => {
           background={'none'}
           border={'solid 2px #F9D85E'}
           rounded={'25px'}
-          onClick={() => { connectTo('extension') }}
+          onClick={() => { connectTo() }}
         >
-        <Image src={Wallet} width={'15px'} />
+          <Image src={Wallet} width={'15px'} />
           <Text ml={'11px'} color={'#F9D85E'}>
             Connect Wallet
           </Text>
@@ -113,21 +122,26 @@ const ConnectWallet: FunctionComponent = () => {
               onClick={() => { onOpenInfomation() }}
             >
               {(bank && !state.loading) &&
-                <MdOutlineAccountBalanceWallet size={25} color={'#F9D85E'}/>
+                <MdOutlineAccountBalanceWallet size={25} color={'#F9D85E'} />
               }
-              {(!bank || state.loading) && 
-                <Spinner color={'#F9D85E'}/>
+              {(!bank || state.loading) &&
+                <Spinner color={'#F9D85E'} />
               }
               <Text ml={'15px'} color={'#F9D85E'}>
-                {shortenAddress(connectedWallet?.walletAddress.toString())}
+                {shortenAddress(address.toString())}
                 &nbsp;|&nbsp;
-                {ustBalance}&nbsp;UST
+                {balance}&nbsp;NEAR
               </Text>
             </Button>
           </PopoverTrigger>
-          <InformationPopover isOpen={isOpenInfomation} onClose={onCloseInfomation} connectTo={connectTo}/>
+          <InformationPopover isOpen={isOpenInfomation} onClose={onCloseInfomation} connectTo={connectTo} />
         </Popover>
-      } 
+      }
+      <ConnectWalletModal
+        isOpen={isOpenConnectWallet}
+        onClose={onCloseConnectWallet}
+        connectToNearWallet={connectToNearWallet}
+      />
     </>
   );
 }

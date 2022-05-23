@@ -6,18 +6,19 @@ import { floor, floorNormalize } from './Util'
 import { amountHistory, aprUstHistory, aprLunaHistory, userInfo, farmInfo, potInfo } from './constants'
 
 export type COINTYPE = 'USDC' | 'USDT' | 'DAI' | 'USN' | 'wBTC' | 'ETH' | 'wNEAR';
-
+export type WALLETTYPE = 'near' | 'sender';
 interface Action {
   type: ActionKind;
   payload: any;
 }
 
 export interface AppContextInterface {
+  walletType: WALLETTYPE,
   loading: boolean,
   net: "mainnet" | "testnet",
   connected: Boolean,
   lcd: LCDClient,
-  wallet: ConnectedWallet | undefined,
+  wallet: any | undefined,
   uusdBalance: number,
   ulunaBalance: number,
   tab: "dashboard" | "mypage" | "earn" | "utility",
@@ -45,6 +46,7 @@ export interface AppContextInterface {
 }
 
 const initialState: AppContextInterface = {
+  walletType: 'near',
   loading: false,
   net: "testnet",
   connected: false,
@@ -81,6 +83,7 @@ const initialState: AppContextInterface = {
 }
 
 export enum ActionKind{
+  setWalletType,
   setLoading,
   setNet,
   setPoolAddr,
@@ -121,6 +124,8 @@ const StoreContext = createContext<{ state: AppContextInterface; dispatch: React
 
 export const reducer = (state: AppContextInterface,  action: Action ) => {
   switch (action.type) {
+    case ActionKind.setWalletType:
+      return { ...state, walletType: action.payload}
     case ActionKind.setLoading:
       return { ...state, loading: action.payload}
     case ActionKind.setNet:

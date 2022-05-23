@@ -34,8 +34,8 @@ const Layout = () => {
     const fetchAll = async () => {
       fetchData(state, dispatch)
     }
-    if (checkNetwork(wallet, state))
-      fetchAll()
+    // if (checkNetwork(wallet, state))
+      // fetchAll()
   }, [lcd, wallet])
 
   return (
