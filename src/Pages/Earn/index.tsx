@@ -20,14 +20,13 @@ const MyPage: FunctionComponent = (props) => {
       <Total />
       <Flex flexWrap={'wrap'} justify='space-between'>
         {StableCoins.map((item) => (
-            <CoinPanel 
-              name = {item.name as COINTYPE}
-              description = {item.description}
-              avatar = {item.avatar}
-              apr = {item.apr}
-            />
-          ))
-        }
+          <CoinPanel 
+            name = {item.name as COINTYPE}
+            description = {item.description}
+            avatar = {item.avatar}
+            apr = {item.apr}
+          />
+        ))}
       </Flex>
       <Expected />
     </VStack>

@@ -60,7 +60,7 @@ const TVL: FunctionComponent = (props) => {
             fontWeight={'800'}
             lineHeight={'36px'}
           >
-            UST
+            USD
           </Text>
         </HStack>
       </VStack>

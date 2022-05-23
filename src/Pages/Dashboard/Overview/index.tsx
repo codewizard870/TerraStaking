@@ -25,10 +25,15 @@ const Overview: FunctionComponent = (props) => {
         w={{sm:'100%', md: '100%', lg:'382px'}}
       >
         <TotalLocked />
-        <HStack mt={'53px'} spacing={'56px'} align={'center'}>
+        <Stack 
+          mt={'53px'} 
+          spacing={'56px'} 
+          align={'center'}
+          direction={{base:'column', lg:'row'}}
+        >
           <CircularView />
           <ValueView />
-        </HStack>
+        </Stack>
       </Flex>
       <Center 
         height={'304px'}

@@ -35,7 +35,7 @@ const TotalLocked: FunctionComponent = (props) => {
           fontWeight={'800'}
           lineHeight={'36px'}
         >
-          UST
+          USD
         </Text>
         <Text
           fontSize={'14px'}

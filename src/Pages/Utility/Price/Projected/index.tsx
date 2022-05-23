@@ -12,7 +12,7 @@ const ProjectedPrice: FunctionComponent = (props) => {
           fontWeight={'860'}
           lineHeight={'24px'}
         >
-          PROJECTED TerraT PRICE 
+          PROJECTED NearT PRICE 
         </Text>
         <Tooltip 
           label="Projected at the public sale" 
@@ -36,7 +36,7 @@ const ProjectedPrice: FunctionComponent = (props) => {
           fontWeight={'860'}
           lineHeight={'36px'}
         >
-          UST
+          USD
         </Text>
       </HStack>
     </Flex>

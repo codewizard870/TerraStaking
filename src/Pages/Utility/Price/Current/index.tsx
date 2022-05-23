@@ -17,7 +17,7 @@ const CurrentPrice: FunctionComponent = (props) => {
           fontWeight={'860'}
           lineHeight={'24px'}
         >
-          CURRENT TerraT PRICE 
+          CURRENT NearT PRICE 
         </Text>
         <Tooltip 
           label="The price is recalculated once a day" 
@@ -41,7 +41,7 @@ const CurrentPrice: FunctionComponent = (props) => {
           fontWeight={'860'}
           lineHeight={'36px'}
         >
-          UST
+          USD
         </Text>
       </HStack>
       <Button 
@@ -57,7 +57,7 @@ const CurrentPrice: FunctionComponent = (props) => {
           fontWeight={'860'}
           lineHeight={'15px'}
         >
-          STAKE NOW & GET FREE TerraT 
+          STAKE NOW & GET FREE NearT 
         </Text>
       </Button>
     </Flex>

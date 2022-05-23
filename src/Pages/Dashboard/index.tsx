@@ -19,13 +19,7 @@ const Dashboard: FunctionComponent = (props) => {
     >
       <Title />
       <Overview/>
-      <Stack 
-        direction={{sm: 'column', md:'column', lg:'row'}}
-        spacing={'56px'}
-        w={'100%'}
-      >
-        <CoinPanel />
-      </Stack>
+      <CoinPanel />
       <How />
       <TVL />
     </VStack>

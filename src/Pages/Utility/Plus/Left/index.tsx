@@ -57,7 +57,7 @@ const Left: FunctionComponent = (props) => {
           fontWeight={'860'}
           lineHeight={'36px'}
         >
-           UST
+           USD
         </Text>
       </HStack>
       <Button 

@@ -17,7 +17,7 @@ const YourFarmed: FunctionComponent = (props) => {
           fontWeight={'860'}
           lineHeight={'24px'}
         >
-          YOUR FARMED TerraT TOKENS
+          YOUR FARMED NearT TOKENS
         </Text>
         <Tooltip 
           label="Recalculated once a day" 
@@ -41,7 +41,7 @@ const YourFarmed: FunctionComponent = (props) => {
           fontWeight={'860'}
           lineHeight={'36px'}
         >
-          TerraT
+          NearT
         </Text>
       </HStack>
     </VStack>

@@ -28,63 +28,72 @@ const CoinPanel: FunctionComponent<Props> = ({name, description, avatar, apr}) =
       mt='20px'
       color='#CEBFBF'
     >
-      <Flex w='100%' align='center'>
-        <Image src={'./' + avatar} w={'33px'} />
-        <Flex direction='column' ml='12px' align='baseline'>
-          <Text 
-            color='white'
-            fontSize={'20px'}
-            fontWeight='800'
-          >
-            {name}
-          </Text>
-          <Text
-            fontSize='13px'
-            fontWeight={'400'}
-          >
-            {description}
-          </Text>
-        </Flex>
-        <VStack ml='126px' align='baseline'>
-          <HStack>
-            <Text
-              fontSize='13px'
+      <Stack 
+        direction='row'
+        w='100%' align='center' justify={'space-between'}
+      >
+        <HStack spacing={'12px'} w='100%'>
+          <Image src={'./' + avatar} w={'33px'} />
+          <Flex direction='column' align='baseline'>
+            <Text 
+              color='white'
+              fontSize={'20px'}
               fontWeight='800'
             >
-              Saving Balanece
+              {name}
             </Text>
-            <Image src={Warning} w={'13px'}/>
-          </HStack>
-          <Text
-            fontSize='13px'
-            fontWeight={'400'}
-          >
-            $ 937,345,00
-          </Text>
-        </VStack>
-        <VStack ml='30px' align='baseline'>
-          <HStack>
             <Text
               fontSize='13px'
-              fontWeight='800'
+              fontWeight={'400'}
             >
-              APY
+              {description}
             </Text>
-            <Image src={Warning} w={'13px'}/>
-          </HStack>
-          <Text
-            fontSize='13px'
-            fontWeight={'400'}
-          >
-            {apr}%
-          </Text>
-        </VStack>
-      </Flex>
-      <HStack
+          </Flex>
+        </HStack>
+        <HStack ml='126px' spacing='30px' w='100%'>
+          <VStack align='baseline'>
+            <HStack>
+              <Text
+                fontSize='13px'
+                fontWeight='800'
+              >
+                Saving Balanece
+              </Text>
+              <Image src={Warning} w={'13px'}/>
+            </HStack>
+            <Text
+              fontSize='13px'
+              fontWeight={'400'}
+            >
+              $ 937,345,00
+            </Text>
+          </VStack>
+          <VStack align='baseline'>
+            <HStack>
+              <Text
+                fontSize='13px'
+                fontWeight='800'
+              >
+                APY
+              </Text>
+              <Image src={Warning} w={'13px'}/>
+            </HStack>
+            <Text
+              fontSize='13px'
+              fontWeight={'400'}
+            >
+              {apr}%
+            </Text>
+          </VStack>
+        </HStack>
+      </Stack>
+      <Stack
         w={'100%'}
         pt={'37px'}
         spacing={'24px'}
         justify={'center'}
+        align='center'
+        direction={{base:'column', lg:'row'}}
       >
         <Button
           w={'200px'}
@@ -119,7 +128,7 @@ const CoinPanel: FunctionComponent<Props> = ({name, description, avatar, apr}) =
             Withdraw
           </Text>
         </Button>
-      </HStack>
+      </Stack>
     </VStack>
   );
 }

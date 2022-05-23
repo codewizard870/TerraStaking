@@ -26,7 +26,7 @@ const Projected: FunctionComponent = (props) => {
           fontWeight={'860'}
           lineHeight={'24px'}
         >
-          YOUR PROJECTED SHARE OF TerraT TOKENS
+          YOUR PROJECTED SHARE OF NearT TOKENS
         </Text>
         <Tooltip
           label="Your projected share with your current deposit value until the end of the farming event"
@@ -50,7 +50,7 @@ const Projected: FunctionComponent = (props) => {
           fontWeight={'860'}
           lineHeight={'36px'}
         >
-          TerraT
+          NearT
         </Text>
       </HStack>
     </VStack>
