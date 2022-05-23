@@ -91,7 +91,7 @@ const CoinPanel: FunctionComponent<Props> = ({name, description, avatar, apr}) =
           h={'45px'}
           background={'#493C3C'}
           rounded={'25px'}
-          onClick={() => OpenDepositModal(state, dispatch, "USDC")}
+          onClick={() => OpenDepositModal(state, dispatch, name)}
         >
           <Text
             fontSize={'13px'}
@@ -109,7 +109,7 @@ const CoinPanel: FunctionComponent<Props> = ({name, description, avatar, apr}) =
           border={'solid 1px'}
           borderColor={'#CEBFBF'}
           rounded={'25px'}
-          onClick={() => OpenWithdrawModal(state, dispatch, "USDC")}
+          onClick={() => OpenWithdrawModal(state, dispatch, name)}
         >
           <Text
             fontSize={'13px'}

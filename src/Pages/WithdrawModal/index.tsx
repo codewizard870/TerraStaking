@@ -9,7 +9,7 @@ import {
   useDisclosure
 } from '@chakra-ui/react'
 
-import CoinTab from './CoinTab';
+import Title from './Title';
 import InputPanel from './InputPanel';
 import SliderWish from './SliderWish';
 import Info from './Info';
@@ -47,10 +47,11 @@ const WithdrawModal: FunctionComponent<Props> = ({isOpen, onClose}) => {
             fontSize={'20px'}
             fontWeight={'860'}
             lineHeight={'24px'}
+            mr='17px'
           >
             Withdraw
           </Text>
-          <CoinTab/>
+          <Title />
         </HStack>
         <InputPanel amount={amount} setAmount={setAmount}/>
         <SliderWish amount={amount} setAmount={setAmount}/>

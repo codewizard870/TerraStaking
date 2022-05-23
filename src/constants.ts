@@ -1,5 +1,3 @@
-
-
 export let net = "testnet";
 
 export const POOL_MAIN = "terra1cn6mggfxa3jp6dgteuerj2nx05xmrav6985r3f";

@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react'
 import { toast } from 'react-toastify';
 
-import CoinTab from './CoinTab';
+import Title from './Title';
 import InputPanel from './InputPanel';
 import SliderWish from './SliderWish';
 import Info from './Info';
@@ -85,6 +85,7 @@ const DepositModal: FunctionComponent<Props> = ({isOpen, onClose}) => {
         background={'#212121'}
         rounded={'25px'}
         w={{sm:'100%', md: '562px', lg:'562px'}}
+        minW={{sm:'100%', md: '562px', lg:'562px'}}
         h={'453px'}
         px={{sm:'10px', md: '47px', lg: '47px'}}
         py={'39px'}
@@ -94,17 +95,17 @@ const DepositModal: FunctionComponent<Props> = ({isOpen, onClose}) => {
           lineHeight={'24px'}
           color={'white'}
           justifyContent={'center'}
-          mx={'100px'}
           spacing={'8px'}
         >
           <Text
             fontSize={'20px'}
             fontWeight={'860'}
             lineHeight={'24px'}
+            mr='17px'
           >
             Deposit
           </Text>
-          <CoinTab/>
+          <Title/>
         </HStack>
         <InputPanel amount={amount} setAmount={setAmount}/>
         <SliderWish amount={amount} setAmount={setAmount}/>

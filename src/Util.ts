@@ -3,7 +3,8 @@ import { MsgExecuteContract, WasmAPI, Coin, LCDClient, Fee } from '@terra-money/
 import { ConnectedWallet } from '@terra-money/wallet-provider'
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import { successOption, errorOption, POOL } from './constants';
+import { COINTYPE } from './store';
+import { successOption, errorOption, POOL, StableCoins } from './constants';
 
 export function shortenAddress(address: string | undefined) {
   if (address) {
@@ -101,7 +102,7 @@ export async function fetchData(state: AppContextInterface, dispatch: React.Disp
     if (status.total_rewards_luna != undefined)
       dispatch({ type: ActionKind.setLunaTotalRewards, payload: parseInt(status.total_rewards_luna) });
 
-    if(status.pot_info != undefined)
+    if (status.pot_info != undefined)
       dispatch({ type: ActionKind.setPotInfo, payload: status.pot_info });
   }
   else {
@@ -324,4 +325,12 @@ export function getDateString(time: number) {
 
   let datetime = new Date(time * 1000)
   return (month[datetime.getMonth()] + "   " + datetime.getDate() + " , " + datetime.getFullYear());
+}
+
+export function getCoinParam(coin: COINTYPE) {
+  for (let i = 0; i < StableCoins.length; i++) {
+    if(StableCoins[i].name == coin){
+      return StableCoins[i];
+    }
+  }
 }
