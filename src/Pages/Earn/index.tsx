@@ -3,9 +3,10 @@ import { Stack, VStack, HStack, Flex, Button } from '@chakra-ui/react'
 
 import Title from './Title'
 import Total from './Total';
-import USTDepositPanel from './USTDepositPanel';
-import LUNADepositPanel from './LUNADepositPanel';
+import CoinPanel from '../MyPage/CoinPanel';
 import Expected from './Expected';
+import { StableCoins } from '../../constants';
+import { COINTYPE } from '../../store';
 
 const MyPage: FunctionComponent = (props) => {
   return (
@@ -17,10 +18,17 @@ const MyPage: FunctionComponent = (props) => {
     >
       <Title />
       <Total />
-      <HStack spacing={'56px'} w={'100%'}>
-        <USTDepositPanel />
-        <LUNADepositPanel />
-      </HStack>
+      <Flex flexWrap={'wrap'} justify='space-between'>
+        {StableCoins.map((item) => (
+            <CoinPanel 
+              name = {item.name as COINTYPE}
+              description = {item.description}
+              avatar = {item.avatar}
+              apr = {item.apr}
+            />
+          ))
+        }
+      </Flex>
       <Expected />
     </VStack>
   );

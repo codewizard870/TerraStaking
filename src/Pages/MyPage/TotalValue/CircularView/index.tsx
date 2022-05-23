@@ -33,7 +33,7 @@ const CircularView: FunctionComponent = (props) => {
         size={'165px'}
         capIsRound={true}
         color={'#6493F1'}
-        trackColor={'black'}
+        trackColor={'#493C3C'}
         // thickness='12px'
       />
       <CircularProgress
@@ -42,7 +42,7 @@ const CircularView: FunctionComponent = (props) => {
         size={'110px'}
         capIsRound={true}
         color={'#F9D85E'}
-        trackColor={'black'}
+        trackColor={'#493C3C'}
         thickness='15px'
       />
     </Flex>

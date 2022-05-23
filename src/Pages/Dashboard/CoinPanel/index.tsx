@@ -2,13 +2,13 @@ import React, { FunctionComponent } from 'react';
 import { VStack, Stack, Text, Divider, HStack, Image, Flex, Button } from '@chakra-ui/react'
 import { Grid, GridItem, Tooltip } from '@chakra-ui/react'
 
-import UsdcIcon from './../../../assets/Usdc.svg'
-import UsdtIcon from './../../../assets/Usdt.svg'
-import DaiIcon from './../../../assets/Dai.svg'
-import UsnIcon from './../../../assets/Usn.svg'
-import WbtcIcon from './../../../assets/Wbtc.svg'
-import EthIcon from './../../../assets/Eth.png'
-import WnearIcon from './../../../assets/Wnear.svg'
+// import UsdcIcon from './../../../assets/Usdc.svg'
+// import UsdtIcon from './../../../assets/Usdt.svg'
+// import DaiIcon from './../../../assets/Dai.svg'
+// import UsnIcon from './../../../assets/Usn.svg'
+// import WbtcIcon from './../../../assets/Wbtc.svg'
+// import EthIcon from './../../../assets/Eth.png'
+// import WnearIcon from './../../../assets/Wnear.svg'
 
 import {
   OpenDepositModal,
@@ -17,7 +17,9 @@ import {
   useLUNAApr,
   useLUNADeposited,
   useExchangeRate,
+  COINTYPE
 } from '../../../store';
+import { StableCoins } from '../../../constants';
 import { floor, floorNormalize } from '../../../Util';
 import CoinItem from './CoinItem';
 
@@ -106,62 +108,16 @@ const CoinPanel: FunctionComponent = (props) => {
         <GridItem colSpan={4}>
           <Divider orientation={'horizontal'} />
         </GridItem>
-        <CoinItem 
-          name='USDC' 
-          description='USD Coin'
-          avatar={UsdcIcon}
-          apr={14.87}
-          tvl_coin={47243320}
-          tvl_usd={47243320}
-        />
-        <CoinItem 
-          name='USDT' 
-          description='USD Coin'
-          avatar={UsdtIcon}
-          apr={14.87}
-          tvl_coin={47243320}
-          tvl_usd={47243320}
-        />
-        <CoinItem 
-          name='DAI' 
-          description='Dai'
-          avatar={DaiIcon}
-          apr={14.87}
-          tvl_coin={47243320}
-          tvl_usd={47243320}
-        />
-        <CoinItem 
-          name='USN' 
-          description='USD NEAR'
-          avatar={UsnIcon}
-          apr={14.87}
-          tvl_coin={47243320}
-          tvl_usd={47243320}
-        />
-        <CoinItem 
-          name='wBTC' 
-          description='Wrapped Bitcoin'
-          avatar={WbtcIcon}
-          apr={14.87}
-          tvl_coin={47243320}
-          tvl_usd={47243320}
-        />
-        <CoinItem 
-          name='ETH' 
-          description='Ethereum'
-          avatar={EthIcon}
-          apr={14.87}
-          tvl_coin={47243320}
-          tvl_usd={47243320}
-        />
-        <CoinItem 
-          name='wNEAR' 
-          description='Wrapped Near'
-          avatar={WnearIcon}
-          apr={14.87}
-          tvl_coin={47243320}
-          tvl_usd={47243320}
-        />
+        {StableCoins.map((item)=> (
+          <CoinItem 
+            name={item.name as COINTYPE}
+            description={item.description}
+            avatar={item.avatar}
+            apr={item.apr}
+            tvl_coin={item.tvl_coin}
+            tvl_usd={item.tvl_usd}
+          />
+        ))}
       </Grid>
     </VStack>
   );

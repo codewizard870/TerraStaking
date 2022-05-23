@@ -37,7 +37,7 @@ const CoinItem: FunctionComponent<Props> = ({name, description, avatar, apr, tvl
           display={{ sm: 'none', md: 'none', lg: 'flex' }}
         >
           <Flex w='50px'>
-            <Image src={avatar} w={'50px'} />
+            <Image src={'./' + avatar} w={'50px'} />
           </Flex>
           <VStack align={'baseline'} spacing={'0px'}>
             <Text

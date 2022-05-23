@@ -9,6 +9,7 @@ import {
 import { Dispatch, SetStateAction } from "react";
 import { MdCode, MdArrowDropDownCircle } from "react-icons/md";
 import AnimationNumber from '../../../Components/AnimationNumber';
+import {StableCoins} from '../../../../constants';
 
 interface Props {
   denom: string,
@@ -51,19 +52,15 @@ const Earn: FunctionComponent<Props> = ({denom, setDenom, year, setYear, amount,
             <MdArrowDropDownCircle />
           </MenuButton>
           <MenuList background={'black'} borderColor={'black'} p={'0px'} w={'100px'} minWidth={'0px'}>
-            <MenuItem
-              onClick={() => setDenom("LUNA")}
-              _hover={{ bg: '#212121', color: '#F9D85E' }}
-              _focus={{ bg: '#212121', color: 'white' }}
-            >
-              LUNA
-            </MenuItem>
-            <MenuItem
-              onClick={() => setDenom("UST")}
-              _hover={{ bg: '#212121', color: '#F9D85E' }}
-            >
-              UST
-            </MenuItem>
+            {StableCoins.map((item) => (
+              <MenuItem
+                onClick={() => setDenom(item.name)}
+                _hover={{ bg: '#212121', color: '#F9D85E' }}
+                _focus={{ bg: '#212121', color: 'white' }}
+              >
+                {item.name}
+              </MenuItem>
+            ))}
           </MenuList>
         </Menu>
       </Flex>
@@ -72,6 +69,7 @@ const Earn: FunctionComponent<Props> = ({denom, setDenom, year, setYear, amount,
         fontSize={'9px'}
         fontWeight={'860'}
         lineHeight={'10px'}
+        color='#CEC0C0'
       >
         Your Deposit
       </Text>
@@ -80,16 +78,21 @@ const Earn: FunctionComponent<Props> = ({denom, setDenom, year, setYear, amount,
         color={'white'}
         border={'none'}
         value={amount}
+        fontSize='24px'
+        p='0px'
         onChange={(e) => setAmount(e.target.value)}
         _focus={{ border: 'none' }}
+        h='24px'
+        mt='27px !important'
       />
-      <Divider orientation='horizontal' />
+      <Divider orientation='horizontal' mt='0px' />
       <Text
         fontSize={'9px'}
         fontWeight={'860'}
         lineHeight={'10px'}
+        color='#CEC0C0'
       >
-        Amount in UST
+        Amount in USD
       </Text>
       <Text
         fontSize={'20px'}

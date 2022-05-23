@@ -20,8 +20,8 @@ const DepositTab: FunctionComponent<Props> = ({depositTab, setDepositTab}) => {
       height={'52px'}
     >
       <Tab id='all' depositTab={depositTab} setDepositTab={setDepositTab}>ALL</Tab>
-      <Tab id='USDC' depositTab={depositTab} setDepositTab={setDepositTab}>UST</Tab>
-      <Tab id='USDC' depositTab={depositTab} setDepositTab={setDepositTab}>LUNA</Tab>
+      <Tab id='stable' depositTab={depositTab} setDepositTab={setDepositTab}>STABLE</Tab>
+      <Tab id='volatile' depositTab={depositTab} setDepositTab={setDepositTab}>VOLATILE</Tab>
     </HStack>
   );
 }

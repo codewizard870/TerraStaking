@@ -1,3 +1,5 @@
+
+
 export let net = "testnet";
 
 export const POOL_MAIN = "terra1cn6mggfxa3jp6dgteuerj2nx05xmrav6985r3f";
@@ -115,12 +117,71 @@ export const successOption: any = {
 };
 
 export const errorOption: any = {
-position: "top-right",
-type: "error",
-autoClose: 5000,
-hideProgressBar: false,
-closeOnClick: true,
-pauseOnHover: true,
-draggable: true,
-progress: undefined,
+  position: "top-right",
+  type: "error",
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
 };
+
+export const StableCoins=[
+  {
+    name: 'USDC',
+    description: 'USD Coin',
+    avatar: 'Usdc.svg',
+    apr: 14.87,
+    tvl_coin: 47243320,
+    tvl_usd: 47243320, 
+  },
+  {
+    name: 'USDT',
+    description: 'USD Tether',
+    avatar: 'Usdt.svg',
+    apr: 14.87,
+    tvl_coin: 47243320,
+    tvl_usd: 47243320, 
+  },
+  {
+    name: 'DAI',
+    description: 'Dai',
+    avatar: 'Dai.svg',
+    apr: 14.87,
+    tvl_coin: 47243320,
+    tvl_usd: 47243320, 
+  },
+  {
+    name: 'USN',
+    description: 'USD NEAR',
+    avatar: 'Usn.svg',
+    apr: 14.87,
+    tvl_coin: 47243320,
+    tvl_usd: 47243320, 
+  },
+  {
+    name: 'wBTC',
+    description: 'Wrapped Bitcoin',
+    avatar: 'Wbtc.svg',
+    apr: 14.87,
+    tvl_coin: 47243320,
+    tvl_usd: 47243320, 
+  },
+  {
+    name: 'ETH',
+    description: 'Ethereum',
+    avatar: 'Eth.png',
+    apr: 14.87,
+    tvl_coin: 47243320,
+    tvl_usd: 47243320, 
+  },
+  {
+    name: 'wNEAR',
+    description: 'Wrapped Near',
+    avatar: 'Wnear.svg',
+    apr: 14.87,
+    tvl_coin: 47243320,
+    tvl_usd: 47243320, 
+  }
+]

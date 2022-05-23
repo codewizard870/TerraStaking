@@ -1,16 +1,16 @@
 import React, { FunctionComponent, useMemo, useState } from 'react';
-import { Stack, VStack, Flex, Button } from '@chakra-ui/react'
+import { Stack, VStack, Flex, HStack, Button } from '@chakra-ui/react'
 
 import { QueryClient, QueryClientProvider, useInfiniteQuery } from "react-query"
-import { useLCD, useWallet, useTerraAPIURL, useStore, useNetworkName } from '../../store';
+import { useLCD, useWallet, useTerraAPIURL, useStore, useNetworkName, COINTYPE } from '../../store';
 
 import Title from './Title'
 import TotalValue from './TotalValue';
 import TotalPayed from './TotalPayed';
 import DepositTab from './DepositTab';
-import USTDepositPanel from './USTDepositPanel';
-import LUNADepositPanel from './LUNADepositPanel';
+import CoinPanel from './CoinPanel';
 import TransactionHistory from './TransactionHistory';
+import { StableCoins } from '../../constants';
 
 const MyPage: FunctionComponent = (props) => {
   const [depositTab, setDepositTab] = useState('all');
@@ -33,13 +33,17 @@ const MyPage: FunctionComponent = (props) => {
         <TotalPayed />
       </Stack>
       <DepositTab depositTab={depositTab} setDepositTab={setDepositTab}/>
-      {(depositTab === 'all' || depositTab === 'USDC') &&
-        <USTDepositPanel />
-      }
-      {(depositTab === 'all' || depositTab === 'USDC') && 
-        <LUNADepositPanel />
-      }
-
+      <Flex flexWrap={'wrap'} justify='space-between'>
+        {StableCoins.map((item) => (
+            <CoinPanel 
+              name = {item.name as COINTYPE}
+              description = {item.description}
+              avatar = {item.avatar}
+              apr = {item.apr}
+            />
+          ))
+        }
+      </Flex>
       <TransactionHistory />
     </VStack>
   );
