@@ -18,8 +18,8 @@ const CoinTab: FunctionComponent<Props> = (props) => {
       align={'center'}
       height={'29px'}
     >
-      <Tab id='ust'>UST</Tab>
-      <Tab id='luna'>LUNA</Tab>
+      <Tab id='USDC'>UST</Tab>
+      <Tab id='USDC'>LUNA</Tab>
     </Flex>
   );
 }

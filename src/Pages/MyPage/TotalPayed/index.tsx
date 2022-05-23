@@ -107,7 +107,7 @@ const TotalPayed: FunctionComponent = (props) => {
         h={'45px'}
         background={'#493C3C'}
         rounded={'25px'}
-        onClick={() => OpenDepositModal(state, dispatch, "ust")}
+        onClick={() => OpenDepositModal(state, dispatch, "USDC")}
       >
         <Text
           fontSize={'13px'}

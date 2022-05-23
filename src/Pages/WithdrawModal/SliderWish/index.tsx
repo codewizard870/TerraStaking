@@ -31,7 +31,7 @@ const SliderWish: FunctionComponent<Props> = ({  amount, setAmount }) => {
   const [sliderValue, setSliderValue] = useState(0);
   
   useEffect(() => {
-    let balance = state.coinType == 'ust' ? ustDeposited : lunaDeposited;
+    let balance = state.coinType == 'USDC' ? ustDeposited : lunaDeposited;
 
     if(parseFloat(amount) > 0)
     {
@@ -46,7 +46,7 @@ const SliderWish: FunctionComponent<Props> = ({  amount, setAmount }) => {
 
   const onChangeSlider = (value: number) => {
     setSliderValue(value);
-    let balance = state.coinType == 'ust' ? ustDeposited : lunaDeposited;
+    let balance = state.coinType == 'USDC' ? ustDeposited : lunaDeposited;
     setAmount(floor(balance * value / 100).toString());
   }
   return (

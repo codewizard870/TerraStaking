@@ -18,7 +18,7 @@ const Title: FunctionComponent = (props) => {
             Docs
           </Text>
           <Image src={ExternalLink} w={'10px'}/>
-          </HStack>
+        </HStack>
       </Link>
       
     </Flex>

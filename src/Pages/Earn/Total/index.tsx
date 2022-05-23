@@ -76,7 +76,7 @@ const Total: FunctionComponent = (props) => {
             fontSize={'13px'}
             fontWeight={'860'}
             lineHeight={'15px'}
-            onClick = {() => OpenDepositModal(state, dispatch, "ust")}      
+            onClick = {() => OpenDepositModal(state, dispatch, "USDC")}      
           >
             Deposit
           </Text>
@@ -88,7 +88,7 @@ const Total: FunctionComponent = (props) => {
           border={'solid 1px'}
           borderColor={'#CEBFBF'} 
           rounded={'25px'}
-          onClick = {() => OpenWithdrawModal(state, dispatch, "ust")}
+          onClick = {() => OpenWithdrawModal(state, dispatch, "USDC")}
         >
           <Text
             fontSize={'13px'}

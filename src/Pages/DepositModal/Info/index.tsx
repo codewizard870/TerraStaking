@@ -15,7 +15,7 @@ const Info: FunctionComponent<Props> = ({amount}) => {
   const fee = 0.25;
 
   let _amount = parseFloat(amount) > 0? parseFloat(amount) : 0;
-  const value = state.coinType=='ust' ? _amount + fee : _amount * rate + fee;
+  const value = state.coinType=='USDC' ? _amount + fee : _amount * rate + fee;
 
   return (
     <VStack

@@ -34,7 +34,7 @@ const DepositModal: FunctionComponent<Props> = ({isOpen, onClose}) => {
       
     let val = Math.floor(parseFloat(amount) * 10 ** 6);
     let msg;
-    if(coinType === 'ust')
+    if(coinType === 'USDC')
       msg = { deposit_ust: {qualified: state.qualified} }
     else
       msg = { deposit_luna: {qualified: state.qualified} }
@@ -43,7 +43,7 @@ const DepositModal: FunctionComponent<Props> = ({isOpen, onClose}) => {
       wallet?.walletAddress,
       POOL,
       msg,
-      coinType === 'ust'? {uusd: val} : {uluna: val}
+      coinType === 'USDC'? {uusd: val} : {uluna: val}
     );
     let res = await estimateSend(wallet, lcd, [deposit_msg], "Success Deposit", "deposit");
     if(res){

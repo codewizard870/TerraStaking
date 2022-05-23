@@ -5,7 +5,7 @@ import { LCDClient } from '@terra-money/terra.js'
 import { floor, floorNormalize } from './Util'
 import { amountHistory, aprUstHistory, aprLunaHistory, userInfo, farmInfo, potInfo } from './constants'
 
-export type COINTYPE = 'ust' | 'luna';
+export type COINTYPE = 'USDC' | 'USDT' | 'DAI' | 'USN' | 'wBTC' | 'ETH' | 'wNEAR';
 
 interface Action {
   type: ActionKind;
@@ -61,7 +61,7 @@ const initialState: AppContextInterface = {
   openWithdrawModal: undefined,
   openWaitingModal: undefined,
   closeWaitingModal: undefined,
-  coinType: 'ust',
+  coinType: 'USDC',
   isPending: false,
   amountHistory: amountHistory,
   aprUstHistory: aprUstHistory,

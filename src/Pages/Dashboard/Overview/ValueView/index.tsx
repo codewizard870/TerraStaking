@@ -34,8 +34,9 @@ const ValueView: FunctionComponent = (props) => {
               fontSize={'20px'}
               fontWeight={'800'}
               lineHeight={'24px'}
+              whiteSpace='nowrap'
             >
-              LUNA
+              STABLE COINS
             </Text>
           </Tooltip>
         </HStack>
@@ -61,8 +62,9 @@ const ValueView: FunctionComponent = (props) => {
               fontSize={'20px'}
               fontWeight={'800'}
               lineHeight={'24px'}
+              whiteSpace='nowrap'
             >
-              UST
+              VOLATILE COINS
             </Text>
           </Tooltip>
         </HStack>

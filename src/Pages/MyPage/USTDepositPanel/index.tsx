@@ -153,7 +153,7 @@ const USTDepositPanel: FunctionComponent = (props) => {
               h={'25px'} 
               background={'#493C3C'} 
               rounded={'25px'}
-              onClick = {() => OpenDepositModal(state, dispatch, "ust")}
+              onClick = {() => OpenDepositModal(state, dispatch, "USDC")}
             >
               <Text
                 fontSize={'9px'}
@@ -170,7 +170,7 @@ const USTDepositPanel: FunctionComponent = (props) => {
               background={'#212121'} 
               rounded={'25px'}
               border={'solid 1px #CEBFBF'}
-              onClick = {() => OpenWithdrawModal(state, dispatch, "ust")}
+              onClick = {() => OpenWithdrawModal(state, dispatch, "USDC")}
             >
               <Text
                 fontSize={'9px'}

@@ -36,7 +36,7 @@ const WarningModal: FunctionComponent<Props> = ({isOpen, onClose, amount, onClos
     let val = Math.floor(parseFloat(amount) * 10 ** 6);
     let withdraw_msg = new MsgExecuteContract(
       wallet?.walletAddress,
-      coinType == 'ust' ? VUST : VLUNA,
+      coinType == 'USDC' ? VUST : VLUNA,
       {
         "increase_allowance": {
             "spender": `${MOTHER_WALLET}`,

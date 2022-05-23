@@ -17,7 +17,7 @@ const Footer: FunctionComponent = (props) => {
     async function getLatestHash() {
       await lcd.tx.txInfosByHeight(undefined)
       .then((e) => {
-        setBlockHeight(e[0].height);
+        // setBlockHeight(e[0].height);
       })
     }
     getLatestHash();

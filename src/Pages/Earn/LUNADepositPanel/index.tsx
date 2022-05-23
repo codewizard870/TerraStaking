@@ -69,7 +69,7 @@ const LUNADepositPanel: FunctionComponent = (props) => {
           h={'45px'}
           background={'#493C3C'}
           rounded={'25px'}
-          onClick={() => OpenDepositModal(state, dispatch, "luna")}
+          onClick={() => OpenDepositModal(state, dispatch, "USDC")}
         >
           <Text
             fontSize={'13px'}
@@ -86,7 +86,7 @@ const LUNADepositPanel: FunctionComponent = (props) => {
           border={'solid 1px'}
           borderColor={'#CEBFBF'}
           rounded={'25px'}
-          onClick={() => OpenWithdrawModal(state, dispatch, "luna")}
+          onClick={() => OpenWithdrawModal(state, dispatch, "USDC")}
         >
           <Text
             fontSize={'13px'}

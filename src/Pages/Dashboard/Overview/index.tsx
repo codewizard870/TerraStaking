@@ -21,8 +21,8 @@ const Overview: FunctionComponent = (props) => {
     >
       <Flex 
         direction={'column'}
-        minW={{sm:'100%', md: '100%', lg:'372px'}}
-        w={{sm:'100%', md: '100%', lg:'372px'}}
+        minW={{sm:'100%', md: '100%', lg:'382px'}}
+        w={{sm:'100%', md: '100%', lg:'382px'}}
       >
         <TotalLocked />
         <HStack mt={'53px'} spacing={'56px'} align={'center'}>

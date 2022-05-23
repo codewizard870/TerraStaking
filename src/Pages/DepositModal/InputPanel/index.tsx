@@ -13,7 +13,7 @@ const InputPanel: FunctionComponent<Props> = (props) => {
   const lunaBalance = useLUNABalance();
 
   const maxBalance = () => {
-    if(state.coinType == 'ust')
+    if(state.coinType == 'USDC')
       props.setAmount(ustBalance.toString());
     else
       props.setAmount(lunaBalance.toString());
@@ -68,7 +68,7 @@ const InputPanel: FunctionComponent<Props> = (props) => {
           cursor={'pointer'}
           onClick={() => maxBalance()}
         >
-          {state.coinType == 'ust'? `MAX balance  ${ustBalance} UST` : `MAX balance  ${lunaBalance} LUNA`}
+          {state.coinType == 'USDC'? `MAX balance  ${ustBalance} UST` : `MAX balance  ${lunaBalance} LUNA`}
         </Text>
       </Flex>
     </VStack>

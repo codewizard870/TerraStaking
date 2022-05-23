@@ -3,8 +3,9 @@ import { Stack, VStack, Flex, Button } from '@chakra-ui/react'
 
 import Title from './Title'
 import Overview from './Overview';
-import UstPanel from './UstPanel';
-import LunaPanel from './LunaPanel';
+import CoinPanel from './CoinPanel';
+// import UstPanel from './UstPanel';
+// import LunaPanel from './LunaPanel';
 import How from './How';
 import TVL from './TVL';
 
@@ -23,8 +24,7 @@ const Dashboard: FunctionComponent = (props) => {
         spacing={'56px'}
         w={'100%'}
       >
-        <UstPanel />
-        <LunaPanel />
+        <CoinPanel />
       </Stack>
       <How />
       <TVL />

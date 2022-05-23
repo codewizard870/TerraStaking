@@ -33,10 +33,10 @@ const MyPage: FunctionComponent = (props) => {
         <TotalPayed />
       </Stack>
       <DepositTab depositTab={depositTab} setDepositTab={setDepositTab}/>
-      {(depositTab === 'all' || depositTab === 'ust') &&
+      {(depositTab === 'all' || depositTab === 'USDC') &&
         <USTDepositPanel />
       }
-      {(depositTab === 'all' || depositTab === 'luna') && 
+      {(depositTab === 'all' || depositTab === 'USDC') && 
         <LUNADepositPanel />
       }
 
