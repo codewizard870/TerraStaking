@@ -16,17 +16,22 @@ const Earn: FunctionComponent = (props) => {
       w={'100%'}
       rounded={'25px'}
       background={'#212121'}
-      align={'center'}
       px={{ sm: '10px', md: '20px', lg: '59px' }}
       py={{ sm: '25px', md: '20px', lg: '59px' }}
       spacing={{sm:'10px', md: '20px', lg:'55px'}}
     >
       <HowMuch />
-      <Deposited amount={amount} setAmount={setAmount}/>
-      <Flex w={'18px'} >
-        <MdCached size={18}/>
-      </Flex>
-      <Expected amount={amount}/>
+      <HStack 
+        w='100%' 
+        spacing={{base:'10px', lg:'50px'}}
+        align='center'
+      >
+        <Deposited amount={amount} setAmount={setAmount}/>
+        <Flex w={'24px'} >
+          <MdCached size={24}/>
+        </Flex>
+        <Expected amount={amount}/>
+      </HStack>
     </Stack>
   );
 }

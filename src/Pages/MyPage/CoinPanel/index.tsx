@@ -19,13 +19,12 @@ const CoinPanel: FunctionComponent<Props> = ({name, description, avatar, apr}) =
 
   return (
     <VStack
-      w={{base:'100%', lg:'582px'}}
-      minW={{base:'100%', lg:'582px'}}
+      minW={{base:'100%', lg:'48%'}}
       rounded={'25px'}
       background={'#212121'}
       px={{ sm: '10px', md: '20px', lg: '47px' }}
       py={{ sm: '10px', md: '20px', lg: '55px' }}
-      mt='20px'
+      mt='30px'
       color='#CEBFBF'
     >
       <Stack 

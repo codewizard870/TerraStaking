@@ -18,13 +18,15 @@ interface Props {
   isOpen: boolean,
   onClose: () => void,
   connectToNearWallet: () => void,
+  connectToSenderWallet: () => void
 }
-const ConnectWalletModal: FunctionComponent<Props> = ({ isOpen, onClose, connectToNearWallet }) => {
-  const [amount, setAmount] = useState('0');
-  const wallet = useWallet();
-  const lcd = useLCD();
+const ConnectWalletModal: FunctionComponent<Props> = ({ 
+  isOpen, 
+  onClose, 
+  connectToNearWallet, 
+  connectToSenderWallet
+}) => {
   const { state, dispatch } = useStore();
-  const coinType = state.coinType;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -91,6 +93,7 @@ const ConnectWalletModal: FunctionComponent<Props> = ({ isOpen, onClose, connect
               w='100%'
               p='17px'
               cursor='pointer'
+              onClick={() => connectToSenderWallet()}
             >
               <Image src={SenderWallet} w='49px' />
               <Text

@@ -16,11 +16,11 @@ const Expected: FunctionComponent<Props> = ({amount}) => {
   const expectedUSD = Math.floor(expected * 1.25);
 
   return (
-    <Flex w={'100%'} h={'100%'} direction="column" align={'baseline'}>
+    <Flex w={'100%'} h={'100%'} direction="column" align={'baseline'} justify='center'>
       <Text
         fontSize={'20px'}
         fontWeight={'860'}
-        lineHeight={'30px'}
+        lineHeight={'20px'}
       >
         <AnimationNumber value={expected} />
       </Text>

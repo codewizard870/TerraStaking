@@ -18,19 +18,21 @@ import { shortenAddress, floorNormalize, floor } from '../../../Util';
 
 declare let window: any;
 const nearConfig = getConfig("testnet");
+const contractId = "dev-1653290629414-32294702545396";
 
 const ConnectWallet: FunctionComponent = () => {
   const { state, dispatch } = useStore();
   const [bank, setBank] = useState(false);
   const [address, setAddress] = useState('');
   const [balance, setBalance] = useState('0');
+  const [access, setAccess] = useState({});
 
   const { isOpen: isOpenInfomation,
-     onOpen: onOpenInfomation, 
-     onClose: onCloseInfomation } = useDisclosure();
+    onOpen: onOpenInfomation,
+    onClose: onCloseInfomation } = useDisclosure();
 
-  const { isOpen: isOpenConnectWallet, 
-    onOpen: onOpenConnectWallet, 
+  const { isOpen: isOpenConnectWallet,
+    onOpen: onOpenConnectWallet,
     onClose: onCloseConnectWallet } = useDisclosure();
 
   useEffect(() => {
@@ -61,8 +63,8 @@ const ConnectWallet: FunctionComponent = () => {
 
     const near = await nearAPI.connect(
       Object.assign(
-      { deps: { keyStore: new nearAPI.keyStores.BrowserLocalStorageKeyStore() } }, 
-      nearConfig)
+        { deps: { keyStore: new nearAPI.keyStores.BrowserLocalStorageKeyStore() } },
+        nearConfig)
     );
 
     const wallet = new nearAPI.WalletAccount(near, null);
@@ -74,7 +76,7 @@ const ConnectWallet: FunctionComponent = () => {
 
       wallet.requestSignIn(
         // The contract name that would be authorized to be called by the user's account.
-        "dev-1653290629414-32294702545396",
+        contractId,
         // This is the app name. It can be anything.
         'Who was the last person to say "Hi!"?',
         // We can also provide URLs to redirect on success and failure.
@@ -89,6 +91,26 @@ const ConnectWallet: FunctionComponent = () => {
     }
   }
 
+  async function connectToSenderWallet() {
+    try {
+      // The method names on the contract that should be allowed to be called. Pass null for no method names and '' or [] for any method names.
+      // const res = await window.near.requestSignIn({ contractId, methodNames: ['sayHi', 'ad'] })
+      // const res = await window.near.requestSignIn({ contractId, methodNames: null })
+      const res = await window.near.requestSignIn({ contractId, methodNames: [] })
+      // const res = await window.near.requestSignIn({ contractId, amount: '10000000000000000000000' })
+      console.log('signin res: ', res);
+      if (!res.error) {
+        if (res && res.accessKey) {
+          setAccess(res.accessKey);
+          setAddress(window.near.accountId)
+        } else {
+          console.log('res: ', res)
+        }
+      }
+    } catch (error) {
+      console.log('error: ', error)
+    }
+  }
   return (
     <>
       {!state.connected &&
@@ -141,6 +163,7 @@ const ConnectWallet: FunctionComponent = () => {
         isOpen={isOpenConnectWallet}
         onClose={onCloseConnectWallet}
         connectToNearWallet={connectToNearWallet}
+        connectToSenderWallet={connectToSenderWallet}
       />
     </>
   );
