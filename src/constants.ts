@@ -132,7 +132,9 @@ export const StableCoins=[
     avatar: 'Usdc.svg',
     apr: 14.87,
     tvl_coin: 47243320,
-    tvl_usd: 47243320, 
+    tvl_usd: 47243320,
+    stable: true,
+    upcoming: false
   },
   {
     name: 'USDT',
@@ -141,6 +143,8 @@ export const StableCoins=[
     apr: 14.87,
     tvl_coin: 47243320,
     tvl_usd: 47243320, 
+    stable: true,
+    upcoming: false
   },
   {
     name: 'DAI',
@@ -149,6 +153,8 @@ export const StableCoins=[
     apr: 14.87,
     tvl_coin: 47243320,
     tvl_usd: 47243320, 
+    stable: true,
+    upcoming: false
   },
   {
     name: 'USN',
@@ -157,29 +163,47 @@ export const StableCoins=[
     apr: 14.87,
     tvl_coin: 47243320,
     tvl_usd: 47243320, 
+    stable: true,
+    upcoming: false
   },
   {
     name: 'wBTC',
     description: 'Wrapped Bitcoin',
     avatar: 'Wbtc.svg',
-    apr: 14.87,
+    apr: 9.87,
     tvl_coin: 47243320,
     tvl_usd: 47243320, 
+    stable: false,
+    upcoming: false
   },
   {
     name: 'ETH',
     description: 'Ethereum',
     avatar: 'Eth.png',
-    apr: 14.87,
+    apr: 9.87,
     tvl_coin: 47243320,
     tvl_usd: 47243320, 
+    stable: false,
+    upcoming: false
   },
   {
     name: 'wNEAR',
     description: 'Wrapped Near',
     avatar: 'Wnear.svg',
-    apr: 14.87,
+    apr: 9.87,
     tvl_coin: 47243320,
     tvl_usd: 47243320, 
+    stable: false,
+    upcoming: false
+  },
+  {
+    name: 'NEARt',
+    description: 'Near Treasury (Comming Soon)',
+    avatar: 'Neart.svg',
+    apr: 9.87,
+    tvl_coin: 47243320,
+    tvl_usd: 47243320, 
+    stable: false,
+    upcoming: true
   }
 ]

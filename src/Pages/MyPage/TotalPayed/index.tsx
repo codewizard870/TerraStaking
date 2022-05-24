@@ -107,14 +107,17 @@ const TotalPayed: FunctionComponent = (props) => {
         h={'45px'}
         background={'#493C3C'}
         rounded={'25px'}
-        onClick={() => OpenDepositModal(state, dispatch, "USDC")}
+        onClick={() => {
+          if (state.openConnectWalletModal)
+            state.openConnectWalletModal()
+        }}
       >
         <Text
           fontSize={'13px'}
           fontWeight={'860'}
           lineHeight={'15px'}
         >
-          STAKE MORE
+          Connect Wallet
         </Text>
       </Button>
     </Flex>

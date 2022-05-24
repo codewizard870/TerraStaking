@@ -25,6 +25,7 @@ const MyPage: FunctionComponent = (props) => {
             description = {item.description}
             avatar = {item.avatar}
             apr = {item.apr}
+            upcoming = {item.upcoming}
           />
         ))}
       </Flex>

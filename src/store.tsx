@@ -26,6 +26,7 @@ export interface AppContextInterface {
   openWithdrawModal: (() => void) | undefined,
   openWaitingModal: (() => void) | undefined,
   closeWaitingModal: (() => void) | undefined,
+  openConnectWalletModal: (()=>void) | undefined,
   coinType: COINTYPE,
   isPending: boolean,
   amountHistory: any[],
@@ -63,6 +64,7 @@ const initialState: AppContextInterface = {
   openWithdrawModal: undefined,
   openWaitingModal: undefined,
   closeWaitingModal: undefined,
+  openConnectWalletModal: undefined,
   coinType: 'USDC',
   isPending: false,
   amountHistory: amountHistory,
@@ -97,6 +99,7 @@ export enum ActionKind{
   setOpenWithdrawModal,
   setOpenWaitingModal,
   setCloseWaitingModal,
+  setOpenConnectWalletModal,
   setCoinType,
   setIsPending,
   setAmountHistory,
@@ -149,7 +152,9 @@ export const reducer = (state: AppContextInterface,  action: Action ) => {
     case ActionKind.setOpenWaitingModal:
       return { ...state, openWaitingModal: action.payload}
     case ActionKind.setCloseWaitingModal:
-      return { ...state, closeWaitingModal: action.payload}      
+      return { ...state, closeWaitingModal: action.payload}     
+    case ActionKind.setOpenConnectWalletModal:
+      return { ...state, openConnectWalletModal: action.payload}     
     case ActionKind.setCoinType:
       return { ...state, coinType: action.payload}
     case ActionKind.setIsPending:

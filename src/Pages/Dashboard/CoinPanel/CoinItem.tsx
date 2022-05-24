@@ -43,15 +43,15 @@ const CoinItem: FunctionComponent<Props> = ({name, description, avatar, apr, tvl
             <Text
               fontSize={'20px'}
               fontWeight={'800'}
-              lineHeight={'36px'}
               color={'white'}
+              lineHeight='20px'
             >
               {name}
             </Text>
             <Text
               fontSize={'13px'}
               fontWeight={'400'}
-              lineHeight={'15.6px'}
+              lineHeight='13px'
             >
               {description}
             </Text>
@@ -97,8 +97,8 @@ const CoinItem: FunctionComponent<Props> = ({name, description, avatar, apr, tvl
           spacing={'15px'}
         >
           <Button
-            w={'92px'}
-            h={'25px'}
+            w={'134px'}
+            h={'30px'}
             background={'#493C3C'}
             rounded={'25px'}
             onClick={() => OpenDepositModal(state, dispatch, name)}
@@ -113,8 +113,8 @@ const CoinItem: FunctionComponent<Props> = ({name, description, avatar, apr, tvl
             </Text>
           </Button>
           <Button
-            w={'92px'}
-            h={'25px'}
+            w={'134px'}
+            h={'30px'}
             background={'#212121'}
             rounded={'25px'}
             border={'solid 1px #CEBFBF'}

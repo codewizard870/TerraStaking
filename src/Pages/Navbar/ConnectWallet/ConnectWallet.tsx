@@ -36,6 +36,10 @@ const ConnectWallet: FunctionComponent = () => {
     onClose: onCloseConnectWallet } = useDisclosure();
 
   useEffect(() => {
+    dispatch({ type: ActionKind.setOpenConnectWalletModal, payload: onOpenConnectWallet });
+  }, [dispatch, onOpenConnectWallet])
+  
+  useEffect(() => {
     async function fetchBalance() {
       if (state.walletType == 'near' && state.wallet) {
         const account = state.wallet.account();
@@ -115,17 +119,20 @@ const ConnectWallet: FunctionComponent = () => {
     <>
       {!state.connected &&
         <Button
-          fontSize={'15px'}
-          fontWeight={'700'}
           width={'171px'}
-          height={'36px'}
+          height={'27px'}
           background={'none'}
           border={'solid 2px #F9D85E'}
           rounded={'25px'}
           onClick={() => { connectTo() }}
         >
-          <Image src={Wallet} width={'15px'} />
-          <Text ml={'11px'} color={'#F9D85E'}>
+          <Image src={Wallet} width={'13px'} />
+          <Text 
+            ml={'11px'} 
+            color={'#F9D85E'}
+            fontSize={'11px'}
+            fontWeight={'600'}
+          >
             Connect Wallet
           </Text>
         </Button>
@@ -137,7 +144,7 @@ const ConnectWallet: FunctionComponent = () => {
               fontSize={'15px'}
               fontWeight={'700'}
               // width={'171px'}
-              height={'36px'}
+              height={'27px'}
               background={'none'}
               border={'solid 2px #F9D85E'}
               rounded={'25px'}

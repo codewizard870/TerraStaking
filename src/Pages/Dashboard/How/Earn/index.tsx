@@ -78,11 +78,12 @@ const Earn: FunctionComponent<Props> = ({denom, setDenom, year, setYear, amount,
         color={'white'}
         border={'none'}
         value={amount}
-        fontSize='24px'
+        fontSize='20px'
+        fontWeight='800'
         p='0px'
         onChange={(e) => setAmount(e.target.value)}
         _focus={{ border: 'none' }}
-        h='24px'
+        h='20px'
         mt='27px !important'
       />
       <Divider orientation='horizontal' mt='0px' />

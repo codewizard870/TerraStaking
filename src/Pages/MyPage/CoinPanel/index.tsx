@@ -5,21 +5,22 @@ import { Grid, GridItem } from '@chakra-ui/react'
 import Warning from './../../../assets/Warning.svg'
 import AnimationNumber from '../../Components/AnimationNumber';
 import { OpenDepositModal, OpenWithdrawModal, useStore, useUSTApr } from '../../../store';
-import {COINTYPE} from '../../../store'
+import { COINTYPE } from '../../../store'
 
-interface Props{
+interface Props {
   name: COINTYPE,
   description: string,
   avatar: string,
   apr: number,
+  upcoming: boolean
 }
 
-const CoinPanel: FunctionComponent<Props> = ({name, description, avatar, apr}) => {
+const CoinPanel: FunctionComponent<Props> = ({ name, description, avatar, apr, upcoming }) => {
   const { state, dispatch } = useStore();
 
   return (
     <VStack
-      minW={{base:'100%', lg:'48%'}}
+      minW={{ base: '100%', lg: '48%' }}
       rounded={'25px'}
       background={'#212121'}
       px={{ sm: '10px', md: '20px', lg: '47px' }}
@@ -27,14 +28,14 @@ const CoinPanel: FunctionComponent<Props> = ({name, description, avatar, apr}) =
       mt='30px'
       color='#CEBFBF'
     >
-      <Stack 
+      <Stack
         direction='row'
         w='100%' align='center' justify={'space-between'}
       >
         <HStack spacing={'12px'} w='100%'>
           <Image src={'./' + avatar} w={'33px'} />
           <Flex direction='column' align='baseline'>
-            <Text 
+            <Text
               color='white'
               fontSize={'20px'}
               fontWeight='800'
@@ -58,7 +59,7 @@ const CoinPanel: FunctionComponent<Props> = ({name, description, avatar, apr}) =
               >
                 Saving Balanece
               </Text>
-              <Image src={Warning} w={'13px'}/>
+              <Image src={Warning} w={'13px'} />
             </HStack>
             <Text
               fontSize='13px'
@@ -75,7 +76,7 @@ const CoinPanel: FunctionComponent<Props> = ({name, description, avatar, apr}) =
               >
                 APY
               </Text>
-              <Image src={Warning} w={'13px'}/>
+              <Image src={Warning} w={'13px'} />
             </HStack>
             <Text
               fontSize='13px'
@@ -92,42 +93,65 @@ const CoinPanel: FunctionComponent<Props> = ({name, description, avatar, apr}) =
         spacing={'24px'}
         justify={'center'}
         align='center'
-        direction={{base:'column', lg:'row'}}
+        direction={{ base: 'column', lg: 'row' }}
       >
-        <Button
-          w={'200px'}
-          h={'45px'}
-          background={'#493C3C'}
-          rounded={'25px'}
-          onClick={() => OpenDepositModal(state, dispatch, name)}
-        >
-          <Text
-            fontSize={'13px'}
-            fontWeight={'860'}
-            lineHeight={'15px'}
+        {upcoming == false &&
+          <>
+            <Button
+              w={'200px'}
+              h={'45px'}
+              background={'#493C3C'}
+              rounded={'25px'}
+              onClick={() => OpenDepositModal(state, dispatch, name)}
+            >
+              <Text
+                fontSize={'13px'}
+                fontWeight={'860'}
+                lineHeight={'15px'}
 
+              >
+                Deposit
+              </Text>
+            </Button>
+            <Button
+              w={'200px'}
+              h={'45px'}
+              background={'#212121'}
+              border={'solid 1px'}
+              borderColor={'#CEBFBF'}
+              rounded={'25px'}
+              onClick={() => OpenWithdrawModal(state, dispatch, name)}
+            >
+              <Text
+                fontSize={'13px'}
+                fontWeight={'860'}
+                lineHeight={'15px'}
+              >
+                Withdraw
+              </Text>
+            </Button>
+          </>
+        }
+        {upcoming == true &&
+          <Button
+            w={'100%'}
+            h={'45px'}
+            background={'#212121'}
+            border={'solid 1px'}
+            borderColor={'#CEBFBF'}
+            rounded={'25px'}
           >
-            Deposit
-          </Text>
-        </Button>
-        <Button
-          w={'200px'}
-          h={'45px'}
-          background={'#212121'}
-          border={'solid 1px'}
-          borderColor={'#CEBFBF'}
-          rounded={'25px'}
-          onClick={() => OpenWithdrawModal(state, dispatch, name)}
-        >
-          <Text
-            fontSize={'13px'}
-            fontWeight={'860'}
-            lineHeight={'15px'}
-          >
-            Withdraw
-          </Text>
-        </Button>
+            <Text
+              fontSize={'13px'}
+              fontWeight={'860'}
+              lineHeight={'15px'}
+            >
+              Coming Soon
+            </Text>
+          </Button>
+        }
       </Stack>
+
     </VStack>
   );
 }

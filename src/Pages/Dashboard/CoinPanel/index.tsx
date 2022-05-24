@@ -109,6 +109,7 @@ const CoinPanel: FunctionComponent = (props) => {
           <Divider orientation={'horizontal'} />
         </GridItem>
         {StableCoins.map((item)=> (
+          item.upcoming === false && 
           <CoinItem 
             name={item.name as COINTYPE}
             description={item.description}
