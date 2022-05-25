@@ -27,7 +27,8 @@ const Total: FunctionComponent = (props) => {
       rounded={'25px'} 
       background={'#212121'} 
       align={'center'}
-      spacing={'64px'}
+      spacing={'56px'}
+      h='288px'
       px={{sm:'10px', md:'20px', lg:'50px'}}
       py={{sm:'10px', md:'20px', lg:'56px'}}
     >

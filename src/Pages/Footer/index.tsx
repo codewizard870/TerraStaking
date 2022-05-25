@@ -46,20 +46,37 @@ const Footer: FunctionComponent = (props) => {
           fontWeight={'860'}
           lineHeight={'10px'}
         >
-          LATEST BLOCK:&nbsp;&nbsp;&nbsp;{blockHeight}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TERMS
+          LATEST BLOCK:&nbsp;&nbsp;&nbsp;{blockHeight}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </Text>
+        <Link href='/terms'>
+          <Text
+            fontSize={'9px'}
+            fontWeight={'860'}
+            lineHeight={'10px'}
+          >
+            TERMS
+          </Text>
+        </Link>
       </HStack>
       <HStack spacing={'50px'}>
-        <Image src={Twitter} w={'15px'} />
+        <a href='https://twitter.com' target='_blank' rel="noreferrer">
+          <Image src={Twitter} w={'15px'} />
+        </a>
+        <a href='https://web.telegram.org/k/' target='_blank' rel="noreferrer">
         <Image src={Subtract} w={'15px'} />
-        <Image src={Medium} w={'15px'} />
-        <Text
-          fontSize={'9px'}
-          fontWeight={'860'}
-          lineHeight={'10px'}
-        >
-          DOCS
-        </Text>
+        </a>
+        <a href='https://medium.com' target='_blank' rel="noreferrer">
+          <Image src={Medium} w={'15px'} />
+        </a>
+        <a href='https://www.gitbook.com' target='_blank' rel="noreferrer">
+          <Text
+            fontSize={'9px'}
+            fontWeight={'860'}
+            lineHeight={'10px'}
+          >
+            DOCS
+          </Text>
+        </a>
       </HStack>
     </Flex>
   );
