@@ -12,9 +12,11 @@ const Overview: FunctionComponent = (props) => {
       direction={{sm:'column', md:'row', lg:'row'}}
       mt={'53px'} 
       w={'100%'}
+      h='434px'
       rounded={'25px'} 
       background={'#212121'} 
       spacing={'50px'}
+      align='center'
       px={{sm:'10px', md:'20px', lg:'50px'}}
       py={{sm:'10px', md:'20px', lg:'60px'}}
     >
@@ -48,7 +50,6 @@ const Overview: FunctionComponent = (props) => {
       >
         <Divider orientation={'horizontal'} />
       </Center>
-
       <LockedChart />
     </Stack>
   );
