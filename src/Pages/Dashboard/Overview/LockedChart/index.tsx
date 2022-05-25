@@ -140,7 +140,7 @@ const LockedChart: FunctionComponent<Props> = () => {
     createChart()
   }, [data])
   return (
-    <div style={{width: '100%', position: 'relative', height: '330px', marginTop:'30px'}}>
+    <div style={{width: '100%', position: 'relative', height: '300px', marginTop:'0px'}}>
       <canvas ref={canvasRef} id= 'lockedChart'/>
       <div ref={tooltipRef} className="root" id={`tooltipTotalLocked`} >
         <hr className="hr0"/>

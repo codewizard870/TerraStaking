@@ -14,7 +14,6 @@ const Overview: FunctionComponent = (props) => {
       w={'100%'}
       rounded={'25px'} 
       background={'#212121'} 
-      align={'center'}
       spacing={'50px'}
       px={{sm:'10px', md:'20px', lg:'50px'}}
       py={{sm:'10px', md:'20px', lg:'60px'}}
@@ -37,12 +36,14 @@ const Overview: FunctionComponent = (props) => {
       </Flex>
       <Center 
         height={'304px'}
+        borderColor='#5C5353'
         display={{sm:'none', md:'block', lg:'block'}}
       >
         <Divider orientation={'vertical'} />
       </Center>
       <Center 
         width={'100%'}
+        borderColor='#5C5353'
         display={{sm:'block', md:'none', lg:'none'}}
       >
         <Divider orientation={'horizontal'} />
