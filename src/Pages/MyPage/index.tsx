@@ -37,6 +37,7 @@ const MyPage: FunctionComponent = (props) => {
         direction={{ sm: 'column', md: 'column', lg: 'row' }}
         spacing={'55px'}
         w={'100%'}
+        h='434px'
       >
         <TotalValue />
         <TotalPayed />

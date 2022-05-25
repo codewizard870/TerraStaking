@@ -39,7 +39,7 @@ const TotalPayed: FunctionComponent = (props) => {
         <Text
           fontSize={'20px'}
           fontWeight={'860'}
-          lineHeight={'24px'}
+          lineHeight={'20px'}
         >
           TOTAL PAYED INTEREST
         </Text>
@@ -48,7 +48,7 @@ const TotalPayed: FunctionComponent = (props) => {
         <Text
           fontSize={'35px'}
           fontWeight={'860'}
-          lineHeight={'36px'}
+          lineHeight={'34px'}
         >
           <AnimationNumber value={rewards} />
         </Text>
@@ -63,7 +63,7 @@ const TotalPayed: FunctionComponent = (props) => {
       <Text
         fontSize={'14px'}
         fontWeight={'400'}
-        lineHeight={'36px'}
+        lineHeight={'14px'}
         fontStyle={'italic'}
       >
         USD $<AnimationNumber value={usd} />
@@ -72,7 +72,7 @@ const TotalPayed: FunctionComponent = (props) => {
         <Text
           fontSize={'20px'}
           fontWeight={'860'}
-          lineHeight={'24px'}
+          lineHeight={'20px'}
         >
           TOTAL DAYS STAKED
         </Text>
@@ -103,7 +103,7 @@ const TotalPayed: FunctionComponent = (props) => {
       </HStack>
       <Button
         w={'100%'}
-        mt={'75px'}
+        mt={'65px'}
         h={'45px'}
         background={'#493C3C'}
         rounded={'25px'}
