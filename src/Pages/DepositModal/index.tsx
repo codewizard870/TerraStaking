@@ -90,12 +90,11 @@ const DepositModal: FunctionComponent<Props> = ({isOpen, onClose}) => {
         px={{sm:'10px', md: '47px', lg: '47px'}}
         py={'39px'}
       >
-        <HStack
+        <Flex
           fontSize={'20px'}
           lineHeight={'24px'}
           color={'white'}
           justifyContent={'center'}
-          spacing={'8px'}
         >
           <Text
             fontSize={'20px'}
@@ -106,7 +105,7 @@ const DepositModal: FunctionComponent<Props> = ({isOpen, onClose}) => {
             Deposit
           </Text>
           <Title/>
-        </HStack>
+        </Flex>
         <InputPanel amount={amount} setAmount={setAmount}/>
         <SliderWish amount={amount} setAmount={setAmount}/>
         <Divider mt={'23px'} orientation='horizontal' variant={'dashed'} color={'#CEC0C0'} />
