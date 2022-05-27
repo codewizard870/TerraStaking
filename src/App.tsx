@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { VStack, Flex, useDisclosure, useEventListenerMap } from '@chakra-ui/react'
 
 import Layout from './Layout';
 import Dashboard from './Pages/Dashboard'
@@ -13,7 +14,7 @@ import Terms from './Pages/Terms';
 declare let document: any;
 
 function App() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   var FontFaceObserver = require('fontfaceobserver');
 
   var font = new FontFaceObserver('SF-Pro-Text');
@@ -26,23 +27,25 @@ function App() {
   //   let res = document.fonts.check('SF-Pro-Text')
   // console.log(res)
 
-  // document.fonts.onloadingdone = function (fontFaceSetEvent: any) {
-  //   // alert('onloadingdone we have ' + fontFaceSetEvent.fontfaces.length + ' font faces loaded');
-  //   console.log(fontFaceSetEvent)
-  //   let time = new Date();
-  //   console.log(time.toLocaleTimeString());
+  document.fonts.onloadingdone = function (fontFaceSetEvent: any) {
+    // alert('onloadingdone we have ' + fontFaceSetEvent.fontfaces.length + ' font faces loaded');
+    console.log(fontFaceSetEvent)
+    let time = new Date();
+    console.log(time.toLocaleTimeString());
 
-  //   setTimeout(() => {
-  //     setLoading(false)
-  //   }, 10000)
-  // };
+    setTimeout(() => {
+      setLoading(false)
+    }, 3000)
+  };
 
   return (
     <>
       {loading &&
-        <video width="400" controls autoPlay>
-          <source src="./PRE LOADING WEB.mov" type="video/mp4" />
-        </video>
+        <Flex w='100%' h='100vh' justify='center' align='center' bg='black'>
+          <video width="100%" autoPlay muted>
+            <source src="./PRE LOADING WEB.mp4" type="video/mp4" />
+          </video>
+        </Flex>
       }
       {!loading && 
         <BrowserRouter>

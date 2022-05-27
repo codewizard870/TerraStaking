@@ -25,11 +25,11 @@ const MyPage: FunctionComponent = (props) => {
   }, [depositTab]);
 
   return (
-    <VStack
+    <Flex
+      direction='column'
       mt={'15px'}
       px={{ sm: '10px', md: '20px', lg: '110px' }}
       w={'100%'}
-      spacing={'53px'}
     >
       <Title />
       <Stack
@@ -55,7 +55,7 @@ const MyPage: FunctionComponent = (props) => {
         ))}
       </Flex>
       <TransactionHistory />
-    </VStack>
+    </Flex>
   );
 }
 export default MyPage;

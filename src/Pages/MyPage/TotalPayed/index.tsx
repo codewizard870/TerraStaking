@@ -108,7 +108,9 @@ const TotalPayed: FunctionComponent = (props) => {
         background={'#493C3C'}
         rounded={'25px'}
         onClick={() => {
-          if (state.openConnectWalletModal)
+          if(state.connected && state.openDepositModal)
+            state.openDepositModal()
+          else if (!state.connected && state.openConnectWalletModal)
             state.openConnectWalletModal()
         }}
       >
@@ -117,7 +119,12 @@ const TotalPayed: FunctionComponent = (props) => {
           fontWeight={'860'}
           lineHeight={'15px'}
         >
-          Connect Wallet
+          {!state.connected && 
+            "Connect Wallet"
+          }
+          {state.connected &&
+            "SAVE MORE"
+          }
         </Text>
       </Button>
     </Flex>

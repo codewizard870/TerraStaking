@@ -64,6 +64,8 @@ const TransactionHistory: FunctionComponent = (props) => {
     <VStack
       w={'100%'}
       spacing={'18px'}
+      mt='55px'
+      align='baseline'
     >
       <Text
         fontSize={'20px'}

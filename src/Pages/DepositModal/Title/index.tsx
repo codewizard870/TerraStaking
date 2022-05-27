@@ -25,6 +25,7 @@ const Title: FunctionComponent<Props> = (props) => {
           fontSize='20px'
           fontWeight={'800'}
           color='white'
+          lineHeight={'20px'}
         >
           {item?.name}
         </Text>
@@ -33,6 +34,7 @@ const Title: FunctionComponent<Props> = (props) => {
           fontWeight={'400'}
           color='#CEC0C0'
           whiteSpace={'nowrap'}
+          lineHeight='13px'
         >
           {item?.description}
         </Text>
