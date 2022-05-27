@@ -65,6 +65,7 @@ const TotalPayed: FunctionComponent = (props) => {
         fontWeight={'400'}
         lineHeight={'14px'}
         fontStyle={'italic'}
+        color='#CEBFBF'
       >
         USD $<AnimationNumber value={usd} />
       </Text>

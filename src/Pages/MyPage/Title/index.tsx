@@ -13,8 +13,8 @@ const Title: FunctionComponent = (props) => {
         MY PAGE
       </Text>
       <Link href={'https://www.wefund.app'}>
-        <HStack spacing={'3px'}  pb={'10px'}>
-          <Text ml='13px'>
+        <HStack spacing={'3px'}  pb={'10px'} >
+          <Text ml='13px'  color='#CEBFBF'>
             Docs
           </Text>
           <Image src={ExternalLink} w={'10px'}/>

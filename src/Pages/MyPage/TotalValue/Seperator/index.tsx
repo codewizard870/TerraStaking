@@ -41,6 +41,7 @@ const Seperator: FunctionComponent = (props) => {
         fontSize={'14px'}
         fontWeight={'400'}
         fontStyle={'italic'}
+        color='#CEBFBF'
       >
           $&nbsp;<AnimationNumber value={ustBalance} />
       </Text>
@@ -67,6 +68,7 @@ const Seperator: FunctionComponent = (props) => {
         fontSize={'14px'}
         fontWeight={'400'}
         fontStyle={'italic'}
+        color='#CEBFBF'
       >
         $&nbsp;<AnimationNumber value={(ustDeposited + lunaDeposited)} />
       </Text>
@@ -94,6 +96,7 @@ const Seperator: FunctionComponent = (props) => {
         fontSize={'14px'}
         fontWeight={'400'}
         fontStyle={'italic'}
+        color='#CEBFBF'
       >
         $&nbsp;<AnimationNumber value={lunaDeposited} />
       </Text>

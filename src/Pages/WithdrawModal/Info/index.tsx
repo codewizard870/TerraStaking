@@ -55,7 +55,7 @@ const Info: FunctionComponent<Props> = ({ amount }) => {
           fontWeight={'400'}
           lineHeight={'10px'}
         >
-          {value.toLocaleString()} Near
+          {value.toLocaleString()} {state.coinType}
         </Text>
       </HStack>
     </VStack>

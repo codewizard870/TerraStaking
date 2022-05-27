@@ -45,6 +45,7 @@ const ValueView: FunctionComponent = (props) => {
           fontWeight={'400'}
           lineHeight={'15px'}
           fontStyle={'italic'}
+          color='#CEBFBF'
         >
           $&nbsp;<AnimationNumber value={lunaAmount} />
         </Text>
@@ -73,6 +74,7 @@ const ValueView: FunctionComponent = (props) => {
           fontWeight={'400'}
           lineHeight={'15px'}
           fontStyle={'italic'}
+          color='#CEBFBF'
         >
           $&nbsp;<AnimationNumber value={ustAmount} />
         </Text>

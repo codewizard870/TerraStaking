@@ -56,11 +56,12 @@ const Total: FunctionComponent = (props) => {
       </VStack>
       <a href="https://app.terraswap.io/swap?to=&type=swap&from=uluna" target={'_blank'} rel="noreferrer">
         <Button w={'92px'} h={'25px'} background={'none'} rounded={'25px'} borderColor={'white'} variant='outline'>
-          <MdSwapHoriz />
+          <MdSwapHoriz  color='#CEBFBF'/>
           <Text
             fontSize={'9px'}
             fontWeight={'860'}
             lineHeight={'10px'}
+            color='#CEBFBF'
           >
             Swap
           </Text>

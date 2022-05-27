@@ -1,10 +1,14 @@
 import React, { FunctionComponent, useState, useEffect, useCallback, useMemo } from 'react';
 import { VStack, Stack, Text, Divider, HStack, Image, Flex, Button } from '@chakra-ui/react'
-import {  useInfiniteQuery } from "react-query"
+import * as nearAPI from "near-api-js"
+import {getConfig} from "../../../config"
+
+// import {  useInfiniteQuery } from "react-query"
 import axios from "axios"
 
 import { useWallet, useTerraAPIURL } from '../../../store';
 import HistoryItem from './HistoryItem';
+
 
 export interface AccountHistory {
   limit: number
@@ -32,33 +36,27 @@ export interface CoinData {
   amount: string
   denom: string
 }
+const nearConfig = getConfig("testnet");
 
 const TransactionHistory: FunctionComponent = (props) => {
   const wallet = useWallet();
   const baseURL = useTerraAPIURL();
   
-  const fetchAccountHistory = useCallback(
-    async ({ pageParam = 0 }) => {
-      const { data } = await axios.get<AccountHistory>(
-        `tx-history/station/${wallet?.walletAddress}`,
-        { baseURL, params: { offset: pageParam || undefined } }
-      )
+  useEffect( ()=> {
+    const fetchTransaction = async () => {
+      const near = await nearAPI.connect(
+        Object.assign(
+          { deps: { keyStore: new nearAPI.keyStores.BrowserLocalStorageKeyStore() } },
+          nearConfig)
+      );
 
-      return data
-    },
-    [wallet?.walletAddress, baseURL]
-  )
-  const { data, error, fetchNextPage, ...state } = useInfiniteQuery(
-    ['', "history", baseURL, wallet?.walletAddress],
-    fetchAccountHistory,
-    { getNextPageParam: ({ next }) => next, enabled: !!(wallet?.walletAddress && baseURL) }
-  )
-  const getList = () => {
-    if (!data) return []
-    const [{ list }] = data.pages
-    return list
-  }
-  const list = getList();
+      // const blockInfoByHeight = await near.connection.provider.block({
+      //   blockId: 0,
+      // });
+// console.log(blockInfoByHeight)
+    }
+    fetchTransaction();
+  }, [] )
 
   return (
     <VStack
@@ -84,9 +82,9 @@ const TransactionHistory: FunctionComponent = (props) => {
         py={{sm:'10px', md:'20px', lg:'76px'}}
       >
         <VStack w={'100%'}>
-          {list.map((item, index) => (
+          {/* {list.map((item, index) => (
             <HistoryItem item={item} key={index}/>
-          ))}
+          ))} */}
         </VStack>
       </VStack>
     </VStack>

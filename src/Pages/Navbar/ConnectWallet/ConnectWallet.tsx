@@ -4,7 +4,7 @@ import { Popover, PopoverTrigger } from '@chakra-ui/react'
 
 import "regenerator-runtime/runtime";
 import * as nearAPI from "near-api-js"
-import getConfig from "./config"
+import {getConfig} from "../../../config"
 
 import { toast } from 'react-toastify';
 import { MdOutlineAccountBalanceWallet } from 'react-icons/md'

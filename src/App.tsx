@@ -28,11 +28,6 @@ function App() {
   // console.log(res)
 
   document.fonts.onloadingdone = function (fontFaceSetEvent: any) {
-    // alert('onloadingdone we have ' + fontFaceSetEvent.fontfaces.length + ' font faces loaded');
-    console.log(fontFaceSetEvent)
-    let time = new Date();
-    console.log(time.toLocaleTimeString());
-
     setTimeout(() => {
       setLoading(false)
     }, 3000)
@@ -40,14 +35,11 @@ function App() {
 
   return (
     <>
-      {loading &&
-        <Flex w='100%' h='100vh' justify='center' align='center' bg='black'>
-          <video width="100%" autoPlay muted>
-            <source src="./PRE LOADING WEB.mp4" type="video/mp4" />
-          </video>
-        </Flex>
-      }
-      {!loading && 
+      <Flex 
+        w='100%' 
+        h='100%' 
+        display={loading ? 'none' : 'flex'}
+      >
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Layout />}>
@@ -63,7 +55,22 @@ function App() {
             </Route>
           </Routes>
         </BrowserRouter>
-      }
+      </Flex>
+      <Flex 
+        w='100%' 
+        h='100vh' 
+        justify='center' 
+        align='center' 
+        bg='black' 
+        position='absolute'
+        display={loading ? 'flex' : 'none'}
+        top='0px'
+        zIndex='99999999'
+      >
+        <video width="100%" autoPlay muted>
+          <source src="./PRE LOADING WEB.mp4" type="video/mp4" />
+        </video>
+      </Flex>
     </>
   );
 }

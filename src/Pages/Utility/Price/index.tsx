@@ -24,6 +24,7 @@ const Price: FunctionComponent = (props) => {
         align={'baseline'}
         p={{ sm: '10px', md: '20px', lg: '59px' }}
         spacing={'10px'}
+        mt='18px !important'
       >
         <CurrentPrice />
         <ProjectedPrice />

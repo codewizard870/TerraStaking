@@ -38,8 +38,6 @@ const Layout = () => {
       // fetchAll()
   }, [lcd, wallet])
 
-
-
   return (
     <QueryClientProvider client={queryClient} key={networkName}>
       <Flex

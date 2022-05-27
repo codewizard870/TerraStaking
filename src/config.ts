@@ -1,6 +1,6 @@
-const CONTRACT_NAME = process.env.CONTRACT_NAME || 'wallet-example'; /* TODO: fill this in! */
+export const CONTRACT_NAME = process.env.CONTRACT_NAME || 'wallet-example'; /* TODO: fill this in! */
 
-function getConfig (env) {
+export function getConfig (env: any) {
   switch (env) {
     case 'production':
     case 'mainnet':
@@ -56,4 +56,3 @@ function getConfig (env) {
   }
 }
 
-module.exports = getConfig
