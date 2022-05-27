@@ -20,7 +20,6 @@ const Overview: FunctionComponent = (props) => {
         background={'#212121'}
         w='100%'
         spacing={'50px'}
-        align='center'
         px={{ sm: '10px', md: '20px', lg: '50px' }}
         py={{ sm: '10px', md: '20px', lg: '60px' }}
         boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"

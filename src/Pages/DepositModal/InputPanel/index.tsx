@@ -53,7 +53,7 @@ const InputPanel: FunctionComponent<Props> = (props) => {
           lineHeight={'15px'}
           color={'white'}
         >
-          {state.coinType.toUpperCase()}
+          {state.coinType}
         </Text>
       </Flex>
       <Flex
@@ -68,7 +68,7 @@ const InputPanel: FunctionComponent<Props> = (props) => {
           cursor={'pointer'}
           onClick={() => maxBalance()}
         >
-          {state.coinType == 'USDC'? `MAX balance  ${ustBalance} UST` : `MAX balance  ${lunaBalance} LUNA`}
+          {`MAX balance  ${0} ${state.coinType}`}
         </Text>
       </Flex>
     </VStack>

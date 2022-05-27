@@ -24,13 +24,14 @@ const TotalLocked: FunctionComponent = (props) => {
       </Text>
       <HStack spacing={'10px'} alignItems={'baseline'}>
         <Text
-          fontSize={'34px'}
+          fontSize={'35px'}
           fontWeight={'800'}
           lineHeight={'36px'}
         >
           <AnimationNumber value={total} />&nbsp;
         </Text>
         <Text
+          ml = '0px !important'
           fontSize={'20px'}
           fontWeight={'800'}
           lineHeight={'36px'}

@@ -102,7 +102,12 @@ const CoinPanel: FunctionComponent<Props> = ({ name, description, avatar, apr, u
               h={'45px'}
               background={'#493C3C'}
               rounded={'25px'}
-              onClick={() => OpenDepositModal(state, dispatch, name)}
+              onClick={() => {
+                if(state.connected)
+                  OpenDepositModal(state, dispatch, name)
+                else if(state.openConnectWalletModal != undefined)
+                  state.openConnectWalletModal();
+              }}
             >
               <Text
                 fontSize={'13px'}
@@ -110,7 +115,12 @@ const CoinPanel: FunctionComponent<Props> = ({ name, description, avatar, apr, u
                 lineHeight={'15px'}
 
               >
-                Deposit
+                {state.connected &&
+                  "Deposit"
+                }
+                {!state.connected &&
+                  "Connect Wallet"
+                }
               </Text>
             </Button>
             <Button
@@ -120,14 +130,24 @@ const CoinPanel: FunctionComponent<Props> = ({ name, description, avatar, apr, u
               border={'solid 1px'}
               borderColor={'#CEBFBF'}
               rounded={'25px'}
-              onClick={() => OpenWithdrawModal(state, dispatch, name)}
+              onClick={() => {
+                if(state.connected)
+                  OpenWithdrawModal(state, dispatch, name)
+                else if(state.openConnectWalletModal != undefined)
+                  state.openConnectWalletModal();
+              }}
             >
               <Text
                 fontSize={'13px'}
                 fontWeight={'860'}
                 lineHeight={'15px'}
               >
-                Withdraw
+                {state.connected &&
+                  "Withdraw"
+                }
+                {!state.connected &&
+                  "Connect Wallet"
+                }
               </Text>
             </Button>
           </>

@@ -23,7 +23,7 @@ const Tab: FunctionComponent<Props> = ({id, children}) => {
       background={selected ? '#212121' : 'black'} //#212121
       justify={'center'}
       align={'center'}
-      rounded={'20px'}
+      rounded={'15px'}
       cursor={'pointer'}
       p={'18px'}
       onClick={() => {clickTab()}}

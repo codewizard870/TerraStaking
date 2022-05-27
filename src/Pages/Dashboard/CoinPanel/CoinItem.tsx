@@ -14,7 +14,7 @@ import {
 import AnimationNumber from '../../Components/AnimationNumber';
 import { floor, floorNormalize } from '../../../Util';
 
-interface Props{
+interface Props {
   name: COINTYPE,
   description: string,
   avatar: string,
@@ -22,7 +22,7 @@ interface Props{
   tvl_coin: number,
   tvl_usd: number
 }
-const CoinItem: FunctionComponent<Props> = ({name, description, avatar, apr, tvl_coin, tvl_usd}) => {
+const CoinItem: FunctionComponent<Props> = ({ name, description, avatar, apr, tvl_coin, tvl_usd }) => {
   const { state, dispatch } = useStore();
 
   return (
@@ -101,7 +101,12 @@ const CoinItem: FunctionComponent<Props> = ({name, description, avatar, apr, tvl
             h={'30px'}
             background={'#493C3C'}
             rounded={'25px'}
-            onClick={() => OpenDepositModal(state, dispatch, name)}
+            onClick={() => {
+              if(state.connected)
+                OpenDepositModal(state, dispatch, name)
+              else if(state.openConnectWalletModal != undefined)
+                state.openConnectWalletModal();
+            }}
           >
             <Text
               fontSize={'9px'}
@@ -109,7 +114,12 @@ const CoinItem: FunctionComponent<Props> = ({name, description, avatar, apr, tvl
               lineHeight={'10.8px'}
               color={'white'}
             >
-              Deposit
+              {state.connected &&
+                "Deposit"
+              }
+              {!state.connected &&
+                "Connect Wallet"
+              }
             </Text>
           </Button>
           <Button
@@ -118,7 +128,12 @@ const CoinItem: FunctionComponent<Props> = ({name, description, avatar, apr, tvl
             background={'#212121'}
             rounded={'25px'}
             border={'solid 1px #CEBFBF'}
-            onClick={() => OpenWithdrawModal(state, dispatch, name)}
+            onClick={() => {
+              if(state.connected)
+                OpenWithdrawModal(state, dispatch, name)
+              else if(state.openConnectWalletModal != undefined)
+                state.openConnectWalletModal();
+            }}
           >
             <Text
               fontSize={'9px'}
@@ -126,13 +141,18 @@ const CoinItem: FunctionComponent<Props> = ({name, description, avatar, apr, tvl
               lineHeight={'10px'}
               color={'#CEBFBF'}
             >
-              Withdraw
+              {state.connected &&
+                "Withdraw"
+              }
+              {!state.connected &&
+                "Connect Wallet"
+              }
             </Text>
           </Button>
         </Stack>
       </GridItem>
       <GridItem colSpan={4}>
-        <Divider orientation={'horizontal'} />
+        <Divider orientation={'horizontal'} borderColor='#434040' />
       </GridItem>
     </>
   );

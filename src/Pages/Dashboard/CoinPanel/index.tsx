@@ -40,7 +40,8 @@ const CoinPanel: FunctionComponent = (props) => {
       spacing={'34px'}
       color={'#CEC0C0'}
       px={{ sm: '10px', md: '20px', lg: '50px' }}
-      py={{ sm: '10px', md: '20px', lg: '29px' }}
+      pt={{ sm: '10px', md: '20px', lg: '29px' }}
+      pb={{ sm: '10px', md: '20px', lg: '60px' }}
     >
       <Grid
         templateColumns="15% 25% 25% auto"
@@ -106,7 +107,7 @@ const CoinPanel: FunctionComponent = (props) => {
           </Flex>
         </GridItem>
         <GridItem colSpan={4}>
-          <Divider orientation={'horizontal'} />
+          <Divider orientation={'horizontal'} borderColor='#434040'/>
         </GridItem>
         {StableCoins.map((item)=> (
           item.upcoming === false && 

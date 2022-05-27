@@ -51,7 +51,7 @@ const Earn: FunctionComponent<Props> = ({denom, setDenom, year, setYear, amount,
           >
             <MdArrowDropDownCircle />
           </MenuButton>
-          <MenuList background={'black'} borderColor={'black'} p={'0px'} w={'100px'} minWidth={'0px'}>
+          <MenuList background={'black'} borderColor={'black'} p={'0px'} w={'100px'} minWidth={'0px'} zIndex='9999'>
             {StableCoins.map((item) => (
               <MenuItem
                 onClick={() => setDenom(item.name)}

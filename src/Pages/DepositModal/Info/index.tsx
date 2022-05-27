@@ -38,7 +38,7 @@ const Info: FunctionComponent<Props> = ({amount}) => {
           fontWeight={'400'}
           lineHeight={'10px'}
         >
-          0.25 UST
+          0.25 Near
         </Text>
       </HStack>
       <HStack justify={'space-between'} w={'100%'}>
@@ -54,7 +54,7 @@ const Info: FunctionComponent<Props> = ({amount}) => {
           fontWeight={'400'}
           lineHeight={'10px'}
         >
-          {value.toLocaleString()} UST
+          {value.toLocaleString()} Near
         </Text>
       </HStack>
     </VStack>

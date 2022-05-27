@@ -49,7 +49,7 @@ const Value: FunctionComponent<Props> = ({total, interest}) => {
           fontWeight={'860'}
           lineHeight={'10px'}
         >
-          TT Performance
+          NT Performance
         </Text>
       </HStack>
       <HStack spacing={'4px'}>

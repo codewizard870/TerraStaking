@@ -12,9 +12,10 @@ const CircularView: FunctionComponent = (props) => {
   const lunaDeposited = floor(useLUNADeposited() * rate) + floorNormalize(state.userInfoLuna.reward_amount * rate);
   const total = ustBalance + ustDeposited + lunaDeposited;
 
-  const percent1 = Math.floor(ustBalance * 100 / total);
-  const percent2 = Math.floor(ustDeposited * 100 / total);
-  const percent3 = Math.floor(lunaDeposited * 100 / total);
+  const init = !state.connected;
+  const percent1 = init? 75: Math.floor(ustBalance * 100 / total);
+  const percent2 = init? 75: Math.floor(ustDeposited * 100 / total);
+  const percent3 = init? 75: Math.floor(lunaDeposited * 100 / total);
 
   return (
     <Flex align={'center'} minWidth={'220px'} h={'220px'} justify='center' transform={'rotate(-90deg)'} mr={'36px'}>
@@ -32,7 +33,7 @@ const CircularView: FunctionComponent = (props) => {
         value={percent2}
         size={'165px'}
         capIsRound={true}
-        color={'#6493F1'}
+        color={'#000000'}
         trackColor={'#493C3C'}
         // thickness='12px'
       />

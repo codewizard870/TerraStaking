@@ -82,7 +82,7 @@ const InformationPopover: FunctionComponent<Props> = ({ isOpen, onClose, connect
             lineHeight={'10px'}
             color={'#F9D85E'}
           >
-            TERRA STATION WALLET
+            NEAR WALLET
           </Text>
         </Flex>
         <HStack w={'100%'}>
