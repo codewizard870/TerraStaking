@@ -41,19 +41,64 @@ const nearConfig = getConfig("testnet");
 const TransactionHistory: FunctionComponent = (props) => {
   const wallet = useWallet();
   const baseURL = useTerraAPIURL();
-  
+  const accountId = wallet?.getAccountId();
+
   useEffect( ()=> {
     const fetchTransaction = async () => {
-      const near = await nearAPI.connect(
-        Object.assign(
-          { deps: { keyStore: new nearAPI.keyStores.BrowserLocalStorageKeyStore() } },
-          nearConfig)
-      );
+        try{
+          const near = await nearAPI.connect(
+            Object.assign(
+              { deps: { keyStore: new nearAPI.keyStores.BrowserLocalStorageKeyStore() } },
+              nearConfig)
+          );
+          const blockInfo = await near.connection.provider.block({
+            finality: "final"
+          });
 
-      // const blockInfoByHeight = await near.connection.provider.block({
-      //   blockId: 0,
-      // });
-// console.log(blockInfoByHeight)
+          const blockArr = [];
+          let blockHash = blockInfo.header.hash;
+          let count = 10;
+          do {
+            const currentBlock = await near.connection.provider.block({
+              blockId: blockHash
+            });
+            blockArr.push(currentBlock.header.hash);
+            blockHash = currentBlock.header.prev_hash;
+            count --;
+          } while (count > 0);
+
+          const blockDetails = await Promise.all(
+            blockArr.map((blockId) =>
+              near.connection.provider.block({
+                blockId,
+              })
+            )
+          );
+        
+          // returns an array of chunk hashes from block details
+          const chunkHashArr = blockDetails.flatMap((block) =>
+            block.chunks.map(({ chunk_hash }) => chunk_hash)
+          );
+        
+          //returns chunk details based from the array of hashes
+          const chunkDetails = await Promise.all(
+            chunkHashArr.map(chunk => near.connection.provider.chunk(chunk))
+          );
+        
+          // checks chunk details for transactions
+          // if there are transactions in the chunk we
+          // find ones associated with passed accountId
+          // const transactions = chunkDetails.flatMap((chunk) =>
+          //   (chunk.transactions || []).filter((tx: any) => tx.signer_id === accountId)
+          // );
+          const transactions = chunkDetails.flatMap((chunk) =>
+            chunk.transactions
+          );
+console.log(transactions)
+      }
+      catch(e){
+        console.log(e)
+      }
     }
     fetchTransaction();
   }, [] )
