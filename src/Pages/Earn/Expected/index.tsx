@@ -15,6 +15,7 @@ const Expected: FunctionComponent = (props) => {
       background={'#212121'} 
       px={{sm:'10px', md:'20px', lg:'47px'}}
       py={{sm:'10px', md:'20px', lg:'55px'}}
+      mt='59px'
     >
       <HStack spacing={'18px'} w={'100%'} align={'baseline'}>
         <Text

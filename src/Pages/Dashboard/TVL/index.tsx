@@ -56,7 +56,7 @@ const TVL: FunctionComponent = (props) => {
             <AnimationNumber value={total} />
           </Text>
           <Text
-            fontSize={'15px'}
+            fontSize={'20px'}
             fontWeight={'800'}
             lineHeight={'36px'}
           >

@@ -10,15 +10,15 @@ import { COINTYPE } from '../../store';
 
 const MyPage: FunctionComponent = (props) => {
   return (
-    <VStack 
+    <Flex
+      direction='column' 
       mt={'15px'} 
       px={{sm:'10px', md:'20px', lg:'110px'}}
       w={'100%'}
-      spacing={'53px'}
     >
       <Title />
       <Total />
-      <Flex flexWrap={'wrap'} justify='space-between'>
+      <Flex flexWrap={'wrap'} justify='space-between' mt='29px'>
         {StableCoins.map((item) => (
           <CoinPanel 
             name = {item.name as COINTYPE}
@@ -30,7 +30,7 @@ const MyPage: FunctionComponent = (props) => {
         ))}
       </Flex>
       <Expected />
-    </VStack>
+    </Flex>
   );
 }
 export default MyPage;

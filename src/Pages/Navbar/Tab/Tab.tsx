@@ -28,7 +28,7 @@ const Tab: FunctionComponent<Props> = ({id, children}) => {
       p={'18px'}
       onClick={() => {clickTab()}}
     >
-      <Text color='white'>{children}</Text>
+      <Text color={selected? 'white' : '#666666'}>{children}</Text>
     </Flex>
   );
 }

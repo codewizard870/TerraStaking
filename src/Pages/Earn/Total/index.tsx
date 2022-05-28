@@ -31,6 +31,7 @@ const Total: FunctionComponent = (props) => {
       h='288px'
       px={{sm:'10px', md:'20px', lg:'50px'}}
       py={{sm:'10px', md:'20px', lg:'56px'}}
+      mt='53px'
     >
       <VStack w={'100%'} align={'baseline'}>
         <HStack spacing={'10px'}>
@@ -77,9 +78,19 @@ const Total: FunctionComponent = (props) => {
             fontSize={'13px'}
             fontWeight={'860'}
             lineHeight={'15px'}
-            onClick = {() => OpenDepositModal(state, dispatch, "USDC")}      
+            onClick={() => {
+              if(state.connected)
+                OpenDepositModal(state, dispatch, 'USDC')
+              else if(state.openConnectWalletModal != undefined)
+                state.openConnectWalletModal();
+            }}    
           >
-            Deposit
+            {state.connected &&
+              "Deposit"
+            }
+            {!state.connected &&
+              "Connect Wallet"
+            }
           </Text>
         </Button>
         <Button 
@@ -89,14 +100,24 @@ const Total: FunctionComponent = (props) => {
           border={'solid 1px'}
           borderColor={'#CEBFBF'} 
           rounded={'25px'}
-          onClick = {() => OpenWithdrawModal(state, dispatch, "USDC")}
+          onClick={() => {
+            if(state.connected)
+              OpenWithdrawModal(state, dispatch, 'USDC')
+            else if(state.openConnectWalletModal != undefined)
+              state.openConnectWalletModal();
+          }}
         >
           <Text
             fontSize={'13px'}
             fontWeight={'860'}
             lineHeight={'15px'}              
           >
-            Withdraw
+            {state.connected &&
+              "Withdraw"
+            }
+            {!state.connected &&
+              "Connect Wallet"
+            }
           </Text>
         </Button>
       </HStack>
