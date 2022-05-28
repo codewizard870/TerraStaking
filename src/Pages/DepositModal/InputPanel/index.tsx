@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { VStack, HStack, Stack, Flex, Text, Input, Link, Center, Divider, Button, useBoolean } from '@chakra-ui/react'
 import { Dispatch, SetStateAction } from "react";
-import { useUSTBalance, useLUNABalance, COINTYPE, useStore, ActionKind } from '../../../store'
+import { useNearBalance, COINTYPE, useStore, ActionKind } from '../../../store'
 
 interface Props {
   amount: string,
@@ -9,8 +9,8 @@ interface Props {
 }
 const InputPanel: FunctionComponent<Props> = (props) => {
   const {state, dispatch} = useStore();
-  const ustBalance = useUSTBalance();
-  const lunaBalance = useLUNABalance();
+  const ustBalance = useNearBalance();
+  const lunaBalance = useNearBalance();
 
   const maxBalance = () => {
     if(state.coinType == 'USDC')

@@ -4,7 +4,7 @@ import { MsgExecuteContract, WasmAPI, Coin, LCDClient, Fee } from '@terra-money/
 
 import { floorNormalize } from '../../Util';
 import { POOL } from '../../constants';
-import { useStore, useLCD } from '../../store';
+import { useStore } from '../../store';
 import {
   Table,
   Thead,
@@ -20,25 +20,23 @@ import {
 const PotReward: FunctionComponent = (props) => {
   const {state, dispatch} = useStore();
   const [potInfo, setPotInfo] = useState<any[]>();
-  const lcd = useLCD();
-  const api = new WasmAPI(lcd.apiRequester);
 
   useEffect( () => {
     const fetchData = async () => {
-      try {
-        let res: any[] = await api.contractQuery(
-          POOL,
-          {
-            get_all_pot_info: { }
-          });
+    //   try {
+    //     let res: any[] = await api.contractQuery(
+    //       POOL,
+    //       {
+    //         get_all_pot_info: { }
+    //       });
         
-        setPotInfo(res);
-      } catch (e) {
-        console.log(e)
-      }
+    //     setPotInfo(res);
+    //   } catch (e) {
+    //     console.log(e)
+    //   }
     }
     fetchData();
-  }, [lcd])
+  }, [])
 
   return (
     <VStack 

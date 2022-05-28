@@ -6,9 +6,6 @@ import {
   OpenDepositModal,
   OpenWithdrawModal,
   useStore,
-  useLUNAApr,
-  useLUNADeposited,
-  useExchangeRate,
   COINTYPE
 } from '../../../store';
 import AnimationNumber from '../../Components/AnimationNumber';

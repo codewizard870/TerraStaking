@@ -4,14 +4,14 @@ import {
   HStack, 
   Text, 
 } from '@chakra-ui/react'
-import { useStore, useExchangeRate } from '../../../store';
+import { useStore, useNearPrice } from '../../../store';
 
 interface Props {
   amount: string 
 }
 const Info: FunctionComponent<Props> = ({amount}) => {
   const {state, dispatch} = useStore();
-  const rate = useExchangeRate();
+  const rate = useNearPrice();
   const fee = 0.25;
 
   let _amount = parseFloat(amount) > 0? parseFloat(amount) : 0;

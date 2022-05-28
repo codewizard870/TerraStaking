@@ -13,7 +13,7 @@ import Title from './Title';
 import InputPanel from './InputPanel';
 import SliderWish from './SliderWish';
 import Info from './Info';
-import { useStore, useWallet, useLCD, ActionKind } from '../../store';
+import { useStore, useWallet, ActionKind } from '../../store';
 import {estimateSend, fetchData, sleep} from '../../Util';
 import {POOL, successOption} from '../../constants';
 
@@ -24,59 +24,58 @@ interface Props{
 const DepositModal: FunctionComponent<Props> = ({isOpen, onClose}) => {
   const [amount, setAmount] = useState('0');
   const wallet = useWallet();
-  const lcd = useLCD();
   const {state, dispatch} = useStore();
   const coinType = state.coinType;
 
   const deposit = async () => {
-    if(parseFloat(amount) <= 0  || !wallet?.walletAddress)
-      return;
+    // if(parseFloat(amount) <= 0  || !wallet?.walletAddress)
+    //   return;
       
-    let val = Math.floor(parseFloat(amount) * 10 ** 6);
-    let msg;
-    if(coinType === 'USDC')
-      msg = { deposit_ust: {qualified: state.qualified} }
-    else
-      msg = { deposit_luna: {qualified: state.qualified} }
+    // let val = Math.floor(parseFloat(amount) * 10 ** 6);
+    // let msg;
+    // if(coinType === 'USDC')
+    //   msg = { deposit_ust: {qualified: state.qualified} }
+    // else
+    //   msg = { deposit_luna: {qualified: state.qualified} }
 
-    let deposit_msg = new MsgExecuteContract(
-      wallet?.walletAddress,
-      POOL,
-      msg,
-      coinType === 'USDC'? {uusd: val} : {uluna: val}
-    );
-    let res = await estimateSend(wallet, lcd, [deposit_msg], "Success Deposit", "deposit");
-    if(res){
-      dispatch({type: ActionKind.setTxhash, payload: res});
-      onClose();
-      if(state.openWaitingModal)
-        state.openWaitingModal();
+    // let deposit_msg = new MsgExecuteContract(
+    //   wallet?.walletAddress,
+    //   POOL,
+    //   msg,
+    //   coinType === 'USDC'? {uusd: val} : {uluna: val}
+    // );
+    // let res = await estimateSend(wallet, lcd, [deposit_msg], "Success Deposit", "deposit");
+    // if(res){
+    //   dispatch({type: ActionKind.setTxhash, payload: res});
+    //   onClose();
+    //   if(state.openWaitingModal)
+    //     state.openWaitingModal();
 
-      let count = 10;
-      let height = 0;
-      while (count > 0) {
-        await lcd.tx.txInfo(res)
-          // eslint-disable-next-line no-loop-func
-          .then((e) => {
-            if (e.height > 0) {
-              toast.dismiss();
-              toast("Success", successOption);
-              height = e.height;
-            }
-          })
-          .catch((e) => {})
+    //   let count = 10;
+    //   let height = 0;
+    //   while (count > 0) {
+    //     await lcd.tx.txInfo(res)
+    //       // eslint-disable-next-line no-loop-func
+    //       .then((e) => {
+    //         if (e.height > 0) {
+    //           toast.dismiss();
+    //           toast("Success", successOption);
+    //           height = e.height;
+    //         }
+    //       })
+    //       .catch((e) => {})
 
-        if (height > 0) break;
+    //     if (height > 0) break;
 
-        await sleep(1000);
-        count--;
-      }
+    //     await sleep(1000);
+    //     count--;
+    //   }
       
-      if(state.closeWaitingModal)
-        state.closeWaitingModal();
+    //   if(state.closeWaitingModal)
+    //     state.closeWaitingModal();
 
-      fetchData(state, dispatch);
-    }
+    //   fetchData(state, dispatch);
+    // }
   }
   return (
     <Modal isOpen={isOpen} onClose={onClose}>

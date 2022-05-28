@@ -11,7 +11,7 @@ import {
 import {toast} from 'react-toastify'
 import {MdWarningAmber, MdInfoOutline} from 'react-icons/md'
 
-import { useStore, useWallet, useLCD, ActionKind } from '../../../store';
+import { useStore, useWallet, ActionKind } from '../../../store';
 import {estimateSend, fetchData, sleep} from '../../../Util';
 import { successOption, errorOption, REQUEST_ENDPOINT, VUST, VLUNA, MOTHER_WALLET } from '../../../constants';
 import CustomCheckbox from './CustomCheckbox';
@@ -26,83 +26,82 @@ const WarningModal: FunctionComponent<Props> = ({isOpen, onClose, amount, onClos
   const [checked, setChecked] = useState(false);
   const {state, dispatch} = useStore();
   const wallet = useWallet();
-  const lcd = useLCD();
   const coinType = state.coinType;
 
   const withdraw = async () => {
-    if(checked == false || wallet == undefined)
-      return;
+    // if(checked == false || wallet == undefined)
+    //   return;
       
-    let val = Math.floor(parseFloat(amount) * 10 ** 6);
-    let withdraw_msg = new MsgExecuteContract(
-      wallet?.walletAddress,
-      coinType == 'USDC' ? VUST : VLUNA,
-      {
-        "increase_allowance": {
-            "spender": `${MOTHER_WALLET}`,
-            "amount": `${val}`,
-            "expires": {
-                "never": {}
-            }
-        }
-      },
-      {}
-    );
-    let res = await estimateSend(wallet, lcd, [withdraw_msg], "Success request withdraw", "request withdraw");
-    if(res)
-    {
-      dispatch({type: ActionKind.setTxhash, payload: res});
+    // let val = Math.floor(parseFloat(amount) * 10 ** 6);
+    // let withdraw_msg = new MsgExecuteContract(
+    //   wallet?.walletAddress,
+    //   coinType == 'USDC' ? VUST : VLUNA,
+    //   {
+    //     "increase_allowance": {
+    //         "spender": `${MOTHER_WALLET}`,
+    //         "amount": `${val}`,
+    //         "expires": {
+    //             "never": {}
+    //         }
+    //     }
+    //   },
+    //   {}
+    // );
+    // let res = await estimateSend(wallet, lcd, [withdraw_msg], "Success request withdraw", "request withdraw");
+    // if(res)
+    // {
+    //   dispatch({type: ActionKind.setTxhash, payload: res});
 
-      onClose();
-      onCloseParent();
-      if(state.openWaitingModal)
-        state.openWaitingModal();
+    //   onClose();
+    //   onCloseParent();
+    //   if(state.openWaitingModal)
+    //     state.openWaitingModal();
 
-      let count = 10;
-      let height = 0;
-      while (count > 0) {
-        await lcd.tx.txInfo(res)
-          // eslint-disable-next-line no-loop-func
-          .then((e) => {
-            if (e.height > 0) {
-              toast.dismiss();
-              toast("Success request withdraw", successOption);
-              height = e.height;
-            }
-          })
-          .catch((e) => {})
+    //   let count = 10;
+    //   let height = 0;
+    //   while (count > 0) {
+    //     await lcd.tx.txInfo(res)
+    //       // eslint-disable-next-line no-loop-func
+    //       .then((e) => {
+    //         if (e.height > 0) {
+    //           toast.dismiss();
+    //           toast("Success request withdraw", successOption);
+    //           height = e.height;
+    //         }
+    //       })
+    //       .catch((e) => {})
 
-        if (height > 0) break;
+    //     if (height > 0) break;
 
-        await sleep(1000);
-        count--;
-      }
+    //     await sleep(1000);
+    //     count--;
+    //   }
 
-      var formData = new FormData()
-      formData.append('wallet', wallet.walletAddress.toString());
-      formData.append('coinType', coinType)
-      formData.append('amount', val.toString())
+    //   var formData = new FormData()
+    //   formData.append('wallet', wallet.walletAddress.toString());
+    //   formData.append('coinType', coinType)
+    //   formData.append('amount', val.toString())
 
-      await axios.post(REQUEST_ENDPOINT + 'withdraw', formData, {timeout: 60 * 60 * 1000})
-      .then((res) => {
-        toast("Withdraw success", successOption)
-        if(state.closeWaitingModal)
-          state.closeWaitingModal();
-        fetchData(state, dispatch)
-      })
-      .catch(function (error) {
-        if (error.response) {
-          toast(error.response.data.data.message, errorOption)
-        } else if (error.request) {
-          toast(error.request, errorOption);
-          fetchData(state, dispatch)
-        } else {
-          toast(error.message, errorOption);
-        }
-        if(state.closeWaitingModal)
-          state.closeWaitingModal();
-      });
-    }
+    //   await axios.post(REQUEST_ENDPOINT + 'withdraw', formData, {timeout: 60 * 60 * 1000})
+    //   .then((res) => {
+    //     toast("Withdraw success", successOption)
+    //     if(state.closeWaitingModal)
+    //       state.closeWaitingModal();
+    //     fetchData(state, dispatch)
+    //   })
+    //   .catch(function (error) {
+    //     if (error.response) {
+    //       toast(error.response.data.data.message, errorOption)
+    //     } else if (error.request) {
+    //       toast(error.request, errorOption);
+    //       fetchData(state, dispatch)
+    //     } else {
+    //       toast(error.message, errorOption);
+    //     }
+    //     if(state.closeWaitingModal)
+    //       state.closeWaitingModal();
+    //   });
+    // }
   }
 
   return (

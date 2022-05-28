@@ -1,3 +1,5 @@
+import { COINTYPE } from "./store";
+
 export let net = "testnet";
 
 export const POOL_MAIN = "terra1cn6mggfxa3jp6dgteuerj2nx05xmrav6985r3f";
@@ -15,40 +17,44 @@ export const VLUNA = net == 'mainnet'? VLUNA_MAIN : VLUNA_TEST;
 export const MOTHER_WALLET = "terra1qvyj7tqs35hckd395rglc7lsyf2acuhgdcmj77";
 export const REQUEST_ENDPOINT = "https://stakingplatformalenzer.herokuapp.com/";
 
+
+export const aprInfo = [0, 0, 0, 0, 0, 0, 0];
+export const balanceInfo = [0, 0, 0, 0, 0, 0, 0];
+export const priceInfo = [0, 0, 0, 0, 0, 0, 0];
+
 export const farmInfo = {
   wallet: '',
   amount: '0'
 }
+
 export const userInfo = {
   amount: "0",
   deposit_time: "0",
   reward_amount: "0",
   wallet: ""
 }
+export const userInfos = [userInfo, userInfo, userInfo, userInfo, userInfo, userInfo, userInfo ]
+
 export const potInfo = {
   wallet: "",
-  ust_amount: "0",
-  luna_amount: "0",
-  qualified_ust_amount: "0",
-  qualified_luna_amount: "0"
+  near_amount: "0",
+  qualified_near_amount: "0",
 }
 export const amountHistory = [
   {
     time: 1641281704,
-    ust_amount: 0,
-    luna_amount: 0,
-    totalUST: 0,
+    near_amount: 0,
+    totalUSD: 0,
   },
   {
-    time: 1643281704,
-    ust_amount: 0,
-    luna_amount: 0,
-    totalUST: 0
+    time: 1641281704,
+    near_amount: 0,
+    totalUSD: 0,
   },
 ];
 
 
-export const aprUstHistory = [
+export const aprHistoryNear = [
   {
     time: 1648939268,
     apr: "3487",
@@ -72,34 +78,6 @@ export const aprUstHistory = [
   {
     time: 1648939268,
     apr: "3487",
-  },
-];
-
-
-export const aprLunaHistory = [
-  {
-    time: 1648939268,
-    apr: "1861",
-  },
-  {
-    time: 1648939268,
-    apr: "1861",
-  },
-  {
-    time: 1648939268,
-    apr: "1861",
-  },
-  {
-    time: 1648939268,
-    apr: "1861",
-  },
-  {
-    time: 1648939268,
-    apr: "1861",
-  },
-  {
-    time: 1648939268,
-    apr: "1861",
   },
 ];
 
@@ -198,7 +176,7 @@ export const StableCoins=[
   },
   {
     name: 'NEARt',
-    description: 'Near Treasury (Comming Soon)',
+    description: 'Near Treasury (Cooming Soon)',
     avatar: 'Neart.svg',
     apr: 9.87,
     tvl_coin: 47243320,

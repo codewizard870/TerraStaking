@@ -2,7 +2,7 @@ import React, { FunctionComponent, useEffect, useMemo, useState } from 'react';
 import { Stack, VStack, Flex, HStack, Button } from '@chakra-ui/react'
 
 import { QueryClient, QueryClientProvider, useInfiniteQuery } from "react-query"
-import { useLCD, useWallet, useTerraAPIURL, useStore, useNetworkName, COINTYPE } from '../../store';
+import { COINTYPE } from '../../store';
 
 import Title from './Title'
 import TotalValue from './TotalValue';

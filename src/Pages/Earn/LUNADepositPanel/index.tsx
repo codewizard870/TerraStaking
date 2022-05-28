@@ -5,11 +5,11 @@ import { Grid, GridItem } from '@chakra-ui/react'
 import AnimationNumber from '../../Components/AnimationNumber';
 import LunaIcon from './../../../assets/Luna.svg'
 import Warning from './../../../assets/Warning.svg'
-import { OpenDepositModal, OpenWithdrawModal, useStore, useLUNAApr } from '../../../store';
+import { OpenDepositModal, OpenWithdrawModal, useStore } from '../../../store';
 
 const LUNADepositPanel: FunctionComponent = (props) => {
   const { state, dispatch } = useStore();
-  const apr = useLUNAApr();
+  const apr = 0;
 
   return (
     <VStack

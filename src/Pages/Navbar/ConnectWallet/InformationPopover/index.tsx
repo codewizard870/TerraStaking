@@ -9,7 +9,7 @@ import { MdMail, MdCallMade, MdKeyboardArrowRight } from 'react-icons/md';
 import Satellite from '../../../../assets/Satellite.png'
 import Line from '../../../../assets/Line.svg'
 import { shortenAddress, floorNormalize } from '../../../../Util';
-import { useStore, useWallet, useUSTBalance, useLUNABalance, useLCD } from '../../../../store';
+import { useStore, useWallet } from '../../../../store';
 import { VUST, VLUNA } from '../../../../constants';
 
 interface Props {
@@ -23,41 +23,40 @@ const InformationPopover: FunctionComponent<Props> = ({ isOpen, onClose, connect
   const [vluna, setVluna] = useState(0);
 
   const wallet = useWallet();
-  const ustBalance = useUSTBalance();
-  const lunaBalance = useLUNABalance();
-  const lcd = useLCD();
+  // const ustBalance = useNearBalance();
+  // const lunaBalance = useNearBalance();
 
   useEffect( () => {
     const fetch = async () => {
-      const api = new WasmAPI(lcd.apiRequester);
-      let balance: any;
+      // const api = new WasmAPI(lcd.apiRequester);
+      // let balance: any;
       try {
-        balance = await api.contractQuery(
-          VUST,
-          {
-            balance: {address: wallet?.walletAddress}
-          });
+        // balance = await api.contractQuery(
+        //   VUST,
+        //   {
+        //     balance: {address: wallet?.walletAddress}
+        //   });
         
-        setVust(floorNormalize(parseInt(balance.balance)));
+        // setVust(floorNormalize(parseInt(balance.balance)));
       } catch (e) { 
         console.log(e)
       }
 
       try {
-        balance = await api.contractQuery(
-          VLUNA,
-          {
-            balance: {address: wallet?.walletAddress}
-          });
+        // balance = await api.contractQuery(
+        //   VLUNA,
+        //   {
+        //     balance: {address: wallet?.walletAddress}
+        //   });
         
-        setVluna(floorNormalize(parseInt(balance.balance)));
+        // setVluna(floorNormalize(parseInt(balance.balance)));
       } catch (e) { 
         console.log(e)
       }
     }
 
     fetch();
-  }, [lcd.apiRequester, wallet?.walletAddress]);
+  }, []);
 
   return (
     <PopoverContent
@@ -128,7 +127,7 @@ const InformationPopover: FunctionComponent<Props> = ({ isOpen, onClose, connect
           <Divider mt={'30px'} orientation='horizontal'/>
           <Flex w={'100%'} justify={'space-between'}>
             <Text> LUNA </Text>
-            <Text> {lunaBalance} </Text>
+            {/* <Text> {lunaBalance} </Text> */}
           </Flex>
           <Divider mt={'30px'} orientation='horizontal'/>
           <Flex w={'100%'} justify={'space-between'}>
@@ -146,7 +145,7 @@ const InformationPopover: FunctionComponent<Props> = ({ isOpen, onClose, connect
                 <MdCallMade color={'#F9D85E'} size={'9px'}/> 
               </Button>
             </HStack>
-            <Text> {ustBalance} </Text>
+            {/* <Text> {ustBalance} </Text> */}
           </Flex>
           <Divider mt={'30px'} orientation='horizontal'/>
           <Flex w={'100%'} justify={'space-between'}>

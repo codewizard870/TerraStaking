@@ -34,7 +34,7 @@ const WaitingModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
         py={'39px'}
         alignItems={'center'}
       >
-        <ReactLoading type={'bars'} color={'#F9D85E'} height={200} width={200} />
+        {/* <ReactLoading type={'bars'} color={'#F9D85E'} height={200} width={200} /> */}
         <Text
           mt={'30px'}
           fontSize={'24px'}

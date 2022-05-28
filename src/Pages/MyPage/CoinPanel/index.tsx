@@ -4,7 +4,7 @@ import { Grid, GridItem } from '@chakra-ui/react'
 
 import Warning from './../../../assets/Warning.svg'
 import AnimationNumber from '../../Components/AnimationNumber';
-import { OpenDepositModal, OpenWithdrawModal, useStore, useUSTApr } from '../../../store';
+import { OpenDepositModal, OpenWithdrawModal, useStore } from '../../../store';
 import { COINTYPE } from '../../../store'
 
 interface Props {

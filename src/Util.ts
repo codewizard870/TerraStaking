@@ -31,7 +31,6 @@ export async function fetchData(state: AppContextInterface, dispatch: React.Disp
   dispatch({ type: ActionKind.setLoading, payload: true });
 
   const wallet = state.wallet;
-  const api = new WasmAPI(state.lcd.apiRequester);
 
   let amountHistory = undefined,
     aprUstHistory = undefined,
@@ -58,152 +57,152 @@ export async function fetchData(state: AppContextInterface, dispatch: React.Disp
       `https://api.extraterrestrial.money/v1/api/prices?symbol=UST`
     );
   } catch (e) { }
-  const ustPrice = ustInfo ? ustInfo?.data.prices.UST.price : state.ustPrice;
-  const lunaPrice = lunaInfo ? lunaInfo?.data.prices.LUNA.price : state.lunaPrice;
+  // const ustPrice = ustInfo ? ustInfo?.data.prices.UST.price : state.ustPrice;
+  // const lunaPrice = lunaInfo ? lunaInfo?.data.prices.LUNA.price : state.lunaPrice;
 
-  if (ustPrice !== undefined)
-    dispatch({ type: ActionKind.setUstPrice, payload: ustPrice });
-  if (lunaPrice !== undefined)
-    dispatch({ type: ActionKind.setLunaPrice, payload: lunaPrice });
+  // if (ustPrice !== undefined)
+  //   dispatch({ type: ActionKind.setUstPrice, payload: ustPrice });
+  // if (lunaPrice !== undefined)
+  //   dispatch({ type: ActionKind.setLunaPrice, payload: lunaPrice });
 
-  try {
-    status = await api.contractQuery(
-      POOL,
-      {
-        get_status: { wallet: wallet?.walletAddress }
-      });
-  } catch (e) {
-    console.log(e)
-  }
-  console.log(status)
+  // try {
+  //   status = await api.contractQuery(
+  //     POOL,
+  //     {
+  //       get_status: { wallet: wallet?.walletAddress }
+  //     });
+  // } catch (e) {
+  //   console.log(e)
+  // }
+  // console.log(status)
 
-  if (status) {
-    if (status.amount_history !== undefined)
-      dispatch({ type: ActionKind.setAmountHistory, payload: calcUSD(status.amount_history, ustPrice, lunaPrice) });
-    if (status.apr_ust_history !== undefined)
-      dispatch({ type: ActionKind.setAprUstHistory, payload: status.apr_ust_history });
-    if (status.apr_luna_history !== undefined)
-      dispatch({ type: ActionKind.setAprLunaHistory, payload: status.apr_luna_history });
+  // if (status) {
+  //   if (status.amount_history !== undefined)
+  //     dispatch({ type: ActionKind.setAmountHistory, payload: calcUSD(status.amount_history, ustPrice, lunaPrice) });
+  //   if (status.apr_ust_history !== undefined)
+  //     dispatch({ type: ActionKind.setAprUstHistory, payload: status.apr_ust_history });
+  //   if (status.apr_luna_history !== undefined)
+  //     dispatch({ type: ActionKind.setAprLunaHistory, payload: status.apr_luna_history });
 
-    if (status.userinfo_ust !== undefined)
-      dispatch({ type: ActionKind.setUserInfoUst, payload: status.userinfo_ust });
-    if (status.userinfo_luna !== undefined)
-      dispatch({ type: ActionKind.setUserInfoLuna, payload: status.userinfo_luna });
+  //   if (status.userinfo_ust !== undefined)
+  //     dispatch({ type: ActionKind.setUserInfoUst, payload: status.userinfo_ust });
+  //   if (status.userinfo_luna !== undefined)
+  //     dispatch({ type: ActionKind.setUserInfoLuna, payload: status.userinfo_luna });
 
-    if (status.farm_price !== undefined)
-      dispatch({ type: ActionKind.setFarmPrice, payload: parseInt(status.farm_price) });
-    if (status.farm_info !== undefined)
-      dispatch({ type: ActionKind.setFarmInfo, payload: status.farm_info });
-    if (status.farm_starttime !== undefined)
-      dispatch({ type: ActionKind.setFarmStartTime, payload: parseInt(status.farm_starttime) });
+  //   if (status.farm_price !== undefined)
+  //     dispatch({ type: ActionKind.setFarmPrice, payload: parseInt(status.farm_price) });
+  //   if (status.farm_info !== undefined)
+  //     dispatch({ type: ActionKind.setFarmInfo, payload: status.farm_info });
+  //   if (status.farm_starttime !== undefined)
+  //     dispatch({ type: ActionKind.setFarmStartTime, payload: parseInt(status.farm_starttime) });
 
-    if (status.total_rewards_ust != undefined)
-      dispatch({ type: ActionKind.setUstTotalRewards, payload: parseInt(status.total_rewards_ust) });
-    if (status.total_rewards_luna != undefined)
-      dispatch({ type: ActionKind.setLunaTotalRewards, payload: parseInt(status.total_rewards_luna) });
+  //   if (status.total_rewards_ust != undefined)
+  //     dispatch({ type: ActionKind.setUstTotalRewards, payload: parseInt(status.total_rewards_ust) });
+  //   if (status.total_rewards_luna != undefined)
+  //     dispatch({ type: ActionKind.setLunaTotalRewards, payload: parseInt(status.total_rewards_luna) });
 
-    if (status.pot_info != undefined)
-      dispatch({ type: ActionKind.setPotInfo, payload: status.pot_info });
-  }
-  else {
-    try {
-      amountHistory = await api.contractQuery(
-        POOL,
-        {
-          get_amount_history: {}
-        });
-    } catch (e) { }
+  //   if (status.pot_info != undefined)
+  //     dispatch({ type: ActionKind.setPotInfo, payload: status.pot_info });
+  // }
+  // else {
+  //   try {
+  //     amountHistory = await api.contractQuery(
+  //       POOL,
+  //       {
+  //         get_amount_history: {}
+  //       });
+  //   } catch (e) { }
 
-    try {
-      aprUstHistory = await api.contractQuery(
-        POOL,
-        {
-          get_history_of_apr_ust: {}
-        }
-      )
-    } catch (e) { }
+  //   try {
+  //     aprUstHistory = await api.contractQuery(
+  //       POOL,
+  //       {
+  //         get_history_of_apr_ust: {}
+  //       }
+  //     )
+  //   } catch (e) { }
 
-    try {
-      aprLunaHistory = await api.contractQuery(
-        POOL,
-        {
-          get_history_of_apr_luna: {}
-        }
-      )
-    } catch (e) { }
+  //   try {
+  //     aprLunaHistory = await api.contractQuery(
+  //       POOL,
+  //       {
+  //         get_history_of_apr_luna: {}
+  //       }
+  //     )
+  //   } catch (e) { }
 
-    try {
-      userInfoUst = await api.contractQuery(
-        POOL,
-        {
-          get_user_info_ust: {
-            wallet: wallet?.walletAddress
-          }
-        }
-      )
-    } catch (e) { }
+  //   try {
+  //     userInfoUst = await api.contractQuery(
+  //       POOL,
+  //       {
+  //         get_user_info_ust: {
+  //           wallet: wallet?.walletAddress
+  //         }
+  //       }
+  //     )
+  //   } catch (e) { }
 
-    try {
-      userInfoLuna = await api.contractQuery(
-        POOL,
-        {
-          get_user_info_luna: {
-            wallet: wallet?.walletAddress
-          }
-        }
-      )
-    } catch (e) { }
+  //   try {
+  //     userInfoLuna = await api.contractQuery(
+  //       POOL,
+  //       {
+  //         get_user_info_luna: {
+  //           wallet: wallet?.walletAddress
+  //         }
+  //       }
+  //     )
+  //   } catch (e) { }
 
-    try {
-      farmPrice = await api.contractQuery(
-        POOL,
-        {
-          get_farm_price: {}
-        }
-      )
-    } catch (e) { }
+  //   try {
+  //     farmPrice = await api.contractQuery(
+  //       POOL,
+  //       {
+  //         get_farm_price: {}
+  //       }
+  //     )
+  //   } catch (e) { }
 
-    try {
-      farmInfo = await api.contractQuery(
-        POOL,
-        {
-          get_farm_info: {
-            wallet: wallet?.walletAddress
-          }
-        }
-      )
-    } catch (e) { }
+  //   try {
+  //     farmInfo = await api.contractQuery(
+  //       POOL,
+  //       {
+  //         get_farm_info: {
+  //           wallet: wallet?.walletAddress
+  //         }
+  //       }
+  //     )
+  //   } catch (e) { }
 
-    try {
-      farmStartTime = await api.contractQuery(
-        POOL,
-        {
-          get_farm_starttime: {}
-        }
-      )
-    } catch (e) { }
+  //   try {
+  //     farmStartTime = await api.contractQuery(
+  //       POOL,
+  //       {
+  //         get_farm_starttime: {}
+  //       }
+  //     )
+  //   } catch (e) { }
 
-    if (amountHistory !== undefined)
-      dispatch({ type: ActionKind.setAmountHistory, payload: calcUSD(amountHistory, ustPrice, lunaPrice) });
-    if (aprUstHistory !== undefined)
-      dispatch({ type: ActionKind.setAprUstHistory, payload: aprUstHistory });
-    if (aprLunaHistory !== undefined)
-      dispatch({ type: ActionKind.setAprLunaHistory, payload: aprLunaHistory });
+  //   if (amountHistory !== undefined)
+  //     dispatch({ type: ActionKind.setAmountHistory, payload: calcUSD(amountHistory, ustPrice, lunaPrice) });
+  //   if (aprUstHistory !== undefined)
+  //     dispatch({ type: ActionKind.setAprUstHistory, payload: aprUstHistory });
+  //   if (aprLunaHistory !== undefined)
+  //     dispatch({ type: ActionKind.setAprLunaHistory, payload: aprLunaHistory });
 
-    if (userInfoUst !== undefined)
-      dispatch({ type: ActionKind.setUserInfoUst, payload: userInfoUst });
-    if (userInfoLuna !== undefined)
-      dispatch({ type: ActionKind.setUserInfoLuna, payload: userInfoLuna });
+  //   if (userInfoUst !== undefined)
+  //     dispatch({ type: ActionKind.setUserInfoUst, payload: userInfoUst });
+  //   if (userInfoLuna !== undefined)
+  //     dispatch({ type: ActionKind.setUserInfoLuna, payload: userInfoLuna });
 
-    if (farmPrice !== undefined)
-      dispatch({ type: ActionKind.setFarmPrice, payload: farmPrice });
-    if (farmInfo !== undefined)
-      dispatch({ type: ActionKind.setFarmInfo, payload: farmInfo });
-    if (farmStartTime !== undefined)
-      dispatch({ type: ActionKind.setFarmStartTime, payload: farmStartTime });
-  }
+  //   if (farmPrice !== undefined)
+  //     dispatch({ type: ActionKind.setFarmPrice, payload: farmPrice });
+  //   if (farmInfo !== undefined)
+  //     dispatch({ type: ActionKind.setFarmInfo, payload: farmInfo });
+  //   if (farmStartTime !== undefined)
+  //     dispatch({ type: ActionKind.setFarmStartTime, payload: farmStartTime });
+  // }
 
-  dispatch({ type: ActionKind.setLoading, payload: false });
+  // dispatch({ type: ActionKind.setLoading, payload: false });
 }
 
 export function sleep(ms: number) {
@@ -333,4 +332,19 @@ export function getCoinParam(coin: COINTYPE) {
       return StableCoins[i];
     }
   }
+}
+
+export const getCoinId = (coin: COINTYPE) =>
+{
+  // export type COINTYPE = 'USDC' | 'USDT' | 'DAI' | 'USN' | 'wBTC' | 'ETH' | 'wNEAR';
+  switch(coin){
+    case 'USDC': return 0;
+    case 'USDT': return 1;
+    case 'DAI': return 2;
+    case 'USN': return 3;
+    case 'wBTC': return 4;
+    case 'ETH': return 5;
+    case 'wNEAR': return 6;
+  }
+  return 0;
 }

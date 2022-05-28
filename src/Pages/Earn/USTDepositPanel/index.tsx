@@ -1,15 +1,14 @@
 import React, { FunctionComponent } from 'react';
 import { VStack, Stack, Text, Divider, HStack, Image, Flex, Button, Tooltip } from '@chakra-ui/react'
-import { Grid, GridItem } from '@chakra-ui/react'
 
 import TerraIcon from './../../../assets/Terra.svg'
 import Warning from './../../../assets/Warning.svg'
 import AnimationNumber from '../../Components/AnimationNumber';
-import { OpenDepositModal, OpenWithdrawModal, useStore, useUSTApr } from '../../../store';
+import { OpenDepositModal, OpenWithdrawModal, useStore} from '../../../store';
 
 const USTDepositPanel: FunctionComponent = (props) => {
   const { state, dispatch } = useStore();
-  const apr = useUSTApr();
+  const apr = 0;
 
   return (
     <VStack

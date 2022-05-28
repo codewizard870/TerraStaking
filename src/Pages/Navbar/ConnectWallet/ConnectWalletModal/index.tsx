@@ -8,7 +8,7 @@ import {
 } from '@chakra-ui/react'
 import { toast } from 'react-toastify';
 
-import { useStore, useWallet, useLCD, ActionKind } from '../../../../store';
+import { useStore } from '../../../../store';
 import { estimateSend, fetchData, sleep } from '../../../../Util';
 import { POOL, successOption } from '../../../../constants';
 import NearWallet from "../../../../assets/NearWallet.svg";

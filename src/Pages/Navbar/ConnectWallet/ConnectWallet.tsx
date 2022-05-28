@@ -13,7 +13,7 @@ import Wallet from './../../../assets/Wallet.svg';
 import InformationPopover from './InformationPopover';
 import ConnectWalletModal from './ConnectWalletModal';
 import { VUST, VLUNA } from '../../../constants';
-import { useStore, ActionKind, useUSTBalance } from '../../../store';
+import { useStore, ActionKind, useNearBalance } from '../../../store';
 import { shortenAddress, floorNormalize, floor } from '../../../Util';
 
 declare let window: any;

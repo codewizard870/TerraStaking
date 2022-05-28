@@ -3,19 +3,19 @@ import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Tooltip, Button
 import Warning from "./../../../assets/Warning.svg"
 
 import AnimationNumber from '../../Components/AnimationNumber';
-import { OpenDepositModal, useStore, useExchangeRate } from '../../../store';
+import { OpenDepositModal, useStore, useNearPrice } from '../../../store';
 import { floorNormalize, floor } from '../../../Util';
 
 const TotalPayed: FunctionComponent = (props) => {
   const { state, dispatch } = useStore();
-  const ustRewards = state.userInfoUst.reward_amount;
-  const lunaRewards = state.userInfoLuna.reward_amount;
-  const exchangeRate = useExchangeRate();
+  const ustRewards = 0;
+  const lunaRewards = 0;
+  const exchangeRate = useNearPrice();
   const rewards = floorNormalize(ustRewards) + floorNormalize(lunaRewards * exchangeRate);
   const usd = floor(rewards);
 
-  const depositTime_max = Math.max(state.userInfoUst.deposit_time, state.userInfoLuna.deposit_time);
-  const depositTime_min = Math.min(state.userInfoUst.deposit_time, state.userInfoLuna.deposit_time);
+  const depositTime_max = 0;
+  const depositTime_min = 0;
   const depositTime = depositTime_min === 0 ? depositTime_max : depositTime_min
   const period = depositTime > 0 ? Date.now() - depositTime * 1000 : 0;
   const day = Math.floor((period > 0 ? period : 0) / 1000 / 60 / 60 / 24);

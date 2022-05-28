@@ -1,9 +1,7 @@
 import React, { FunctionComponent, useEffect, useState, useMemo } from 'react';
 import { HStack, Stack, VStack, Flex, Text, Image, Link, Center, Divider } from '@chakra-ui/react'
 import {
-  useUSTApr,
-  useLUNAApr,
-  useExchangeRate
+  useNearPrice
 } from '../../../store';
 import { floor } from '../../../Util';
 import EarnChart from './EarnChart';
@@ -15,35 +13,33 @@ const How: FunctionComponent = (props) => {
   const [year, setYear] = useState(10);
   const [amount, setAmount] = useState('100');
 
-  const rate = useExchangeRate();
-  const _amount = floor(denom == 'LUNA' ? parseFloat(amount) * rate : parseFloat(amount));
+  // const rate = useNearPrice();
+  // const _amount = floor(denom == 'LUNA' ? parseFloat(amount) * rate : parseFloat(amount));
 
-  const ustApr = useUSTApr();
-  const lunaApr = useLUNAApr();
-  const apr = denom == 'LUNA' ? lunaApr : ustApr;
+  // const apr = denom == 'LUNA' ? lunaApr : ustApr;
 
-  let total = _amount;
-  for (let i = 0; i < year; i++) {
-    total = floor(total * (1 + apr / 100));
-  }
-  const interest = total - _amount;
+  let total = 0;
+  // for (let i = 0; i < year; i++) {
+  //   total = floor(total * (1 + apr / 100));
+  // }
+  const interest = 0;
 
-  const otherApr = 8;
+  // const otherApr = 8;
 
-  const data = [];
-  let prev = _amount;
-  let otherPrev = _amount;
-  for (let i = 1; i <= 10; i++) {
-    const val = floor(prev * (1 + apr / 100)) * (1 + (Math.random() - 0.5) / 10);
-    const otherVal = floor(otherPrev * (1 + otherApr / 100)) * (1 + (Math.random() - 0.5) / 10);
-    data[i - 1] = {
-      time: i.toString(),
-      value1: val,
-      value2: otherVal
-    }
-    prev = val;
-    otherPrev = otherVal;
-  }
+  const data: any = [];
+  // let prev = _amount;
+  // let otherPrev = _amount;
+  // for (let i = 1; i <= 10; i++) {
+  //   const val = floor(prev * (1 + apr / 100)) * (1 + (Math.random() - 0.5) / 10);
+  //   const otherVal = floor(otherPrev * (1 + otherApr / 100)) * (1 + (Math.random() - 0.5) / 10);
+  //   data[i - 1] = {
+  //     time: i.toString(),
+  //     value1: val,
+  //     value2: otherVal
+  //   }
+  //   prev = val;
+  //   otherPrev = otherVal;
+  // }
 
   return (
     <VStack

@@ -3,13 +3,6 @@ import { VStack, HStack, Stack, Flex, Text, Image, Link, Center, Divider, Button
 import { Dispatch, SetStateAction } from "react";
 
 import Tab from './Tab';
-import {
-  useUSTDeposited,
-  useLUNADeposited,
-  useExchangeRate,
-  useUSTApr,
-  useLUNAApr
-} from '../../../../store';
 
 interface Props {
   setInterest: Dispatch<SetStateAction<number>>,
@@ -26,16 +19,16 @@ const DateTimeTab: FunctionComponent<Props> = ({setInterest}) => {
     case 'day': rate = 1 / 365; break;
   }
 
-  const ustDeposited = useUSTDeposited();
-  const lunaDeposited = useLUNADeposited();
-  const exchangeRate = useExchangeRate();
-  const ustApr = useUSTApr();
-  const lunaApr = useLUNAApr();
+  // const ustDeposited = useNearDeposited();
+  // const lunaDeposited = useNearDeposited();
+  // const exchangeRate = useNearPrice();
+  // const ustApr = useUSTApr();
+  // const lunaApr = useApr();
 
-  const ustValue = ustDeposited * ustApr / 100 * rate;
-  const lunaValue = lunaDeposited * exchangeRate * lunaApr / 100 * rate;
+  // const ustValue = ustDeposited * ustApr / 100 * rate;
+  // const lunaValue = lunaDeposited * exchangeRate * lunaApr / 100 * rate;
 
-  setInterest(Math.floor(ustValue + lunaValue));
+  // setInterest(Math.floor(ustValue + lunaValue));
 
   return (
     <Flex

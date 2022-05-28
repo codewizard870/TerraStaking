@@ -3,13 +3,13 @@ import { VStack, HStack, Stack, Flex, Text, Image, Tooltip, Center, Divider, But
 
 import AnimationNumber from '../../../Components/AnimationNumber';
 import Warning from '../../../../assets/Warning.svg'
-import { OpenDepositModal, useStore, useUSTDeposited, useLUNADeposited, useExchangeRate } from '../../../../store';
+import { OpenDepositModal, useStore, useNearDeposited, useNearPrice } from '../../../../store';
 
 const Projected: FunctionComponent = (props) => {
   const { state, dispatch } = useStore();
-  const ustDeposited = useUSTDeposited();
-  const lunaDeposited = useLUNADeposited();
-  const rate = useExchangeRate();
+  const ustDeposited = useNearDeposited();
+  const lunaDeposited = useNearDeposited();
+  const rate = useNearPrice();
 
   const total = ustDeposited + lunaDeposited * rate;
   const dayReward = total / 1000 * 24;

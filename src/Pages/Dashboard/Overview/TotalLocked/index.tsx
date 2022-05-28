@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { HStack, Stack, Flex, Text, Image, Link } from '@chakra-ui/react'
-import { useStore, useExchangeRate, useLUNADeposited } from '../../../../store';
+import { useStore, useNearPrice, useNearDeposited } from '../../../../store';
 import { floor, floorNormalize } from '../../../../Util';
 import AnimationNumber from '../../../Components/AnimationNumber';
 

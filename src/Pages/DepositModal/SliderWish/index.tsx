@@ -16,15 +16,15 @@ import { Dispatch, SetStateAction } from "react";
 import { MdCode, MdArrowDropDownCircle } from "react-icons/md";
 
 import Indicator from './Indicator';
-import { useUSTBalance, useLUNABalance, useStore } from '../../../store'
+import {  useNearBalance, useStore } from '../../../store'
 
 interface Props {
   amount: string,
   setAmount: Dispatch<SetStateAction<string>>,
 }
 const SliderWish: FunctionComponent<Props> = ({  amount, setAmount }) => {
-  const ustBalance = useUSTBalance();
-  const lunaBalance = useLUNABalance();
+  const ustBalance = useNearBalance();
+  const lunaBalance = useNearBalance();
   const {state, dispatch} = useStore();
 
   const [sliderValue, setSliderValue] = useState(0);

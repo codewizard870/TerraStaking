@@ -1,12 +1,12 @@
 import React, { createContext, useContext, useReducer } from 'react'
-import { ConnectedWallet } from '@terra-money/wallet-provider'
-import { LCDClient } from '@terra-money/terra.js'
 
-import { floor, floorNormalize } from './Util'
-import { amountHistory, aprUstHistory, aprLunaHistory, userInfo, farmInfo, potInfo } from './constants'
+import { floor, floorNormalize, getCoinId } from './Util'
+import { amountHistory, userInfo, farmInfo, potInfo, balanceInfo, aprInfo, priceInfo, userInfos } from './constants'
+import {getConfig} from "./config";
 
 export type COINTYPE = 'USDC' | 'USDT' | 'DAI' | 'USN' | 'wBTC' | 'ETH' | 'wNEAR';
 export type WALLETTYPE = 'near' | 'sender';
+
 interface Action {
   type: ActionKind;
   payload: any;
@@ -17,10 +17,9 @@ export interface AppContextInterface {
   loading: boolean,
   net: "mainnet" | "testnet",
   connected: Boolean,
-  lcd: LCDClient,
+  near: any,
   wallet: any | undefined,
-  uusdBalance: number,
-  ulunaBalance: number,
+  balance: number[],
   tab: "dashboard" | "mypage" | "earn" | "utility",
   openDepositModal: (() => void) | undefined,
   openWithdrawModal: (() => void) | undefined,
@@ -30,17 +29,13 @@ export interface AppContextInterface {
   coinType: COINTYPE,
   isPending: boolean,
   amountHistory: any[],
-  aprUstHistory: any,
-  aprLunaHistory: any,
-  ustPrice: number,
-  lunaPrice: number,
-  userInfoUst: any,
-  userInfoLuna: any,
+  apr: number[],
+  price: number[],
+  userInfos: any,
   farmPrice: number,
   farmInfo: any,
   farmStartTime: number,
-  ust_total_rewards: number,
-  luna_total_rewards: number,
+  totalRewardsNear: number,
   txhash: string | undefined,
   qualified: boolean,
   potInfo: any,
@@ -51,14 +46,9 @@ const initialState: AppContextInterface = {
   loading: false,
   net: "testnet",
   connected: false,
-  lcd: new LCDClient({ //
-    URL: 'https://lcd.terra.dev',
-    chainID: 'columbus-5',
-    gasPrices: { uusd: 0.45 },
-  }),
+  near: undefined,
   wallet: undefined,
-  uusdBalance: 0,
-  ulunaBalance: 0,
+  balance: balanceInfo,
   tab: 'dashboard',
   openDepositModal: undefined,
   openWithdrawModal: undefined,
@@ -68,17 +58,13 @@ const initialState: AppContextInterface = {
   coinType: 'USDC',
   isPending: false,
   amountHistory: amountHistory,
-  aprUstHistory: aprUstHistory,
-  aprLunaHistory: aprLunaHistory,
-  ustPrice: 1,
-  lunaPrice: 100,
-  userInfoUst: userInfo,
-  userInfoLuna: userInfo,
+  apr: aprInfo,
+  price: priceInfo,
+  userInfos: userInfos,
   farmPrice: 25,
   farmInfo: farmInfo,
-  farmStartTime: Date.now()/1000,
-  ust_total_rewards: 0,
-  luna_total_rewards: 0,
+  farmStartTime: Date.now() / 1000,
+  totalRewardsNear: 0,
   txhash: undefined,
   qualified: false,
   potInfo: potInfo,
@@ -88,12 +74,10 @@ export enum ActionKind{
   setWalletType,
   setLoading,
   setNet,
-  setPoolAddr,
-  setLcd,
   setConnected,
+  setNear,
   setWallet,
-  setUusdBalance,
-  setUlunaBalance,
+  setBalance,
   setTab,
   setOpenDepositModal,
   setOpenWithdrawModal,
@@ -103,17 +87,13 @@ export enum ActionKind{
   setCoinType,
   setIsPending,
   setAmountHistory,
-  setAprUstHistory,
-  setAprLunaHistory,
-  setUstPrice,
-  setLunaPrice,
-  setUserInfoUst,
-  setUserInfoLuna,
+  setApr,
+  setPrice,
+  setUserInfos,
   setFarmPrice,
   setFarmInfo,
   setFarmStartTime,
-  setUstTotalRewards,
-  setLunaTotalRewards,
+  setTotalRewardsNear,
   setTxhash,
   setQualified,
   setPotInfo
@@ -135,14 +115,12 @@ export const reducer = (state: AppContextInterface,  action: Action ) => {
       return { ...state, net: action.payload}
     case ActionKind.setConnected:
       return { ...state, connected: action.payload }
-    case ActionKind.setLcd:
-      return { ...state, lcd: action.payload }
+    case ActionKind.setNear:
+      return { ...state, near: action.payload }
     case ActionKind.setWallet:
       return { ...state, wallet: action.payload }
-    case ActionKind.setUusdBalance:
-      return { ...state, uusdBalance: action.payload }
-    case ActionKind.setUlunaBalance:
-      return { ...state, ulunaBalance: action.payload }
+    case ActionKind.setBalance:
+      return { ...state, balance: action.payload }
     case ActionKind.setTab:
       return { ...state, tab: action.payload }
     case ActionKind.setOpenDepositModal:
@@ -161,28 +139,20 @@ export const reducer = (state: AppContextInterface,  action: Action ) => {
       return {...state, isPending: action.payload}
     case ActionKind.setAmountHistory:
       return {...state, amountHistory: action.payload }
-    case ActionKind.setAprUstHistory:
-      return {...state, aprUstHistory: action.payload}
-    case ActionKind.setAprLunaHistory:
-      return {...state, aprLunaHistory: action.payload}
-    case ActionKind.setUstPrice:
-      return {...state, ustPrice: action.payload}
-    case ActionKind.setLunaPrice:
-      return {...state, lunaPrice: action.payload}
-    case ActionKind.setUserInfoUst:
-      return {...state, userInfoUst: action.payload}
-    case ActionKind.setUserInfoLuna:
-      return {...state, userInfoLuna: action.payload}
+    case ActionKind.setApr:
+      return {...state, apr: action.payload}
+    case ActionKind.setPrice:
+      return {...state, price: action.payload}
+    case ActionKind.setUserInfos:
+      return {...state, userInfos: action.payload}
     case ActionKind.setFarmPrice:
       return {...state, farmPrice: action.payload}
     case ActionKind.setFarmInfo:
       return {...state, farmInfo: action.payload}
     case ActionKind.setFarmStartTime:
       return {...state, farmStartTime: action.payload}
-    case ActionKind.setUstTotalRewards:
-      return {...state, ust_total_rewards: action.payload}
-    case ActionKind.setLunaTotalRewards:
-      return {...state, luna_total_rewards: action.payload}
+    case ActionKind.setTotalRewardsNear:
+      return {...state, totalRewardsNear: action.payload}
     case ActionKind.setTxhash:
       return {...state, txhash: action.payload}
     case ActionKind.setQualified:
@@ -220,73 +190,33 @@ export const useWallet = () => {
   const {state, dispatch} = useStore();
   return state.wallet;
 }
-export const useLCD = () => {
+export const useNear = () => {
   const {state, dispatch} = useStore();
-  return state.lcd;
+  return state.near;
 }
 
-export const useTerraAPIURL = () => {
+export const useNearBalance = () => {
   const {state, dispatch} = useStore();
-
-  let baseURL: string;
-  if(state.net == 'mainnet')
-    baseURL =  "https://api.terra.dev";
-  else
-    baseURL = "https://bombay-api.terra.dev";
-
-  return baseURL;
-}
-
-export const useNetworkName = () => {
-  const {state, dispatch} = useStore();
-  return state.net;
-}
-
-export const useUSTBalance = () => {
-  const {state, dispatch} = useStore();
-  let balance = state.uusdBalance;
+  let balance = state.balance[0];
   return floorNormalize(balance);
 }
 
-export const useLUNABalance = () => {
+export const useNearDeposited = () => {
   const {state, dispatch} = useStore();
-  let balance = state.ulunaBalance;
+  let balance = state.userInfos[0].amount;
   return floorNormalize(balance);
 }
 
-export const useUSTDeposited = () => {
+export const useNearApr = () => {
   const {state, dispatch} = useStore();
-  let balance = state.userInfoUst.amount;
-  return floorNormalize(balance);
-}
-
-export const useLUNADeposited = () => {
-  const {state, dispatch} = useStore();
-  let balance = state.userInfoLuna.amount;
-  return floorNormalize(balance);
-}
-
-export const useUSTApr = () => {
-  const {state, dispatch} = useStore();
-  const data = state.aprUstHistory;
-  const last = data.length - 1;
-  const apr = parseInt(data[last].apr) / 100;
+  const apr = state.apr[0];
   return apr;
 }
-
-export const useLUNAApr = () => {
+export const useNearPrice = () => {
   const {state, dispatch} = useStore();
-  const data = state.aprLunaHistory;
-  const last = data.length - 1;
-  const apr = parseInt(data[last].apr) / 100;
-  return apr;
+  const price = state.price[0];
+  return price;
 }
-
-export const useExchangeRate = () => {
-  const {state, dispatch} = useStore();
-  return state.lunaPrice/state.ustPrice;
-}
-
 export const OpenDepositModal = (state:AppContextInterface , dispatch: React.Dispatch<any>, type: COINTYPE) => {
   dispatch({type: ActionKind.setCoinType, payload: type});
 
@@ -301,49 +231,3 @@ export const OpenWithdrawModal = (state:AppContextInterface , dispatch: React.Di
   if(state.openWithdrawModal != undefined)
     state.openWithdrawModal()
 }
-
-// const baseURL = "https://api.coingecko.com/api/v3/";
-
-// export const useUstPrice = () => { 
-//   const fetch = useCallback(
-//     async () =>{
-//       const res = await axios.get(
-//          `simple/price?ids=terrausd&vs_currencies=usd`,
-//          { baseURL }
-//        );
-//      return res;
-//     },
-//     []
-//   )
-//   const {data, isFetched} =  useQuery(
-//     "terrausd",
-//     fetch,
-//     { staleTime: Infinity, retry: false }
-//   )
-//   if(isFetched)
-//     return parseFloat(data?.data.terrausd.usd);
-//   return 1;
-// }
-
-// export const useLunaPrice = () => { 
-//   const fetch = useCallback(
-//     async () =>{
-//       const res = await axios.get(
-//          `simple/price?ids=terra-luna&vs_currencies=usd`,
-//          { baseURL }
-//        );
-//      return res;
-//     },
-//     []
-//   )
-//   const {data, isFetched} =  useQuery(
-//     "terraluna",
-//     fetch,
-//     { staleTime: Infinity, retry: false }
-//   )
-//   if(isFetched)
-//     return parseFloat(data?.data["terra-luna"].usd);
-
-//   return 109;
-// }
-

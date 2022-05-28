@@ -17,7 +17,7 @@ import { MdCode } from "react-icons/md";
 
 import { floorNormalize, floor } from '../../../Util';
 import Indicator from './Indicator';
-import { useUSTDeposited, useLUNADeposited, useStore } from '../../../store'
+import { useNearDeposited, useStore } from '../../../store'
 
 interface Props {
   amount: string,
@@ -25,8 +25,8 @@ interface Props {
 }
 const SliderWish: FunctionComponent<Props> = ({  amount, setAmount }) => {
   const {state, dispatch} = useStore();
-  const ustDeposited = useUSTDeposited() + floorNormalize(state.userInfoUst.reward_amount);
-  const lunaDeposited = useLUNADeposited() + floorNormalize(state.userInfoLuna.reward_amount);
+  const ustDeposited = 0;
+  const lunaDeposited = 0;
 
   const [sliderValue, setSliderValue] = useState(0);
   

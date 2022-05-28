@@ -7,16 +7,16 @@ import YellowPanel from './../../../../assets/YellowPanel.svg'
 import PinkPanel from './../../../../assets/PinkPanel.svg'
 import BluePanel from './../../../../assets/BluePanel.svg'
 import AnimationNumber from '../../../Components/AnimationNumber';
-import { useUSTBalance, useUSTDeposited, useLUNADeposited, useStore, useExchangeRate } from '../../../../store';
+import { useNearBalance, useNearDeposited, useStore, useNearPrice } from '../../../../store';
 import { floor, floorNormalize } from '../../../../Util';
 
 const Seperator: FunctionComponent = (props) => {
   const {state, dispatch} = useStore();
-  const rate = useExchangeRate();
+  const rate = useNearPrice();
 
-  const ustBalance = useUSTBalance();
-  const ustDeposited = useUSTDeposited() + floorNormalize(state.userInfoUst.reward_amount);
-  const lunaDeposited = floor(useLUNADeposited() * rate) + floorNormalize(state.userInfoLuna.reward_amount * rate);
+  const ustBalance = useNearBalance();
+  const ustDeposited = 0;
+  const lunaDeposited = 0;
   return (
     <VStack align={'baseline'} w={'230px'} spacing={'4px'}>
       <HStack spacing={'10px'}>

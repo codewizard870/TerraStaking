@@ -6,19 +6,17 @@ import {
   OpenDepositModal, 
   OpenWithdrawModal, 
   useStore, 
-  useUSTDeposited, 
-  useLUNADeposited,
-  useExchangeRate
+  useNearPrice
 } from '../../../store';
 import AnimationNumber from '../../Components/AnimationNumber';
 import { floorNormalize } from '../../../Util';
 
 const Total: FunctionComponent = (props) => {
   const {state, dispatch} = useStore();
-  const rate = useExchangeRate();
+  const rate = useNearPrice();
 
-  const ustDeposited = useUSTDeposited() + floorNormalize(state.userInfoUst.reward_amount);
-  const lunaDeposited = useLUNADeposited() * rate + floorNormalize(state.userInfoLuna.reward_amount * rate);
+  const ustDeposited = 0;
+  const lunaDeposited = 0;
   const total = ustDeposited + lunaDeposited;
 
   return (

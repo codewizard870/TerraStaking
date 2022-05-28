@@ -3,14 +3,12 @@ import { VStack, Stack, Text, Divider, HStack, Image, Flex, Button } from '@chak
 
 import { MdNorthEast } from 'react-icons/md'
 import { AccountHistoryItem } from './index'
-import { useNetworkName } from '../../../store'
 
 interface Props {
   item: AccountHistoryItem
 }
 const HistoryItem: FunctionComponent<Props> = ({ item }) => {
-  let net = useNetworkName();
-  let findURL = net == 'mainnet'? "https://finder.terra.money/tx/" : "https://finder.terra.money/testnet/tx/";
+
   return (
     <>
       <Flex
@@ -41,7 +39,7 @@ const HistoryItem: FunctionComponent<Props> = ({ item }) => {
                     </Text>
                   ))}
                 </VStack>
-                <a href={`${findURL}${item.txhash}`} target="_blank" rel="noreferrer">
+                <a href={`${item.txhash}`} target="_blank" rel="noreferrer">
                   <MdNorthEast />
                 </a>
               </HStack>

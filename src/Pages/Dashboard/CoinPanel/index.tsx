@@ -14,9 +14,7 @@ import {
   OpenDepositModal,
   OpenWithdrawModal,
   useStore,
-  useLUNAApr,
-  useLUNADeposited,
-  useExchangeRate,
+  useNearPrice,
   COINTYPE
 } from '../../../store';
 import { StableCoins } from '../../../constants';
@@ -25,10 +23,9 @@ import CoinItem from './CoinItem';
 
 const CoinPanel: FunctionComponent = (props) => {
   const { state, dispatch } = useStore();
-  const apr = useLUNAApr();
-  const rate = useExchangeRate();
+  const rate = useNearPrice();
 
-  const lunaDeposited = useLUNADeposited() + floorNormalize(state.userInfoLuna.reward_amount);
+  const lunaDeposited = 0;
   const amount = lunaDeposited * rate;
 
   return (
