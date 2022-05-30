@@ -53,6 +53,7 @@ const Earn: FunctionComponent<Props> = ({denom, setDenom, year, setYear, amount,
           </MenuButton>
           <MenuList background={'black'} borderColor={'black'} p={'0px'} w={'100px'} minWidth={'0px'} zIndex='2'>
             {StableCoins.map((item) => (
+              item.upcoming === false && 
               <MenuItem
                 onClick={() => setDenom(item.name)}
                 _hover={{ bg: '#212121', color: '#F9D85E' }}

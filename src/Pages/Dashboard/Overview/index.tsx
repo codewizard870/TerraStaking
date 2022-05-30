@@ -27,7 +27,7 @@ const Overview: FunctionComponent = (props) => {
         <TotalLocked />
         <Stack
           mt={'53px'}
-          spacing={'56px'}
+          spacing={'36px'}
           align={'center'}
           direction={{ base: 'column', lg: 'row' }}
         >

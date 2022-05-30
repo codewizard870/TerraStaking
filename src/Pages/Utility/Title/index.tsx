@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { HStack, Flex, Text, Image, Link } from '@chakra-ui/react'
 
-import ExternalLink from "./../../../assets/ExternalLink.svg"
+import ExternalLink from "./../../../assets/Docs.svg"
 
 const Title: FunctionComponent = (props) => {
   return (
@@ -13,11 +13,11 @@ const Title: FunctionComponent = (props) => {
         UTILITY +
       </Text>
       <Link href={'https://www.wefund.app'}>
-        <HStack spacing={'3px'}  pb={'10px'}>
-          <Text ml='13px'  color='#CEBFBF'>
+        <HStack spacing={'3px'}  pb={'15px'}>
+          {/* <Text ml='13px'  color='#CEBFBF'>
             Docs
-          </Text>
-          <Image src={ExternalLink} w={'10px'}/>
+          </Text> */}
+          <Image src={ExternalLink}  h={'16px'} ml='13px'/>
           </HStack>
       </Link>
       

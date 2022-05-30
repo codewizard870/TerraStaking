@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from 'react'
 import { Outlet, Link } from "react-router-dom";
 import { VStack, Flex, useDisclosure, useEventListenerMap } from '@chakra-ui/react'
-import { useWallet,  useStore,  ActionKind } from './store';
+import { useWallet,  useStore,  ActionKind, useNear } from './store';
 
 import Navbar from './Pages/Navbar'
 import Footer from "./Pages/Footer";
@@ -18,6 +18,7 @@ const Layout = () => {
 
   const { state, dispatch } = useStore();
   const wallet = useWallet();
+  const near = useNear();
 
   useEffect(() => {
     dispatch({ type: ActionKind.setOpenDepositModal, payload: onOpenDeposit });
@@ -31,8 +32,9 @@ const Layout = () => {
       fetchData(state, dispatch)
     }
     // if (checkNetwork(wallet, state))
-      // fetchAll()
-  }, [wallet])
+    if(near && wallet)
+      fetchAll()
+  }, [wallet, near])
 
   return (
     <Flex

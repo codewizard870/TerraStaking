@@ -1,12 +1,17 @@
 import { AppContextInterface, ActionKind } from './store'
 import { MsgExecuteContract, WasmAPI, Coin, LCDClient, Fee } from '@terra-money/terra.js'
 import { ConnectedWallet } from '@terra-money/wallet-provider'
+
+import * as nearAPI from "near-api-js"
+
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import { COINTYPE } from './store';
+import { COINTYPE, useNear } from './store';
 import { successOption, errorOption, POOL, StableCoins } from './constants';
+import { Console } from 'console';
 
 export function shortenAddress(address: string | undefined) {
+  
   if (address) {
     let prefix = address.slice(0, 5);
     let suffix = address.slice(-5)
@@ -29,7 +34,7 @@ function calcUSD(amountHistory: any, ustPrice: number, lunaPrice: number) {
 }
 export async function fetchData(state: AppContextInterface, dispatch: React.Dispatch<any>) {
   dispatch({ type: ActionKind.setLoading, payload: true });
-
+console.log('hrere')
   const wallet = state.wallet;
 
   let amountHistory = undefined,
@@ -46,17 +51,36 @@ export async function fetchData(state: AppContextInterface, dispatch: React.Disp
     luna_total_rewards = undefined,
     status: any = undefined
 
-  try {
-    lunaInfo = await axios.get(
-      `https://api.extraterrestrial.money/v1/api/prices?symbol=LUNA`
-    );
-  } catch (e) { }
+  // try {
+  //   lunaInfo = await axios.get(
+  //     `https://api.extraterrestrial.money/v1/api/prices?symbol=LUNA`
+  //   );
+  // } catch (e) { }
 
-  try {
-    ustInfo = await axios.get(
-      `https://api.extraterrestrial.money/v1/api/prices?symbol=UST`
-    );
-  } catch (e) { }
+  // try {
+  //   ustInfo = await axios.get(
+  //     `https://api.extraterrestrial.money/v1/api/prices?symbol=UST`
+  //   );
+  // } catch (e) { }
+
+console.log(nearAPI)
+console.log(wallet.account())
+  const contract: any = new nearAPI.Contract(
+    wallet.account(), // the account object that is connecting
+    "pool.alenzertest.testnet",
+    {
+      // name of contract you're connecting to
+      viewMethods: ["get_status"], // view methods do not change state but usually return a value
+      changeMethods: ["deposit_near"], // change methods modify state
+      // sender: wallet.account(), // account object to initialize and sign transactions.
+    }
+  );
+  let res = await contract.get_status({account: wallet.getAccountId()})
+console.log(res);
+//   let res1 = await contract.deposit_near({qualified: true}, "300000000000000", // attached GAS (optional)
+//   "1000000000000000000000000" );
+// console.log(res1)
+
   // const ustPrice = ustInfo ? ustInfo?.data.prices.UST.price : state.ustPrice;
   // const lunaPrice = lunaInfo ? lunaInfo?.data.prices.LUNA.price : state.lunaPrice;
 

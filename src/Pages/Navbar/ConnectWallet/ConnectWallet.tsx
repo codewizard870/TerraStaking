@@ -87,6 +87,8 @@ const ConnectWallet: FunctionComponent = () => {
         // The current URL is used by default.
       );
     } else {
+
+      dispatch({ type: ActionKind.setNear, payload: near});
       dispatch({ type: ActionKind.setConnected, payload: true });
       dispatch({ type: ActionKind.setWallet, payload: wallet });
 

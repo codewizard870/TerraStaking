@@ -57,7 +57,7 @@ const CoinPanel: FunctionComponent<Props> = ({ name, description, avatar, apr, u
                 fontSize='13px'
                 fontWeight='800'
               >
-                Saving Balanece
+                Saving Balance
               </Text>
               <Image src={Warning} w={'13px'} />
             </HStack>
